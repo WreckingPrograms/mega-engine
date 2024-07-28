@@ -1,0 +1,2 @@
+contactDamage = 3;
+

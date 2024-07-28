@@ -1,0 +1,3 @@
+direction = dir;
+speed = spd;
+

@@ -1,0 +1,1 @@
+playMusicVolume(mscWeaponGet, 1);
