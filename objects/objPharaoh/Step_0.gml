@@ -1,8 +1,8 @@
 event_inherited();
 
-if global.frozen == false
+if !global.frozen
 {
-    if isFight == true
+    if isFight 
     {       
         checkGround();
         gravityCheckGround();
@@ -10,26 +10,26 @@ if global.frozen == false
         
         switch phase
         {
-            case 0: //Idle (standing still)
+            case 0: // Idle (standing still)
                 sprite_index = sprPharaohStand;
                 image_speed = 0;
                 
                 attackTimer -= 1;
                 if attackTimer <= 0
                 {
-                    if attackTimer == -1 //It's -1 when first attacking; the first attack is always a jump 'n shoot
+                    if attackTimer == -1 // It's -1 when first attacking; the first attack is always a jump 'n shoot
                         phase = 2;
                     else
                     {
                         randomize();
-                        phase = choose(1, 2, 3, 3); //There seems to be a higher chance of him shooting
+                        phase = choose(1, 2, 3, 3); // There seems to be a higher chance of him shooting
                     }
                 }
             break;
             
             
             
-            case 1: //Jumping
+            case 1: // Jumping
                 if attackTimer <= 0
                 {
                     attackTimer = 35;
@@ -38,12 +38,12 @@ if global.frozen == false
                     {
                         startXScale = image_xscale;
                         
-                        //Calculate the time needed to jump to MM's position, and with that, calculate the horizontal speed
+                        // Calculate the time needed to jump to MM's position, and with that, calculate the horizontal speed
                         var dx, initYspeed;
-                        dx = sprite_get_xcenter_object(objMegaman) - sprite_get_xcenter();
+                        dx = spriteGetXCenterObject(objMegaman) - spriteGetXCenter();
                         initYspeed = -6.5;
                         
-                        var time, yy, yyspeed; //time: How much time (in frames) it would take to land on Mega Man's location
+                        var time, yy, yyspeed; // time: How much time (in frames) it would take to land on Mega Man's location
                         yy = bbox_bottom;
                         yyspeed = initYspeed;
                         time = 0;
@@ -77,7 +77,7 @@ if global.frozen == false
                 }
                 
                 
-                //Face the player
+                // Face the player
                 if instance_exists(objMegaman)
                 {
                     if startXScale == -1
@@ -97,8 +97,8 @@ if global.frozen == false
                 }
                 
                 
-                //When grounded, end the jump
-                if ground == true
+                // When grounded, end the jump
+                if ground 
                 {
                     phase = 0;
                     sprite_index = sprPharaohStand;
@@ -109,7 +109,7 @@ if global.frozen == false
             
             
             
-            case 2: //Jumping 'n shooting
+            case 2: // Jumping 'n shooting
                 if attackTimer <= 0
                 {
                     attackTimer = 35;
@@ -135,7 +135,7 @@ if global.frozen == false
                 {
                     if floor(image_index) == 1
                     {
-                        if canInitShoot == true
+                        if canInitShoot 
                         {
                             canInitShoot = false;
                             
@@ -145,7 +145,7 @@ if global.frozen == false
                             else
                                 box = bbox_left;
                             
-                            instance_create(box, y-8, objPharaohManShot);
+                            instanceCreate(box, y-8, objPharaohManShot);
                         }
                         
                         image_speed = 6/60;
@@ -172,8 +172,8 @@ if global.frozen == false
                 }
                     
                     
-                //Either jump again or end the phase
-                if ground == true
+                // Either jump again or end the phase
+                if ground 
                 {
                     if jumpAmount == 0
                     {
@@ -195,7 +195,7 @@ if global.frozen == false
                 }
                     
                     
-                //Face the player
+                // Face the player
                 if instance_exists(objMegaman)
                 {
                     if startXScale == -1
@@ -237,7 +237,7 @@ if global.frozen == false
             
             
             
-            case 3: //Shooting a big shot
+            case 3: // Shooting a big shot
                 if attackTimer <= 0
                 {
                     attackTimer = 35;
@@ -248,14 +248,14 @@ if global.frozen == false
                     image_index = 0;
                 }
                 
-                if sprite_index == sprPharaohCharge //This extra code is to make sure the animation resumes after pausing and unpausing
+                if sprite_index == sprPharaohCharge // This extra code is to make sure the animation resumes after pausing and unpausing
                     image_speed = 0.25;
                 else if sprite_index == sprPharaohCharge2
                     image_speed = 0.07;
                 else if sprite_index = sprPharaohCharge3
                     image_speed = 1;
                 
-                jumpTimer += 1; //It's not really a timer for jumping, but rather for releasing the shot; however, reusing this variable saves initializing a new one
+                jumpTimer += 1; // It's not really a timer for jumping, but rather for releasing the shot; however, reusing this variable saves initializing a new one
                 if jumpTimer >= 40
                 {                    
                     if jumpTimer == 40
@@ -280,7 +280,7 @@ if global.frozen == false
                         else
                             box = bbox_left-10;
                             
-                        shootID = instance_create(box, y+2, objPharaohManShotBig);
+                        shootID = instanceCreate(box, y+2, objPharaohManShotBig);
                             shootID.image_xscale = image_xscale;
                     }
                     else if jumpTimer == 75
@@ -295,7 +295,7 @@ if global.frozen == false
         }
         
         
-        //Face the player
+        // Face the player
         if instance_exists(objMegaman)
         {
             if x > objMegaman.x

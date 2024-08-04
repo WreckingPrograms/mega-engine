@@ -1,16 +1,16 @@
-if teleporting == false && teleportingUp == false
+if !teleporting && !teleportingUp
 {
     drawSelf();
 }
-else if teleporting == true
+else if teleporting 
 {
-    if round(global.viewY-32+teleportY) >= y && shouldLand == true
+    if round(global.viewY-32+teleportY) >= y && shouldLand 
     {
         if teleportTimer == 0
             playSFX(sfxTeleportIn);
         
-        //Done teleporting; play a little animation before giving Mega Man control
-        if teleportTimer != 9   //Rush disappears for one frame
+        // Done teleporting; play a little animation before giving Mega Man control
+        if teleportTimer != 9   // Rush disappears for one frame
             drawSelf();
         
         if teleportTimer == 2
@@ -31,7 +31,7 @@ else if teleporting == true
             exit;
         }
         
-        if global.frozen == false
+        if !global.frozen
             teleportTimer += 1;
     }
     else if round(global.viewY-32+teleportY) >= global.viewY+global.viewHeight
@@ -40,19 +40,19 @@ else if teleporting == true
     }
     else
     {
-        //Teleporting downwards
+        // Teleporting downwards
         draw_sprite_ext(sprite_index, image_index, round(x), round(global.viewY-32+teleportY), image_xscale, image_yscale, image_angle, c_white, 1);
         
-        if global.frozen == false
+        if !global.frozen
             teleportY += 7;
     }
 }
-else if teleportingUp == true
+else if teleportingUp 
 {
     if teleportY == 0
     {
-        //Done teleporting; play a little animation before giving Mega Man control
-        if teleportTimer != 9   //Rush disappears for one frame
+        // Done teleporting; play a little animation before giving Mega Man control
+        if teleportTimer != 9   // Rush disappears for one frame
             drawSelf();
         
         if teleportTimer == 2
@@ -69,15 +69,15 @@ else if teleportingUp == true
             exit;
         }
         
-        if global.frozen == false
+        if !global.frozen
             teleportTimer += 1;
     }
     else
     {
-        //Teleporting upwards
+        // Teleporting upwards
         draw_sprite_ext(sprite_index, image_index, round(x), round(y+teleportY), image_xscale, image_yscale, image_angle, c_white, 1);
         
-        if global.frozen == false
+        if !global.frozen
             teleportY -= 7;
         
         if round(y+teleportY) <= global.viewY || round(y+teleportY) <= 0

@@ -1,10 +1,6 @@
-/// @function playSFX
-/// @param index
-/// @description Plays a sound effect
-function playSFX(argument0) {
-
-	sound_stop(argument0);
-	sound_play(argument0);
-
-
+// Play a sound effect
+function playSFX(sound, loop=false)
+{
+	audio_stop_sound(sound);
+	audio_play_sound(sound, 10, loop);
 }

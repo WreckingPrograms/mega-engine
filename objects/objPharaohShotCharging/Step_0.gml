@@ -1,8 +1,8 @@
-if global.frozen == false
+if !global.frozen
 {
     imgIndex += imgSpeed;
     
-    //After fully charging, change sprites
+    // After fully charging, change sprites
     if sprite_index == sprPharaohShotCharging
     {
         if imgIndex >= image_number-imgSpeed*3

@@ -1,4 +1,4 @@
-//Hitspark
+// Hitspark
 drawHitSpark = !drawHitSpark;
 drawBoss = !drawBoss;
 

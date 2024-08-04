@@ -1,9 +1,9 @@
-if canOpen == true
+if canOpen 
 {
     if instance_exists(objMegaman)
     {
-        //Colliding with the player. We're checking x+7 because in the NES games, the player needs to be slightly inside the door
-        //for it to activate.
+        // Colliding with the player. We're checking x+7 because in the NES games, the player needs to be slightly inside the door
+        // for it to activate.
         if (collision_rectangle(x+6, y, x+7, y+sprite_height, objMegaman, false, false) >= 0 && dir == -1)
         || (collision_rectangle(x+sprite_width-7, y, x+sprite_width-6, y+sprite_height, objMegaman, false, false) >= 0 && dir == 1)
         {
@@ -13,8 +13,8 @@ if canOpen == true
             playSFX(sfxDoor);
             with mySolid instance_destroy();
             
-            //Switch sections
-            if dir == -1 //Switch to the right
+            // Switch sections
+            if dir == -1 // Switch to the right
             {
                 with objMegaman
                 {
@@ -32,7 +32,7 @@ if canOpen == true
                     alarm[2] = 1;
                 }
             }
-            else //Switch to the left
+            else // Switch to the left
             {
                 with objMegaman
                 {
@@ -55,7 +55,7 @@ if canOpen == true
 }
 
 
-if opening == true
+if opening 
 {
     if floor(image_index) == 4
     {
@@ -64,7 +64,7 @@ if opening == true
     }
 }
 
-if closing == true
+if closing 
 {
     image_speed = openImgSpeed;
     if floor(image_index) == 8
@@ -73,12 +73,12 @@ if closing == true
         
         if dir == -1
         {
-            mySolid = instance_create(x+16, y, objSolid);
+            mySolid = instanceCreate(x+16, y, objSolid);
                 mySolid.image_yscale = 4;
         }
         else
         {
-            mySolid = instance_create(x, y, objSolid);
+            mySolid = instanceCreate(x, y, objSolid);
                 mySolid.image_yscale = 4;
         }
             

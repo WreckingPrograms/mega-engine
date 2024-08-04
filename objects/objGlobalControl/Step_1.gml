@@ -1,4 +1,4 @@
-/// @description Keys
+// / @description Keys
 global.keyLeft = keyboard_check(leftKey);
 global.keyRight = keyboard_check(rightKey);
 global.keyUp = keyboard_check(upKey);

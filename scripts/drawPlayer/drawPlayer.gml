@@ -1,8 +1,7 @@
-/// @function drawPlayer
-/// @description Draws the player. If using special weapons, whitemasks will be used
-function drawPlayer() {
-
-	//Set the correct whitemasks    
+// Draws the player. If using special weapons, whitemasks will be used
+function drawPlayer()
+{
+	// Set the correct whitemasks    
 	var primary, secondary, outline;
 
 	switch sprite_index
@@ -110,10 +109,15 @@ function drawPlayer() {
 	    break;
 	}
 
-	drawSelf();
-	draw_sprite_ext(primary, image_index, round(x), round(y), image_xscale, image_yscale, image_angle, global.primaryCol, image_alpha);
-	draw_sprite_ext(secondary, image_index, round(x), round(y), image_xscale, image_yscale, image_angle, global.secondaryCol, image_alpha);
-	draw_sprite_ext(outline, image_index, round(x), round(y), image_xscale, image_yscale, image_angle, global.outlineCol, image_alpha);
-
-
+	// If in the middle of the screen, round coordinates, as the view has to be rounded to avoid cut-offs
+	var useX = x, useY = y;
+	/*if abs(x - (global.viewX + global.viewWidth/2)) <= 2
+	    useX = round(x);
+	if abs(y - (global.viewY + global.viewHeight/2)) <= 2
+	    useY = round(y);*/
+    
+	draw_sprite_ext(sprite_index, image_index, useX, useY, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+	draw_sprite_ext(primary, image_index, useX, useY, image_xscale, image_yscale, image_angle, global.primaryCol, image_alpha);
+	draw_sprite_ext(secondary, image_index, useX, useY, image_xscale, image_yscale, image_angle, global.secondaryCol, image_alpha);
+	draw_sprite_ext(outline, image_index, useX, useY, image_xscale, image_yscale, image_angle, global.outlineCol, image_alpha);
 }

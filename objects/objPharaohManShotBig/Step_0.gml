@@ -1,6 +1,6 @@
-if global.frozen == false
+if !global.frozen
 {
-    if canStep == true
+    if canStep 
     {
         xspeed = image_xscale * 5;
         x += xspeed;

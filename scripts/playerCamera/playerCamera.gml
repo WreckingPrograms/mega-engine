@@ -1,15 +1,15 @@
-/// @function playerCamera
-/// @description Handles the camera. Call it in objMegaman
+// / @function playerCamera
+// / @description Handles the camera. Call it in objMegaman
 function playerCamera() {
 
 
 
-	//Follow the player
-	global.viewX = round(x - (global.viewWidth / 2));
-	global.viewY = round(y - (global.viewHeight / 2));
+	// Follow the player
+	global.viewX = x - (global.viewWidth / 2);
+	global.viewY = y - (global.viewHeight / 2);
 
 
-	//Stop at section borders
+	// Stop at section borders
 	if global.viewX > sectionRight - global.viewWidth
 	    global.viewX = sectionRight - global.viewWidth;
 	else if global.viewX < sectionLeft
@@ -21,7 +21,7 @@ function playerCamera() {
 	    global.viewY = sectionTop;
     
     
-	//Stop at room borders
+	// Stop at room borders
 	if global.viewX > room_width - global.viewWidth
 	    global.viewX = room_width - global.viewWidth;
 	else if global.viewX < 0
@@ -31,10 +31,6 @@ function playerCamera() {
 	    global.viewY = room_height - global.viewHeight;
 	else if global.viewY < 0
 	    global.viewY = 0;
-	
-	
-	//Set the camera position
-	//camera_set_view_pos(global.view, global.viewX, global.viewY);
 
 
 }

@@ -1,16 +1,16 @@
 event_inherited();
 
-if global.frozen == false
+if !global.frozen
 {
     if sprite_index == sprRushJet
     {
-        if canJet == true //Waiting for Megaman
+        if canJet  // Waiting for Megaman
         {
             if collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_top-1, objMegaman, false, false) >= 0
             {
                 if instance_exists(objMegaman)
                 {
-                    if objMegaman.ground == true && objMegaman.bbox_bottom <= bbox_top && global.yspeed >= 0
+                    if objMegaman.ground  && objMegaman.bbox_bottom <= bbox_top && objMegaman.yspeed >= 0
                     {
                         canJet = false;
                         alarm[0] = -1;
@@ -18,11 +18,11 @@ if global.frozen == false
                 }
             }
         }
-        else //Flying
+        else // Flying
         {
             xspeed = spd * image_xscale;
             
-            //Take away ammo
+            // Take away ammo
             decreaseAmmoTimer += 1;
             if decreaseAmmoTimer >= decreaseAmmoTimerMax
             {
@@ -39,14 +39,14 @@ if global.frozen == false
             {               
                 if instance_exists(objMegaman)
                 {
-                    if objMegaman.ground == true && objMegaman.bbox_bottom <= bbox_top && global.yspeed >= 0
+                    if objMegaman.ground && objMegaman.bbox_bottom <= bbox_top && objMegaman.yspeed >= 0
                     {
-                        //Set player properties
+                        // Set player properties
                         objMegaman.canMove = false;
-                        global.xspeed = 0;
+                        objMegaman.xspeed = 0;
                         objMegaman.onRushJet = true;
                         
-                        //Move vertically
+                        // Move vertically
                         if global.keyUp && !place_meeting(objMegaman.x, y-sprite_get_height(mskMegaman)-abs(yspeed)-1, objSolid)
                         && !place_meeting(x, y-abs(yspeed)-1, objSolid)
                         {
@@ -55,14 +55,14 @@ if global.frozen == false
                                 yspeed = -ySpd;
                             else if place_meeting(objMegaman.x, y-sprite_get_height(mskMegaman)-abs(yspeed)-1, prtMovingPlatformSolid)
                             {
-                                if instance_place(objMegaman.x, y-sprite_get_height(mskMegaman)-abs(yspeed)-1, prtMovingPlatformSolid).dead == true
+                                if instance_place(objMegaman.x, y-sprite_get_height(mskMegaman)-abs(yspeed)-1, prtMovingPlatformSolid).dead 
                                     yspeed = -ySpd;
                                 else
                                     yspeed = 0;
                             }
                             else
                             {
-                                if instance_place(x, y-sprite_get_height(mskMegaman)-abs(yspeed)-1, prtMovingPlatformSolid).dead == true
+                                if instance_place(x, y-sprite_get_height(mskMegaman)-abs(yspeed)-1, prtMovingPlatformSolid).dead 
                                     yspeed = -ySpd;
                                 else
                                     yspeed = 0;
@@ -74,14 +74,14 @@ if global.frozen == false
                                 yspeed = ySpd;
                             else if place_meeting(x, y+abs(yspeed)+1, prtMovingPlatformSolid)
                             {
-                                if instance_place(x, y+abs(yspeed)+1, prtMovingPlatformSolid).dead == true
+                                if instance_place(x, y+abs(yspeed)+1, prtMovingPlatformSolid).dead 
                                     yspeed = ySpd;
                                 else
                                     yspeed = 0;
                             }
                             else
                             {
-                                if instance_place(x, y+abs(yspeed)+1, prtMovingPlatformJumpthrough).dead == true
+                                if instance_place(x, y+abs(yspeed)+1, prtMovingPlatformJumpthrough).dead 
                                     yspeed = ySpd;
                                 else
                                     yspeed = 0;
@@ -96,7 +96,7 @@ if global.frozen == false
             {
                 with objMegaman
                 {
-                    if onRushJet == true
+                    if onRushJet 
                     {
                         onRushJet = false;
                         canMove = true;
@@ -113,7 +113,7 @@ if global.frozen == false
         }
         else if place_meeting(x, y, prtMovingPlatformSolid)
         {
-            if instance_place(x, y, prtMovingPlatformSolid).dead == false
+            if !instance_place(x, y, prtMovingPlatformSolid).dead
                 event_perform(ev_alarm, 0);
         }
         

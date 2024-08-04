@@ -1,12 +1,12 @@
 event_inherited();
 
-if global.frozen == false && dead == false
+if !global.frozen && !dead
 {
     if instance_exists(objMegaman)
     {
-        if distance_to_object(objMegaman) <= radius || shooting == true || image_index != 0
+        if distance_to_object(objMegaman) <= radius || shooting  || image_index != 0
         {
-            if shooting == false
+            if !shooting
             {
                 shootTimer += 1;
                 if shootTimer == 85
@@ -48,27 +48,27 @@ if global.frozen == false && dead == false
                     if shootAmount != 2
                     {
                         var shootID;
-                        shootID = instance_create(x+8, y+3, objBeakBullet);
+                        shootID = instanceCreate(x+8, y+3, objBeakBullet);
                             shootID.image_index = col;
                             shootID.dir = 0;
                             shootID.xscale = 1;
                         
-                        shootID = instance_create(x+4, y+2, objBeakBullet);
+                        shootID = instanceCreate(x+4, y+2, objBeakBullet);
                             shootID.image_index = col;
                             shootID.dir = 45;
                             shootID.xscale = 1;
                             
-                        shootID = instance_create(x, y, objBeakBullet);
+                        shootID = instanceCreate(x, y, objBeakBullet);
                             shootID.image_index = col;
                             shootID.dir = 90;
                             shootID.xscale = 1;
                             
-                        shootID = instance_create(x-4, y+2, objBeakBullet);
+                        shootID = instanceCreate(x-4, y+2, objBeakBullet);
                             shootID.image_index = col;
                             shootID.dir = 135;
                             shootID.xscale = 1;
                             
-                        shootID = instance_create(x-8, y+3, objBeakBullet);
+                        shootID = instanceCreate(x-8, y+3, objBeakBullet);
                             shootID.image_index = col;
                             shootID.dir = 180;
                             shootID.xscale = 1;
@@ -80,7 +80,7 @@ if global.frozen == false && dead == false
                 }
             }
             
-            if animate == true
+            if animate 
             {
                 animateTimer += 1;
                 if animateTimer >= 4
@@ -105,7 +105,7 @@ if global.frozen == false && dead == false
 }
 else
 {
-    if dead == true
+    if dead 
     {
         shootTimer = 0;
         shooting = false;

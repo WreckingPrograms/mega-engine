@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"initCamera",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"initCamera",
+  "parent":{
+    "name":"Views",
+    "path":"folders/Scripts/Views.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

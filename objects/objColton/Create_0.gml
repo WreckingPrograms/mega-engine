@@ -8,25 +8,25 @@ healthpointsStart = 6;
 healthpoints = healthpointsStart;
 contactDamage = 4;
 reflectProjectiles = false;
-reflectProjectilesRight = false; //Only reflect projectiles that come from the right
-reflectProjectilesLeft = false; //Only reflect projectiles that come from the left
+reflectProjectilesRight = false; // Only reflect projectiles that come from the right
+reflectProjectilesLeft = false; // Only reflect projectiles that come from the left
 
 
-damageBuster = 1;
-damageBusterCharged = 3;
+weaponDamage[Weapons.MEGA_BUSTER] = 1;
+weaponDamageSpecial[Weapons.MEGA_BUSTER] = 3;
 
-damageMetalBlade = 1;
+weaponDamage[Weapons.METAL_BLADE] = 1;
 
-damagePharaohShot = 2;
-damagePharaohShotCharged = 6;
+weaponDamage[Weapons.PHARAOH_SHOT] = 2;
+weaponDamageSpecial[Weapons.PHARAOH_SHOT] = 6;
 
-damageStarCrash = 6;
+weaponDamage[Weapons.STAR_CRASH] = 6;
 
-damageSilverTomahawk = 2;
-damageWindStorm = 2;
+weaponDamage[Weapons.SILVER_TOMAHAWK] = 2;
+weaponDamage[Weapons.WIND_STORM] = 2;
 
 
-//Enemy specific code
+// Enemy specific code
 shooting = false;
 animTimer = 0;
 bulletID = -10;

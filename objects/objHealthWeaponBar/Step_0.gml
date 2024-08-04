@@ -4,7 +4,7 @@ if instance_exists(objMegaman)
     y = objMegaman.y;
 }
 
-if increaseHealth == true
+if increaseHealth 
 {
     if increaseHealthAmount > 0 && global._health < 28
     {
@@ -23,10 +23,10 @@ if increaseHealth == true
             global._health = 28;
         global.frozen = false;
         increaseTimer = 0;
-        sound_stop(sfxEnergyRestore);
+        audio_stop_sound(sfxEnergyRestore);
     }
 }
-else if increaseAmmo == true
+else if increaseAmmo 
 {
     if increaseAmmoAmount > 0 && global.ammo[global.currentWeapon] < 28
     {
@@ -45,7 +45,7 @@ else if increaseAmmo == true
             global.ammo[global.currentWeapon] = 28;
         global.frozen = false;
         increaseTimer = 0;
-        sound_stop(sfxEnergyRestore);
+        audio_stop_sound(sfxEnergyRestore);
     }
 }
 

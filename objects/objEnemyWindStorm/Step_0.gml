@@ -1,4 +1,4 @@
-if global.frozen == false
+if !global.frozen
 {
     y += yspeed;
     image_speed = imgSpeed;

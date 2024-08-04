@@ -1,9 +1,9 @@
-/// @function generalCollision
-/// @description Handles a general object's collision code
+// / @function generalCollision
+// / @description Handles a general object's collision code
 function generalCollision() {
 
 
-	//Floor
+	// Floor
 	var mySolid;
 	mySolid = instance_place(x, y+yspeed, objSolid);
 	if mySolid >= 0 && yspeed > 0
@@ -16,7 +16,7 @@ function generalCollision() {
 	}
 
 
-	//Wall
+	// Wall
 	mySolid = instance_place(x+xspeed, y, objSolid);
 	if mySolid >= 0 && xspeed != 0
 	{    
@@ -29,7 +29,7 @@ function generalCollision() {
 	}
 
 
-	//Ceiling
+	// Ceiling
 	mySolid = instance_place(x, y+yspeed, objSolid);
 	if mySolid >= 0 && yspeed < 0
 	{
@@ -38,7 +38,7 @@ function generalCollision() {
 	}
 
 
-	//Topsolids
+	// Topsolids
 	mySolid = instance_place(x, y+yspeed, objTopSolid);
 	if mySolid >= 0 && yspeed > 0
 	{
@@ -51,7 +51,7 @@ function generalCollision() {
 	}
 
 
-	//Floor (moving platform)
+	// Floor (moving platform)
 	var mySolid;
 	mySolid = instance_place(x, y+yspeed, prtMovingPlatformSolid);
 	if mySolid >= 0 && yspeed > 0
@@ -67,7 +67,7 @@ function generalCollision() {
 	}
 
 
-	//Wall (moving platform)
+	// Wall (moving platform)
 	mySolid = instance_place(x+xspeed, y, prtMovingPlatformSolid);
 	if mySolid >= 0 && xspeed != 0
 	{    
@@ -83,7 +83,7 @@ function generalCollision() {
 	}
 
 
-	//Ceiling (moving platform)
+	// Ceiling (moving platform)
 	mySolid = instance_place(x, y+yspeed, prtMovingPlatformSolid);
 	if mySolid >= 0 && yspeed < 0
 	{
@@ -95,7 +95,7 @@ function generalCollision() {
 	}
 
 
-	//Topsolids (moving platform)
+	// Topsolids (moving platform)
 	mySolid = instance_place(x, y+yspeed, prtMovingPlatformJumpthrough);
 	if mySolid >= 0 && yspeed > 0
 	{

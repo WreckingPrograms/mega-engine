@@ -19,7 +19,7 @@ ySpd = 1;
     
 alarm[0] = 4 * 60;
 
-//Moving platform code
+// Moving platform code
 dead = true;
 respawn = false;
 neverDespawn = true;

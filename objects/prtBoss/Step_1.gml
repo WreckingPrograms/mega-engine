@@ -1,5 +1,5 @@
-//Starting the intro pose (and falling down)
-if startIntro == true
+// Starting the intro pose (and falling down)
+if startIntro 
 {
     startIntro = false;
     isIntro = true;

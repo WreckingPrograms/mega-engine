@@ -1,5 +1,5 @@
-/// @function playerLockMovement
-/// @description Locks the player's movement
+// / @function playerLockMovement
+// / @description Locks the player's movement
 function playerLockMovement() {
 
 	with objMegaman
@@ -15,8 +15,8 @@ function playerLockMovement() {
 	    canPause = false;
 	    onRushJet = false;
 	    mask_index = mskMegaman;
-	    global.xspeed = 0;
-	    global.yspeed = 0;
+	    xspeed = 0;
+	    yspeed = 0;
 	}
 
 

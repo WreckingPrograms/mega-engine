@@ -1,11 +1,11 @@
-/// @function playMusic
-/// @param filename
-/// @param  loop start
-/// @param  loop end
-/// @description Plays music and loops from one point to another point
+// / @function playMusic
+// / @param filename
+// / @param  loop start
+// / @param  loop end
+// / @description Plays music and loops from one point to another point
 function playMusicLoopPoint(musicAsset, startPoint, endPoint)
 {
-	//Example: playMusicLoopPoint(mscBeta, 0.4, 0.8)
+	// Example: playMusicLoopPoint(mscBeta, 0.4, 0.8)
 
 	if global.msc >= 0
 		audio_stop_sound(global.msc);

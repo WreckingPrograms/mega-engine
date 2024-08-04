@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"spriteGetXCenter",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"spriteGetXCenter",
+  "parent":{
+    "name":"Drawing",
+    "path":"folders/Scripts/Drawing.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

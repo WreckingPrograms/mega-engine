@@ -1,6 +1,6 @@
 event_inherited();
 
-if global.frozen == false && dead == false
+if !global.frozen && !dead
 {
     if instance_exists(objMegaman)
     {
@@ -11,7 +11,7 @@ if global.frozen == false && dead == false
         
         if distance_to_object(objMegaman) <= radius
         {
-            if canShoot == true
+            if canShoot 
             {
                 canShoot = false;
                 image_index = 1;
@@ -19,25 +19,25 @@ if global.frozen == false && dead == false
         }
     }
     
-    if canShoot == false
+    if !canShoot
     {
         cooldownTimer += 1;
         
         if cooldownTimer == 17
         {
-            //Shoot
+            // Shoot
             var ID;
-            ID = instance_create(x+image_xscale*8, sprite_get_ycenter(), objMM1MetBullet);
+            ID = instanceCreate(x+image_xscale*8, spriteGetYCenter(), objMM1MetBullet);
             {
                 ID.dir = 45;
                 ID.xscale = image_xscale;
             }
-            ID = instance_create(x+image_xscale*8, sprite_get_ycenter(), objMM1MetBullet);
+            ID = instanceCreate(x+image_xscale*8, spriteGetYCenter(), objMM1MetBullet);
             {
                 ID.dir = 0;
                 ID.xscale = image_xscale;
             }
-            ID = instance_create(x+image_xscale*8, sprite_get_ycenter(), objMM1MetBullet);
+            ID = instanceCreate(x+image_xscale*8, spriteGetYCenter(), objMM1MetBullet);
             {
                 ID.dir = -45;
                 ID.xscale = image_xscale;
@@ -56,7 +56,7 @@ if global.frozen == false && dead == false
         }
     }
     
-    //Set the protection of the Met
+    // Set the protection of the Met
     if image_index == 0
         reflectProjectiles = true;
     else
@@ -64,7 +64,7 @@ if global.frozen == false && dead == false
 }
 else
 {
-    if dead == true
+    if dead 
     {
         cooldownTimer = 0;
         canShoot = true;

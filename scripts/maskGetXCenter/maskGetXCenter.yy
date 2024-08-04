@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"maskGetXCenter",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"maskGetXCenter",
+  "parent":{
+    "name":"Drawing",
+    "path":"folders/Scripts/Drawing.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

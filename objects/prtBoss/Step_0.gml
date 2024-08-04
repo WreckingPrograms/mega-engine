@@ -1,6 +1,6 @@
-if global.frozen == false
+if !global.frozen
 {   
-    if isIntro == true
+    if isIntro 
     {
         if y < ystart
             gravityNoGround();
@@ -24,22 +24,22 @@ if global.frozen == false
     }
     
     
-    //Starting the actual fight
-    if startFight == true
+    // Starting the actual fight
+    if startFight 
     {
         startFight = false;
         isFight = true;
     }
     
     
-    //Hitspark and death
+    // Hitspark and death
     if healthpoints < prevHealthPoints
     {
         if healthpoints > 0
         {
             canHit = false;
             alarm[9] = 1;
-            alarm[10] = 45; //Being able to get hit again
+            alarm[10] = 45; // Being able to get hit again
             drawBoss = true;
             drawHitSpark = false;
             
@@ -48,7 +48,7 @@ if global.frozen == false
         else
         {
             global.bossHealth = 0;
-            sound_stop_all();
+            audio_stop_all();
             playSFX(sfxDeath);
             
             var i, explosionID;
@@ -56,7 +56,7 @@ if global.frozen == false
             i = 0;
             repeat 8
             {
-                explosionID = instance_create(x, y, objMegamanExplosion);
+                explosionID = instanceCreate(x, y, objMegamanExplosion);
                     explosionID.dir = i;
                     explosionID.spd = 1.5;
                     
@@ -66,7 +66,7 @@ if global.frozen == false
             i = 0;
             repeat 8
             {
-                explosionID = instance_create(x, y, objMegamanExplosion);
+                explosionID = instanceCreate(x, y, objMegamanExplosion);
                     explosionID.dir = i;
                     explosionID.spd = 2.5;
                     
@@ -74,7 +74,7 @@ if global.frozen == false
             }
             
             instance_destroy();
-            instance_create(x, y, objBossDeathTimer);
+            instanceCreate(x, y, objBossDeathTimer);
         }
     }
     

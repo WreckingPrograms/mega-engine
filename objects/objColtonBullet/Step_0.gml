@@ -1,4 +1,4 @@
-if global.frozen == false
+if !global.frozen
 {
     xspeed = image_xscale * 1.75;
     

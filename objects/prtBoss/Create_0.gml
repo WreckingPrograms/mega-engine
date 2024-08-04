@@ -13,12 +13,12 @@ healthpoints = 28;
 prevHealthPoints = healthpoints;
 canHit = true;
 drawHitSpark = false;
-drawBoss = true; //Should we be visible? (Can't use the 'visible' variable as this prevents the Draw event from executing)
+drawBoss = true; // Should we be visible? (Can't use the 'visible' variable as this prevents the Draw event from executing)
 
 alarm[8] = 1;
 
 
-//Variables to make it work with prtEnemy
+// Variables to make it work with prtEnemy
 reflectProjectiles = false;
 reflectProjectilesLeft = false;
 reflectProjectilesRight = false;

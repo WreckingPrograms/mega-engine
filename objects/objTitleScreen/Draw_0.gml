@@ -9,7 +9,7 @@ draw_set_halign(fa_center);
 
 draw_text(round(room_width/2), room_height-40, string_hash_to_newline("CREATED BY WRECKINGPROGRAMS#2016-2024##PLEASE GIVE CREDIT"));
 
-if drawText == true
+if drawText 
 {
     draw_text(round(room_width/2), 125, string_hash_to_newline("PRESS THE SPACE BAR"));
 }

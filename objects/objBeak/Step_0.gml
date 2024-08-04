@@ -1,8 +1,8 @@
 event_inherited();
 
-if global.frozen == false && dead == false
+if !global.frozen && !dead
 {
-    if shooting == false
+    if !shooting
     {
         shootTimer += 1;
         if shootTimer == 60+30
@@ -23,7 +23,7 @@ if global.frozen == false && dead == false
         if shootTimer == 1
         {
             var shootID;
-            shootID = instance_create(x+image_xscale*16, y+8, objBeakBullet);
+            shootID = instanceCreate(x+image_xscale*16, y+8, objBeakBullet);
                 shootID.image_index = col;
                 shootID.dir = 45;
                 shootID.xscale = dir;
@@ -33,7 +33,7 @@ if global.frozen == false && dead == false
         else if shootTimer == 31
         {
             var shootID;
-            shootID = instance_create(x+image_xscale*16, y+8, objBeakBullet);
+            shootID = instanceCreate(x+image_xscale*16, y+8, objBeakBullet);
                 shootID.image_index = col;
                 shootID.dir = 15;
                 shootID.xscale = dir;
@@ -43,7 +43,7 @@ if global.frozen == false && dead == false
         else if shootTimer == 61
         {
             var shootID;
-            shootID = instance_create(x+image_xscale*16, y+8, objBeakBullet);
+            shootID = instanceCreate(x+image_xscale*16, y+8, objBeakBullet);
                 shootID.image_index = col;
                 shootID.dir = -15;
                 shootID.xscale = dir;
@@ -53,7 +53,7 @@ if global.frozen == false && dead == false
         else if shootTimer == 91
         {
             var shootID;
-            shootID = instance_create(x+image_xscale*16, y+8, objBeakBullet);
+            shootID = instanceCreate(x+image_xscale*16, y+8, objBeakBullet);
                 shootID.image_index = col;
                 shootID.dir = -45;
                 shootID.xscale = dir;
@@ -75,7 +75,7 @@ if global.frozen == false && dead == false
     }
     
     
-    //Handle's the Beak's protection
+    // Handle's the Beak's protection
     if image_index == 0
         reflectProjectiles = true;
     else
@@ -83,7 +83,7 @@ if global.frozen == false && dead == false
 }
 else
 {
-    if dead == true
+    if dead 
     {
         shootTimer = 0;
         shooting = false;

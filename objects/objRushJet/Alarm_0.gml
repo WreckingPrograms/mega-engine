@@ -1,4 +1,4 @@
-//Teleport away
+// Teleport away
 teleportingUp = true;
 sprite_index = sprRushTeleport;
 playSFX(sfxTeleportOut);
@@ -9,7 +9,7 @@ mask_index = sprNothing;
 
 with objMegaman
 {
-    if onRushJet == true
+    if onRushJet 
     {
         onRushJet = false;
         canMove = true;

@@ -1,12 +1,12 @@
-//"Die" (doesn't actually destroy the enemy though)
+// "Die" (doesn't actually destroy the enemy though)
 if healthpoints <= 0
 {   
-    if canInitDeath == true
+    if canInitDeath 
     {
         beenOutsideView = false;
         visible = false;
-        dead = true;    //Enemies don't actually destroy themselves, they become invisible and all collision is neglected
-        x = xstart;     //This is done to allow them to still execute code (for respawning)
+        dead = true;    // Enemies don't actually destroy themselves, they become invisible and all collision is neglected
+        x = xstart;     // This is done to allow them to still execute code (for respawning)
         y = ystart;
         canInitDeath = false;
         xspeed = 0;
@@ -14,10 +14,10 @@ if healthpoints <= 0
     }   
 }
 
-//Respawning
-if respawn == true
+// Respawning
+if respawn 
 {
-    if beenOutsideView == true
+    if beenOutsideView 
     {
         if insideView()
         {
@@ -31,8 +31,8 @@ if respawn == true
 }
 else
 {
-    if dead == true
-        instance_destroy(); //If we can't respawn, there's no point to still be able to execute any code. Destroying the instance saves memory and processing power
+    if dead 
+        instance_destroy(); // If we can't respawn, there's no point to still be able to execute any code. Destroying the instance saves memory and processing power
 }
 
 if !insideView()
@@ -49,7 +49,7 @@ if !insideView()
 }
     
     
-if dead == true
+if dead 
 {
     xspeed = 0;
     yspeed = 0;

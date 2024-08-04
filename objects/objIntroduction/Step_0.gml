@@ -1,11 +1,11 @@
-//Moving the lines
+// Moving the lines
 var i;
 
-for(i = 0; i < totalLinesUp; i += 1)
+for (i = 0; i < totalLinesUp; i += 1)
 {
     lineUpY[i] -= lineSpd;
     
-    if lineUpY[i] < -28 && createLineUp[i] == true
+    if lineUpY[i] < -28 && createLineUp[i] 
     {
         totalLinesUp += 1;
         lineUpY[totalLinesUp-1] = round(room_height/2) - 14;
@@ -15,11 +15,11 @@ for(i = 0; i < totalLinesUp; i += 1)
     }
 }
 
-for(i = 0; i < totalLinesDown; i += 1)
+for (i = 0; i < totalLinesDown; i += 1)
 {
     lineDownY[i] += lineSpd;
     
-    if lineDownY[i] > room_height && createLineDown[i] == true
+    if lineDownY[i] > room_height && createLineDown[i] 
     {
         totalLinesDown += 1;
         lineDownY[totalLinesDown-1] = round(room_height/2) - 14;
@@ -30,7 +30,7 @@ for(i = 0; i < totalLinesDown; i += 1)
 }
 
 
-//Boss animation
+// Boss animation
 if startPoseTimer < startPoseTimerMax
 {
     bossSprite = standSprite;
@@ -47,7 +47,7 @@ else
 }
 
 
-//Fading the boss in (it's black at the beginning, then starts gaining its own color)
+// Fading the boss in (it's black at the beginning, then starts gaining its own color)
 if bossRGB < 255
 {
     bossRGBTimer += 1;
@@ -61,7 +61,7 @@ if bossRGB < 255
 }
 
 
-//Boss text
+// Boss text
 if bossTextTimer < bossTextTimerMax
 {
     bossTextTimer += 1;

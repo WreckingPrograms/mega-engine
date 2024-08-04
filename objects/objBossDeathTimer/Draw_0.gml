@@ -1,6 +1,6 @@
-if isMM == true
+if isMM 
 {
-    if teleporting == false
+    if !teleporting
     {
         drawPlayer();
     }
@@ -22,13 +22,13 @@ if isMM == true
                 exit;
             }
             
-            if global.frozen == false
+            if !global.frozen
                 teleportTimer += 1;
         }
         else
         {
-            //Teleporting upwards            
-            if global.frozen == false
+            // Teleporting upwards            
+            if !global.frozen
                 teleportY -= 7;
         }
         

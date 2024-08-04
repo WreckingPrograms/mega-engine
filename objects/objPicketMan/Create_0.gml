@@ -1,5 +1,3 @@
-//Creation code (all optional):
-
 event_inherited();
 
 image_xscale = -1;
@@ -10,25 +8,25 @@ healthpointsStart = 10;
 healthpoints = healthpointsStart;
 contactDamage = 3;
 reflectProjectiles = true;
-reflectProjectilesRight = false; //Only reflect projectiles that come from the right
-reflectProjectilesLeft = false; //Only reflect projectiles that come from the left
+reflectProjectilesRight = false; // Only reflect projectiles that come from the right
+reflectProjectilesLeft = false; // Only reflect projectiles that come from the left
 
 
-damageBuster = 1;
-damageBusterCharged = 3;
+weaponDamage[Weapons.MEGA_BUSTER] = 1;
+weaponDamageSpecial[Weapons.MEGA_BUSTER] = 3;
 
-damageMetalBlade = 2;
+weaponDamage[Weapons.METAL_BLADE] = 2;
 
-damagePharaohShot = 1;
-damagePharaohShotCharged = 4;
+weaponDamage[Weapons.PHARAOH_SHOT] = 1;
+weaponDamageSpecial[Weapons.PHARAOH_SHOT] = 4;
 
-damageStarCrash = 4;
+weaponDamage[Weapons.STAR_CRASH] = 4;
 
-damageSilverTomahawk = 2;
-damageWindStorm = 2;
+weaponDamage[Weapons.SILVER_TOMAHAWK] = 2;
+weaponDamage[Weapons.WIND_STORM] = 2;
 
 
-//Enemy specific code
+// Enemy specific code
 shootTimer = 0;
 shooting = false;
 shootAmount = 0;

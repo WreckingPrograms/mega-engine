@@ -1,27 +1,27 @@
-//Initialize switching sections
+// Initialize switching sections
 
-if newSectionXOffset > 0 //Switching to the right
+if newSectionXOffset > 0 // Switching to the right
 {
     x = sectionRight-6;
     playerCameraInit();
-    with instance_create(x, y, objSectionSwitcher) dir = "right";
+    with instanceCreate(x, y, objSectionSwitcher) dir = "right";
 }
-else if newSectionXOffset < 0 //Switching to the left
+else if newSectionXOffset < 0 // Switching to the left
 {
     x = sectionLeft+6;
     playerCameraInit();
-    with instance_create(x, y, objSectionSwitcher) dir = "left";
+    with instanceCreate(x, y, objSectionSwitcher) dir = "left";
 }
-else if newSectionYOffset > 0 //Switching down
+else if newSectionYOffset > 0 // Switching down
 {
     y  = sectionBottom-6 + sprite_yoffset - (sprite_height/2);
     playerCameraInit();
-    with instance_create(x, y, objSectionSwitcher) dir = "down";
+    with instanceCreate(x, y, objSectionSwitcher) dir = "down";
 }
-else if newSectionYOffset < 0 //Switching up
+else if newSectionYOffset < 0 // Switching up
 {
     y  = sectionTop+6 + sprite_yoffset - (sprite_height/2);
     playerCameraInit();
-    with instance_create(x, y, objSectionSwitcher) dir = "up";
+    with instanceCreate(x, y, objSectionSwitcher) dir = "up";
 }
 

@@ -8,26 +8,26 @@ healthpointsStart = 1;
 healthpoints = healthpointsStart;
 contactDamage = 1;
 reflectProjectiles = true;
-reflectProjectilesRight = false; //Only reflect projectiles that come from the right
-reflectProjectilesLeft = false; //Only reflect projectiles that come from the left
+reflectProjectilesRight = false; // Only reflect projectiles that come from the right
+reflectProjectilesLeft = false; // Only reflect projectiles that come from the left
 
 
-damageBuster = 1;
-damageBusterCharged = 2;
+weaponDamage[Weapons.MEGA_BUSTER] = 1;
+weaponDamageSpecial[Weapons.MEGA_BUSTER] = 2;
 
-damageMetalBlade = 2;
+weaponDamage[Weapons.METAL_BLADE] = 2;
 
-damagePharaohShot = 2;
-damagePharaohShotCharged = 2;
+weaponDamage[Weapons.PHARAOH_SHOT] = 2;
+weaponDamageSpecial[Weapons.PHARAOH_SHOT] = 2;
 
-damageStarCrash = 1;
+weaponDamage[Weapons.STAR_CRASH] = 1;
 
-damageSilverTomahawk = 2; //To make the tomahawk not destroy upon impact with the Met
-damageWindStorm = 2;
+weaponDamage[Weapons.SILVER_TOMAHAWK] = 2; // To make the tomahawk not destroy upon impact with the Met
+weaponDamage[Weapons.WIND_STORM] = 2;
 
 
-//Enemy specific code
-radius = 4 * 16; //Four blocks; the radius that MM needs to enter to trigger the shooting of the Met
+// Enemy specific code
+radius = 4 * 16; // Four blocks; the radius that MM needs to enter to trigger the shooting of the Met
 cooldownTimer = 0;
 canShoot = true;
 image_speed = 0;

@@ -1,6 +1,6 @@
 event_inherited();
 
-if global.frozen == false && dead == false
+if !global.frozen && !dead
 {
     if instance_exists(objMegaman)
     {
@@ -10,7 +10,7 @@ if global.frozen == false && dead == false
             image_xscale = -1;
     }
     
-    if shooting == false
+    if !shooting
     {
         shootTimer += 1;
         if shootTimer >= 120
@@ -29,7 +29,7 @@ if global.frozen == false && dead == false
         {
             image_index = 2;
             var shootID;
-            shootID = instance_create(x+image_xscale*16, sprite_get_ycenter(), objPicket);
+            shootID = instanceCreate(x+image_xscale*16, spriteGetYCenter(), objPicket);
                 shootID.image_xscale = image_xscale;
             
             shootAmount += 1;
@@ -52,7 +52,7 @@ if global.frozen == false && dead == false
     }
     
     
-    //Set the protection of the Picketman
+    // Set the protection of the Picketman
     if image_index == 0
         reflectProjectiles = true;
     else
@@ -60,7 +60,7 @@ if global.frozen == false && dead == false
 }
 else
 {
-    if dead == true
+    if dead 
     {
         shootTimer = 0;
         shooting = false;

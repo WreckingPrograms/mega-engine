@@ -1,4 +1,4 @@
-if door == true
+if door 
 {
     image_speed = 0;
     alarm[1] = ceil(4 / 0.15)

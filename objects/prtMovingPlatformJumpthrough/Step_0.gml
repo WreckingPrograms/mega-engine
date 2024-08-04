@@ -1,14 +1,14 @@
-///More stable moving platform code!
+// /More stable moving platform code!
 
 event_inherited();
 
-if global.frozen == false && dead == false
+if !global.frozen && !dead
 {
     x += xspeed;
     y += yspeed;
     
     
-    // If the player is standing on us, move them
+    //  If the player is standing on us, move them
     var checkYspeed;
     if yspeed > 0
         checkYspeed = yspeed;
@@ -27,8 +27,8 @@ if global.frozen == false && dead == false
         else if objMegaman.movedPlatformID.yspeed == useYspeed && abs(objMegaman.movedPlatformID.bbox_top - bbox_top) <= useYspeed + 3
             canProceed = true;
             
-        if objMegaman.ground == true && objMegaman.bbox_bottom <= bbox_top + abs(yspeed) + abs(global.yspeed) + 2
-        && objMegaman.movedByPlatform == false && canProceed == true
+        if objMegaman.ground  && objMegaman.bbox_bottom <= bbox_top + abs(yspeed) + abs(objMegaman.yspeed) + 2
+        && !objMegaman.movedByPlatform && canProceed 
         {
             with objMegaman
             {
@@ -40,7 +40,7 @@ if global.frozen == false && dead == false
                 if place_meeting(x + xsp, y + ysp, objSolid) || place_meeting(x + xsp, y + ysp, prtMovingPlatformSolid)
                     proceed = false;
                 
-                if proceed == true
+                if proceed 
                 {
                     movedByPlatform = true;
                     

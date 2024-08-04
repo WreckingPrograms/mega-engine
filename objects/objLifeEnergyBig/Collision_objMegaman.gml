@@ -9,8 +9,8 @@ if global._health < 28
         increaseHealthAmount = other.hlth;
     }
     
-    sound_stop(sfxEnergyRestore);
-    sound_loop(sfxEnergyRestore);
+    audio_stop_sound(sfxEnergyRestore);
+    playSFX(sfxEnergyRestore, true);
 }
 
 if pickupID != -15

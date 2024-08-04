@@ -1,18 +1,18 @@
-if reflectProjectiles == false && damageStarCrash != 0
-&& !(reflectProjectilesLeft == true && sprite_get_xcenter_object(other.id) < sprite_get_xcenter())
-&& !(reflectProjectilesRight == true && sprite_get_xcenter_object(other.id) > sprite_get_xcenter())
+if !reflectProjectiles && weaponDamage[Weapons.STAR_CRASH] != 0
+&& !(reflectProjectilesLeft  && spriteGetXCenterObject(other.id) < spriteGetXCenter())
+&& !(reflectProjectilesRight  && spriteGetXCenterObject(other.id) > spriteGetXCenter())
 {
-    if dead == false
+    if !dead
     {
-        if canHit == true
+        if canHit 
         {
-            healthpoints -= damageStarCrash;
+            healthpoints -= weaponDamage[Weapons.STAR_CRASH];
             visible = false;
         }
         alarm[11] = 2;
         with other instance_destroy();
         
-        if other.xspeed == 0 //When it is not yet fired
+        if other.xspeed == 0 // When it is not yet fired
         {
             global.ammo[global.currentWeapon] -= global.weaponAmmoContact[global.weaponSlot[global.currentWeapon]];
             if global.ammo[global.currentWeapon] <= 0
@@ -23,13 +23,13 @@ if reflectProjectiles == false && damageStarCrash != 0
         
         if healthpoints <= 0 && object_get_parent(object_index) != prtBoss
         {
-            instance_create(sprite_get_xcenter(), sprite_get_ycenter(), objItemExplosion);
+            instanceCreate(spriteGetXCenter(), spriteGetYCenter(), objItemExplosion);
         }
     }
 }
 else
 {
-    if dead == false
-        event_user(0); //Reflect the projectiles
+    if !dead
+        event_user(0); // Reflect the projectiles
 }
 

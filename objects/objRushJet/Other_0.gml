@@ -2,7 +2,7 @@ instance_destroy();
 
 with objMegaman
 {
-    if onRushJet == true
+    if onRushJet 
     {
         onRushJet = false;
         canMove = true;

@@ -1,6 +1,6 @@
-if drawBoss == true
+if drawBoss 
     drawSelf();
     
-if drawHitSpark == true
-    draw_sprite_ext(sprHitspark, 0, sprite_get_xcenter(), sprite_get_ycenter(), 1, 1, 0, c_white, 1);
+if drawHitSpark 
+    draw_sprite_ext(sprHitspark, 0, spriteGetXCenter(), spriteGetYCenter(), 1, 1, 0, c_white, 1);
 

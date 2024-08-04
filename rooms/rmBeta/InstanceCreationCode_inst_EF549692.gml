@@ -1,1 +1,0 @@
-startDir = -1;

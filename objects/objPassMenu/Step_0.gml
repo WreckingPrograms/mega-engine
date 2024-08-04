@@ -1,6 +1,6 @@
-if canSelectOption == true
+if canSelectOption 
 {
-    if selectedOption == false
+    if !selectedOption
     {
         if global.keyUpPressed || global.keyDownPressed
         {
@@ -14,7 +14,7 @@ if canSelectOption == true
             playSFX(sfxMenuSelect);
             
             var ID;
-            ID = instance_create(x, y, objFadeout);
+            ID = instanceCreate(x, y, objFadeout);
                 ID.type = "room";
             
             if option == 0

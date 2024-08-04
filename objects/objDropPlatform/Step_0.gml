@@ -1,14 +1,14 @@
 event_inherited();
 
-if global.frozen == false && dead == false
+if !global.frozen && !dead
 {
     switch phase
     {
-        //Idle
+        // Idle
         case 0:
             if place_meeting(x, y-1, objMegaman)
             {
-                if objMegaman.ground == true && objMegaman.bbox_bottom <= bbox_top+global.yspeed
+                if objMegaman.ground  && objMegaman.bbox_bottom <= bbox_top+objMegaman.yspeed
                 && collision_rectangle(objMegaman.bbox_left, objMegaman.bbox_bottom, objMegaman.bbox_right, objMegaman.bbox_bottom+1, prtMovingPlatformSolid, false, true) < 0
                 && collision_rectangle(objMegaman.bbox_left, objMegaman.bbox_bottom, objMegaman.bbox_right, objMegaman.bbox_bottom+1, prtMovingPlatformJumpthrough, false, true) < 0
                 {
@@ -19,7 +19,7 @@ if global.frozen == false && dead == false
         break;
         
         
-        //Preparing to drop down
+        // Preparing to drop down
         case 1:
             timer += 1;
             if timer >= dropTimerMax
@@ -30,7 +30,7 @@ if global.frozen == false && dead == false
         break;
         
         
-        //Dropping down animation
+        // Dropping down animation
         case 2:
             timer += 1;
             if timer mod 3 == 1
@@ -46,7 +46,7 @@ if global.frozen == false && dead == false
         break;
         
         
-        //Dropped down
+        // Dropped down
         case 3:
             timer += 1;
             if timer >= rebuildTimerMax
@@ -57,12 +57,12 @@ if global.frozen == false && dead == false
         break;
         
         
-        //Rebuilding animation
+        // Rebuilding animation
         case 4:
             timer += 1;
             if timer == 1
             {
-                topSolidID = instance_create(x-16, y, objTopSolid);
+                topSolidID = instanceCreate(x-16, y, objTopSolid);
                     topSolidID.image_xscale = 2;
             }
             

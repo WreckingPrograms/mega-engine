@@ -1,4 +1,4 @@
-var oldCol, oldAlp;
+var oldCol, oldAlpha;
 oldCol = draw_get_color();
 oldAlpha = draw_get_alpha();
 

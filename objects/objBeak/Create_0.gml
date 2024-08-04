@@ -1,6 +1,6 @@
-//Creation code (all optional):
-//col = <number> (0 = red (default); 1 = orange; 2 = blue)
-//dir = -1/1 (1 = faces right (default); -1 = faces left)
+// Variable definitions:
+// col = <number> (0 = red (default); 1 = orange; 2 = blue)
+// dir = -1/1 (1 = faces right (default); -1 = faces left)
 
 event_inherited();
 
@@ -10,34 +10,37 @@ healthpointsStart = 1;
 healthpoints = healthpointsStart;
 contactDamage = 1;
 reflectProjectiles = true;
-reflectProjectilesRight = false; //Only reflect projectiles that come from the right
-reflectProjectilesLeft = false; //Only reflect projectiles that come from the left
+reflectProjectilesRight = false; // Only reflect projectiles that come from the right
+reflectProjectilesLeft = false; // Only reflect projectiles that come from the left
 
 
-damageBuster = 1;
-damageBusterCharged = 2;
+weaponDamage[Weapons.MEGA_BUSTER] = 1;
+weaponDamageSpecial[Weapons.MEGA_BUSTER] = 2;
 
-damageMetalBlade = 2;
+weaponDamage[Weapons.METAL_BLADE] = 2;
 
-damagePharaohShot = 2;
-damagePharaohShotCharged = 2;
+weaponDamage[Weapons.PHARAOH_SHOT] = 2;
+weaponDamageSpecial[Weapons.PHARAOH_SHOT] = 2;
 
-damageStarCrash = 1;
+weaponDamage[Weapons.STAR_CRASH] = 1;
 
-damageSilverTomahawk = 2;
-damageWindStorm = 2;
+weaponDamage[Weapons.SILVER_TOMAHAWK] = 2;
+weaponDamage[Weapons.WIND_STORM] = 2;
 
 
-//Enemy specific code
-col = 0; //0 = red; 1 = orange; 2 = blue
-    
-dir = 1;
-
+// Enemy specific code
 shootTimer = 0;
 shooting = false;
 image_speed = 0;
 image_index = 0;
 
+// Set the correct color
+switch col
+{
+    case 0: sprite_index = sprBeakRed; break;
+    case 1: sprite_index = sprBeakOrange; break;
+    case 2: sprite_index = sprBeakBlue; break;
+    default: sprite_index = sprBeakRed; break;
+}
 
-alarm[0] = 1;
-
+image_xscale = dir;

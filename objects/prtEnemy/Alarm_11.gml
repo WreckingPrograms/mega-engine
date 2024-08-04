@@ -1,3 +1,3 @@
-if dead == false
+if !dead
     visible = true;
 

@@ -1,5 +1,5 @@
-/// @function checkGround
-/// @description Checks whether or not the object is on the ground
+// / @function checkGround
+// / @description Checks whether or not the object is on the ground
 function checkGround() {
 
 	if place_meeting(x, y+1, objSolid) || (place_meeting(x, y+1, objTopSolid))

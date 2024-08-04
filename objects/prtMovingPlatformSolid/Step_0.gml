@@ -1,16 +1,16 @@
-///More stable moving platform code!
+// /More stable moving platform code!
 
 event_inherited();
 
-if global.frozen == false && dead == false
+if !global.frozen && !dead
 {
     x += xspeed;
     y += yspeed;
     
-    // Push the player in the direction we're moving
+    //  Push the player in the direction we're moving
     if place_meeting(x, y, objMegaman)
     {
-        if objMegaman.teleporting == false && objMegaman.showReady == false
+        if !objMegaman.teleporting && !objMegaman.showReady
         {
             var leftDist, rightDist, upDist, downDist, attempts;
             leftDist = 0;
@@ -57,7 +57,7 @@ if global.frozen == false && dead == false
             else if minDist == downDist || (yspeed > 0 && abs(minDist - downDist) <= 3)
                 objMegaman.y += downDist;
                 
-            // Crush the player if necessary
+            //  Crush the player if necessary
             with objMegaman
             {
                 instance_deactivate_object(other.id);
@@ -67,19 +67,19 @@ if global.frozen == false && dead == false
                 meetingPlatform = false;
                 if movingPltfm >= 0
                 {
-                    if movingPltfm.dead == false
+                    if !movingPltfm.dead
                         meetingPlatform = true;
                 }
                 
                 if collision_rectangle(bbox_left+2, bbox_top+2 - (isSlide * 2), bbox_right-2, bbox_bottom + (isSlide * 2), objSolid, false, false) >= 0
-                || meetingPlatform == true
+                || meetingPlatform 
                     global._health = 0;
                 instance_activate_object(other.id);
             }
         }
     }
     
-    // If the player is standing on us, move them
+    //  If the player is standing on us, move them
     var checkYspeed;
     if yspeed > 0
         checkYspeed = yspeed;
@@ -88,9 +88,9 @@ if global.frozen == false && dead == false
         
     if place_meeting(x, y - checkYspeed - 1, objMegaman)
     {
-        if objMegaman.ground == true && objMegaman.bbox_bottom <= bbox_top + abs(yspeed) + abs(global.yspeed) + 2
-        && objMegaman.movedByPlatform == false && objMegaman.teleporting == false
-        && objMegaman.showReady == false
+        if objMegaman.ground  && objMegaman.bbox_bottom <= bbox_top + abs(yspeed) + abs(objMegaman.yspeed) + 2
+        && !objMegaman.movedByPlatform && !objMegaman.teleporting
+        && !objMegaman.showReady
         {
             with objMegaman
             {
@@ -104,7 +104,7 @@ if global.frozen == false && dead == false
                     proceed = false;
                 instance_activate_object(other.id);
                 
-                if proceed == true
+                if proceed 
                 {
                     movedByPlatform = true;
                     x += xsp;

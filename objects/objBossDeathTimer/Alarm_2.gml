@@ -1,8 +1,8 @@
 var ID;
-ID = instance_create(x, y, objFadeout);
+ID = instanceCreate(x, y, objFadeout);
     ID.type = "room";
     
-if global.weaponUnlocked[global.weaponID] == false
+if !global.weaponUnlocked[global.weaponID]
 {
     ID.myRoom = rmWeaponGet;
     global.passPlayVictory = false;

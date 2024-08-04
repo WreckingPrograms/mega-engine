@@ -1,12 +1,12 @@
-/// @function playerCameraInit
-/// @description Initialize the camera
-///				 For the meanings of newSectionXOffset/newSectionYOffset, see playerSwitchSections
+// / @function playerCameraInit
+// / @description Initialize the camera
+// /				 For the meanings of newSectionXOffset/newSectionYOffset, see playerSwitchSections
 function playerCameraInit() {
 
 
 	var dist;
 
-	//Left
+	// Left
 	dist = 0;
 	while !place_meeting(floor((x+newSectionXOffset)/16)*16 - dist, y+newSectionYOffset, objSectionBorderLeft)
 	&& dist <= 16 * 2000
@@ -22,7 +22,7 @@ function playerCameraInit() {
 	sectionLeft = instance_place(floor((x+newSectionXOffset)/16)*16 - dist, y+newSectionYOffset, objSectionBorderLeft).x;
 
 
-	//Right
+	// Right
 	dist = 0;
 	while !place_meeting(ceil((x+newSectionXOffset)/16)*16 + dist, y+newSectionYOffset, objSectionBorderRight)
 	&& dist <= 16 * 2000
@@ -38,7 +38,7 @@ function playerCameraInit() {
 	sectionRight = instance_place(ceil((x+newSectionXOffset)/16)*16 + dist, y+newSectionYOffset, objSectionBorderRight).x + 16;
 
 
-	//Top
+	// Top
 	dist = 0;
 	while !place_meeting(x+newSectionXOffset, floor((y+newSectionYOffset)/16)*16 - dist, objSectionBorderTop)
 	&& dist <= 16 * 2000
@@ -55,7 +55,7 @@ function playerCameraInit() {
 	sectionTop = instance_place(x+newSectionXOffset, floor((y+newSectionYOffset)/16)*16 - dist, objSectionBorderTop).y;
 
 
-	//Bottom
+	// Bottom
 	dist = 0;
 	while !place_meeting(x+newSectionXOffset, ceil((y+newSectionYOffset)/16)*16 + dist, objSectionBorderBottom)
 	&& dist <= 16 * 2000

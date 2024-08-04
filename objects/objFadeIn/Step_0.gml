@@ -6,7 +6,7 @@ if blackAlphaTimer >= blackAlphaTimerMax
     blackAlphaTimer = 0;
 }
 
-if blackAlpha <= 0 && canAlarm == true
+if blackAlpha <= 0 && canAlarm 
 {
     alarm[1] = 4;
     canAlarm = false;

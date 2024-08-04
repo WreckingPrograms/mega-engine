@@ -1,4 +1,4 @@
-if global.frozen == false
+if !global.frozen
 {
     if sprite_index == sprRush || sprite_index == sprRushCoil
     {
@@ -14,14 +14,14 @@ if global.frozen == false
     if sprite_index == sprRush
         image_speed = 7/60;
     
-    if canCoil == true
+    if canCoil 
     {
         if collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_top + 1, objMegaman, false, false) >= 0
         {
-            if global.yspeed > 0 && objMegaman.bbox_bottom <= bbox_top+global.yspeed
-            && objMegaman.climbing == false
+            if objMegaman.yspeed > 0 && objMegaman.bbox_bottom <= bbox_top+objMegaman.yspeed
+            && !objMegaman.climbing
             {
-                global.yspeed = -7;
+                objMegaman.yspeed = -7;
                 objMegaman.canMinJump = false;
                 sprite_index = sprRushCoil;
                 canCoil = false;

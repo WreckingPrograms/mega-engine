@@ -1,5 +1,5 @@
-//Handles the boss's death
-//Also transforms into the Mega Man that automatically moves to the center of the screen
+// Handles the boss's death
+// Also transforms into the Mega Man that automatically moves to the center of the screen
 alarm[0] = 240;
 
 xspeed = 0;

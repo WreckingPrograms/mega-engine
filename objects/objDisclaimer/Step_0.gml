@@ -1,5 +1,5 @@
-//Fading in/out
-if textAlphaIncrease == true
+// Fading in/out
+if textAlphaIncrease 
 {
     if textAlpha < 1
     {
@@ -35,7 +35,7 @@ else
 
 
 
-//Proceed to the next screen ("phase")
+// Proceed to the next screen ("phase")
 proceedTimer += 1;
 if global.keyPausePressed || global.keyJumpPressed || global.keyShootPressed || proceedTimer >= proceedTimerMax
 {

@@ -1,4 +1,4 @@
-if global.frozen == false
+if !global.frozen
 {
     yspeed -= 0.25;
     x += xspeed;

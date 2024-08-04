@@ -1,16 +1,16 @@
 event_inherited();
 
-if global.frozen == false && dead == false
+if !global.frozen && !dead
 {
     if place_meeting(x, y-1, objMegaman) && !place_meeting(x-1, y, objMegaman) && !place_meeting(x+1, y, objMegaman)
     {
-        if objMegaman.ground == true && phase == 0
+        if objMegaman.ground  && phase == 0
         {
             phase = 1;
         }
     }
     
-    if phase == 1 //Moving up
+    if phase == 1 // Moving up
     {
         yspeed = 0;
             
@@ -57,7 +57,7 @@ if global.frozen == false && dead == false
             phase = 2;
         }
     }
-    else if phase == 2 //Moving down
+    else if phase == 2 // Moving down
     {
         yspeed = decendSpeed;
         y = round(y);
@@ -72,7 +72,7 @@ if global.frozen == false && dead == false
 }
 else
 {
-    if dead == true
+    if dead 
     {
         phase = 0;
         xspeed = 0;

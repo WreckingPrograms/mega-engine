@@ -1,8 +1,8 @@
-if global.frozen == false
+if !global.frozen
 {
     image_speed = 1/6;
     
-    if flash == true
+    if flash 
     {
         flashTimer += 1;
         if flashTimer >= 2

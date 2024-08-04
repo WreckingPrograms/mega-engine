@@ -1,6 +1,6 @@
 event_inherited();
 
-if global.frozen == false && dead == false
+if !global.frozen && !dead
 {
     xspeed = dir * spd;
     

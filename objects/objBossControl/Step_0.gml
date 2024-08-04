@@ -1,9 +1,9 @@
 if x >= global.viewX && x <= global.viewX+global.viewWidth-1
 && y >= global.viewY && y <= global.viewY+global.viewHeight-1
 {
-    //Locks the player and activates the boss (but won't make the boss move yet, it just performs its starting pose)
-    //Also plays the boss music
-    if canInitDeactivation == true
+    // Locks the player and activates the boss (but won't make the boss move yet, it just performs its starting pose)
+    // Also plays the boss music
+    if canInitDeactivation 
     {
         canInitDeactivation = false;
         playerLockMovement();
@@ -21,8 +21,8 @@ if x >= global.viewX && x <= global.viewX+global.viewWidth-1
     }
     
     
-    //Preparing to fill the health bar
-    if canFillHealthBar == true
+    // Preparing to fill the health bar
+    if canFillHealthBar 
     {
         healthBarTimer += 1;
         if healthBarTimer >= healthBarTimerMax
@@ -30,15 +30,15 @@ if x >= global.viewX && x <= global.viewX+global.viewWidth-1
             healthBarTimer = 0;
             canFillHealthBar = false;
             fillingHealthBar = true;
-            sound_stop(sfxEnergyRestore);
-            sound_loop(sfxEnergyRestore);
+            audio_stop_sound(sfxEnergyRestore);
+            playSFX(sfxEnergyRestore, true);
             drawHealthBar = true;
         }
     }
     
     
-    //Filling the health bar
-    if fillingHealthBar == true
+    // Filling the health bar
+    if fillingHealthBar 
     {
         healthBarTimer += 1;
         if healthBarTimer >= 3
@@ -50,7 +50,7 @@ if x >= global.viewX && x <= global.viewX+global.viewWidth-1
         if global.bossHealth >= 28
         {
             global.bossHealth = 28;
-            sound_stop(sfxEnergyRestore);
+            audio_stop_sound(sfxEnergyRestore);
             playerFreeMovement();
             myBoss.startFight = true;
             fillingHealthBar = false;

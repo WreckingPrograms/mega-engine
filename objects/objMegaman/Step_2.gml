@@ -1,3 +1,3 @@
-if movedByPlatform == false
+if !movedByPlatform
     movedPlatformID = -20;
 movedByPlatform = false;

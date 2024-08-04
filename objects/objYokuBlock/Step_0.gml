@@ -1,11 +1,11 @@
 event_inherited();
 
-if global.frozen == false && dead == false
+if !global.frozen && !dead
 {
     switch phase
     {
-        case 0: //Waiting to appear
-            //Timer
+        case 0: // Waiting to appear
+            // Timer
             timer += 1;
             if timer >= startup
             {
@@ -16,7 +16,7 @@ if global.frozen == false && dead == false
                 
                 while place_meeting(x, y, objMegaman)
                 {
-                    with objMegaman y -= 1; //If the Yoku Block spawns "inside" Mega Man, push Mega Man upwards'. This way, it's much more fair
+                    with objMegaman y -= 1; // If the Yoku Block spawns "inside" Mega Man, push Mega Man upwards'. This way, it's much more fair
                     with objMegaman ground = true;
                 }
                 
@@ -24,13 +24,13 @@ if global.frozen == false && dead == false
                 {
                     playSFX(sfxYokuBlock);
                     visible = true;
-                    mySolid = instance_create(x, y, objSolid);
+                    mySolid = instanceCreate(x, y, objSolid);
                 }
             }
         break;
         
-        case 1: //Active
-            //Animation
+        case 1: // Active
+            // Animation
             if image_index < image_number-1
                 image_speed = 0.25;
             else
@@ -39,7 +39,7 @@ if global.frozen == false && dead == false
                 image_index = image_number-1;
             }
             
-            //Timer
+            // Timer
             timer += 1;
             if timer >= active
             {
@@ -53,8 +53,8 @@ if global.frozen == false && dead == false
             }
         break;
         
-        case 2: //Waiting to reappear after disappearing
-            //Timer
+        case 2: // Waiting to reappear after disappearing
+            // Timer
             timer += 1;
             if timer >= wait
             {
@@ -65,7 +65,7 @@ if global.frozen == false && dead == false
                 
                 while place_meeting(x, y, objMegaman)
                 {
-                    with objMegaman y -= 1; //If the Yoku Block spawns "inside" Mega Man, push Mega Man upwards'. This way, it's much more fair
+                    with objMegaman y -= 1; // If the Yoku Block spawns "inside" Mega Man, push Mega Man upwards'. This way, it's much more fair
                     with objMegaman ground = true;
                 }
                 
@@ -73,7 +73,7 @@ if global.frozen == false && dead == false
                 {
                     playSFX(sfxYokuBlock);
                     visible = true;
-                    mySolid = instance_create(x, y, objSolid);
+                    mySolid = instanceCreate(x, y, objSolid);
                 }
             }
         break;

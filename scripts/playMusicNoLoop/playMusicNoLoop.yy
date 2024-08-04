@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "playMusicNoLoop",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Sound",
-    "path": "folders/Scripts/Sound.yy",
+  "$GMScript":"v1",
+  "%Name":"playMusicNoLoop",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"playMusicNoLoop",
+  "parent":{
+    "name":"Sound",
+    "path":"folders/Scripts/Sound.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

@@ -1,23 +1,23 @@
-if reflectProjectiles == false && damageWindStorm != 0
-&& !(reflectProjectilesLeft == true && sprite_get_xcenter_object(other.id) < sprite_get_xcenter())
-&& !(reflectProjectilesRight == true && sprite_get_xcenter_object(other.id) > sprite_get_xcenter())
+if !reflectProjectiles && weaponDamage[Weapons.WIND_STORM] != 0
+&& !(reflectProjectilesLeft  && spriteGetXCenterObject(other.id) < spriteGetXCenter())
+&& !(reflectProjectilesRight  && spriteGetXCenterObject(other.id) > spriteGetXCenter())
 {
-    if dead == false
+    if !dead
     {
-        if canHit == true
+        if canHit 
         {
-            healthpoints -= damageWindStorm;
+            healthpoints -= weaponDamage[Weapons.WIND_STORM];
             visible = false;
         }
         alarm[11] = 2;
         
-        sound_stop(sfxBuster);
+        audio_stop_sound(sfxBuster);
         playSFX(sfxEnemyHit);
         
         if healthpoints <= 0 && object_get_parent(object_index) != prtBoss
         {
             var windID;
-            windID = instance_create(sprite_get_xcenter(), sprite_get_ycenter(), objEnemyWindStorm);
+            windID = instanceCreate(spriteGetXCenter(), spriteGetYCenter(), objEnemyWindStorm);
                 windID.enemySpr = sprite_index;
                 windID.enemyImg = image_index;
                 windID.enemyXScale = image_xscale;
@@ -35,7 +35,7 @@ if reflectProjectiles == false && damageWindStorm != 0
 }
 else
 {
-    if dead == false
-        event_user(0); //Reflect the projectiles
+    if !dead
+        event_user(0); // Reflect the projectiles
 }
 

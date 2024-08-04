@@ -1,8 +1,8 @@
-if selected == false
+if !selected
 {
-    //Moving the selection
+    // Moving the selection
     var soundPlayed;
-    soundPlayed = false; //Prevents the menu move sound from playing twice when two buttons are pressed at the same time
+    soundPlayed = false; // Prevents the menu move sound from playing twice when two buttons are pressed at the same time
     if global.keyRightPressed
     {
         switch option
@@ -18,7 +18,7 @@ if selected == false
             case 8: option = 3; break;
         }
         
-        if soundPlayed == false
+        if !soundPlayed
         {
             playSFX(sfxMenuMove);
             soundPlayed = true;
@@ -39,7 +39,7 @@ if selected == false
             case 8: option = 7; break;
         }
         
-        if soundPlayed == false
+        if !soundPlayed
         {
             playSFX(sfxMenuMove);
             soundPlayed = true;
@@ -61,7 +61,7 @@ if selected == false
             case 8: option = 5; break;
         }
         
-        if soundPlayed == false
+        if !soundPlayed
         {
             playSFX(sfxMenuMove);
             soundPlayed = true;
@@ -82,7 +82,7 @@ if selected == false
             case 8: option = 1; break;
         }
         
-        if soundPlayed == false
+        if !soundPlayed
         {
             playSFX(sfxMenuMove);
             soundPlayed = true;
@@ -91,27 +91,27 @@ if selected == false
     
     
     
-    //Selecting a stage
+    // Selecting a stage
     if global.keyPausePressed && option != 8
     {
         playSFX(sfxMenuSelect);
         
-        //Add more bosses once they are added
+        // Add more bosses once they are added
         switch option
         {
-            case 7: //Pharaoh Man; currently the only selectable boss
+            case 7: // Pharaoh Man; currently the only selectable boss
                 selected = true;
                 
-                global.destinationLevel = rmBeta; //The level to go to after the boss introduction
+                global.destinationLevel = rmBeta; // The level to go to after the boss introduction
                 global.introductionBoss = "pharaoh";
-                global.introBGCol = make_color_rgb(255, 145, 95); //The background color of the boss introduction screen
-                global.introLineCol = make_color_rgb(255, 204, 174); //The color of the moving lines in the boss introduction screen
+                global.introBGCol = make_color_rgb(255, 145, 95); // The background color of the boss introduction screen
+                global.introLineCol = make_color_rgb(255, 204, 174); // The color of the moving lines in the boss introduction screen
                 
                 var ID;
-                ID = instance_create(0, 0, objFadeout);
+                ID = instanceCreate(0, 0, objFadeout);
                     ID.type = "room";
                     
-                if global.bossDefeated[option] == false
+                if !global.bossDefeated[option]
                     ID.myRoom = rmIntroduction;
                 else
                     ID.myRoom = global.destinationLevel;
@@ -121,7 +121,7 @@ if selected == false
 }
 
 
-//Animation
+// Animation
 imgIndex += imgSpd;
 if imgIndex >= 2
     imgIndex -= 2;

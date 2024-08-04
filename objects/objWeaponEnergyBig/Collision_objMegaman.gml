@@ -9,8 +9,8 @@ if global.ammo[global.currentWeapon] < 28
         increaseAmmoAmount = other.hlth;
     }
     
-    sound_stop(sfxEnergyRestore);
-    sound_loop(sfxEnergyRestore);
+    audio_stop_sound(sfxEnergyRestore);
+    playSFX(sfxEnergyRestore, true);
 }
 
 if pickupID != -15

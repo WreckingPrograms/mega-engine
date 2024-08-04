@@ -1,6 +1,6 @@
-//Register the X and Y coordinates of all panels
+// Register the X and Y coordinates of all panels
 var i;
-for(i = 0; i <= 8; i += 1)
+for (i = 0; i <= 8; i += 1)
 {
     switch i
     {
@@ -17,18 +17,18 @@ for(i = 0; i <= 8; i += 1)
 }
 
 
-//Draw the selected panel
+// Draw the selected panel
 draw_sprite(sprStageSelectPanel, floor(imgIndex), xx[option], yy[option]);
 
 
-//Draw the boss icons
-for(i = 0; i <= 7; i += 1)
+// Draw the boss icons
+for (i = 0; i <= 7; i += 1)
 {
-    if global.bossDefeated[i] == false
+    if !global.bossDefeated[i]
         draw_sprite(sprStageSelectIcons, i, xx[i]+8, yy[i]+8);
 }
 
 
-//Draw MM's head in the middle
+// Draw MM's head in the middle
 draw_sprite(sprMMStageSelect, option, xx[8]+8, yy[8]+8);
 

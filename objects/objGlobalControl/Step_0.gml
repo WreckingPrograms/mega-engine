@@ -4,16 +4,6 @@ if instance_exists(objMegaman)
     y = objMegaman.y;
 }
 
-///Debug keys
-if keyboard_check_pressed(vk_f2)
-{
-    sound_stop_all();
-    game_restart();
-}
-    
+// Debug keys    
 if keyboard_check_pressed(vk_f4)
-    window_set_fullscreen( !window_get_fullscreen() );
-    
-if keyboard_check_pressed(vk_escape)
-    game_end();
-
+    window_set_fullscreen(!window_get_fullscreen());

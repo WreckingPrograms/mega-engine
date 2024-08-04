@@ -1,15 +1,15 @@
-//Moving the screen and player (or rather, both the player and the clone of the player. See create event for more information on that)
+// Moving the screen and player (or rather, both the player and the clone of the player. See create event for more information on that)
 
-if canStep == true && playerSpeedHorDoor != 0 //When the door is closing, we should not move
+if canStep  && playerSpeedHorDoor != 0 // When the door is closing, we should not move
 {
-    if !(door == true && canProgressDoor == false)
+    if !(door && !canProgressDoor)
     {
-        //Right
+        // Right
         if dir == "right"
         {
             global.viewX += screenSpeedHor;
             
-            if door == false
+            if !door
             {
                 x += playerSpeedHor;
                 objMegaman.x += playerSpeedHor;
@@ -24,7 +24,7 @@ if canStep == true && playerSpeedHorDoor != 0 //When the door is closing, we sho
             {
                 global.viewX = objMegaman.sectionLeft;
                 
-                if door == false
+                if !door
                 {
                     global.frozen = false;
                     objMegaman.visible = true;
@@ -55,12 +55,12 @@ if canStep == true && playerSpeedHorDoor != 0 //When the door is closing, we sho
             }
         }
         
-        //Left
+        // Left
         else if dir == "left"
         {
             global.viewX -= screenSpeedHor;
             
-            if door == false
+            if !door
             {
                 x -= playerSpeedHor;
                 objMegaman.x -= playerSpeedHor;
@@ -75,7 +75,7 @@ if canStep == true && playerSpeedHorDoor != 0 //When the door is closing, we sho
             {
                 global.viewX = objMegaman.sectionRight-global.viewWidth;
                 
-                if door == false
+                if !door
                 {
                     global.frozen = false;
                     objMegaman.visible = true;
@@ -106,7 +106,7 @@ if canStep == true && playerSpeedHorDoor != 0 //When the door is closing, we sho
             }
         }
         
-        //Down
+        // Down
         else if dir == "down"
         {
             global.viewY += screenSpeedVert;
@@ -120,11 +120,11 @@ if canStep == true && playerSpeedHorDoor != 0 //When the door is closing, we sho
                 objMegaman.visible = true;
                 instance_destroy();
                 with objMegaman playerDeactivateObjects();
-                instance_activate_object(prtEnemy); //To not make it invisible for 1 frame after re-entering the section
+                instance_activate_object(prtEnemy); // To not make it invisible for 1 frame after re-entering the section
             }
         }
         
-        //Up
+        // Up
         else if dir == "up"
         {
             global.viewY -= screenSpeedVert;
@@ -143,7 +143,7 @@ if canStep == true && playerSpeedHorDoor != 0 //When the door is closing, we sho
         
         
         
-        //Climbing animation
+        // Climbing animation
         if sprite_index == sprMegamanClimb
         {
             climbTimer += 1;
@@ -158,6 +158,6 @@ if canStep == true && playerSpeedHorDoor != 0 //When the door is closing, we sho
 }
 
 
-//Quick weapon switching
+// Quick weapon switching
 with objMegaman playerSwitchWeapons();
 

@@ -1,5 +1,5 @@
-/// @function playerShoot
-/// @description Handles Mega Man's shooting
+// / @function playerShoot
+// / @description Handles Mega Man's shooting
 function playerShoot() {
 
 
@@ -20,11 +20,11 @@ function playerShoot() {
 	}
 
 
-	//Shooting
-	if global.keyShootPressed && canShoot == true && (canMove == true || climbing == true || isThrow == true || onRushJet == true)
+	// Shooting
+	if global.keyShootPressed && canShoot  && (canMove  || climbing  || isThrow  || onRushJet )
 	&& instance_number(objBusterShotCharged) < 1 && global.ammo[global.currentWeapon] > 0
 	{   
-	    if climbing == true
+	    if climbing 
 	    {
 	        image_xscale = climbShootXscale;
         
@@ -35,11 +35,11 @@ function playerShoot() {
 	    }
 	
 	
-		//Fixes a bug where throwing a weapon, then switching weapons and shooting a weapon locks your controls
-	    if isThrow == true
+		// Fixes a bug where throwing a weapon, then switching weapons and shooting a weapon locks your controls
+	    if isThrow 
 	    {
 	        isThrow = false;
-	        if ground == true
+	        if ground 
 	        {
 	            canMove = true;
 	            canSpriteChange = true;
@@ -49,10 +49,10 @@ function playerShoot() {
     
 	    switch global.weapon
 	    {
-	        case megabuster:
+	        case Weapons.MEGA_BUSTER:
 	            if instance_number(objBusterShot) + instance_number(objBusterShotHalfCharged) < 3
 	            {
-	                attackID = instance_create(box+image_xscale*4, yy, objBusterShot);
+	                attackID = instanceCreate(box+image_xscale*4, yy, objBusterShot);
 	                    attackID.xspeed = image_xscale * 5;
 	                playSFX(sfxBuster);
 	                isShoot = true;
@@ -60,10 +60,10 @@ function playerShoot() {
 	            }
 	        break;
         
-	        case silvertomahawk:
+	        case Weapons.SILVER_TOMAHAWK:
 	            if instance_number(objSilverTomahawk) < 2
 	            {
-	                attackID = instance_create(box+image_xscale*12, yy, objSilverTomahawk);
+	                attackID = instanceCreate(box+image_xscale*12, yy, objSilverTomahawk);
 	                    attackID.xspeed = image_xscale * 3.5;
 	                playSFX(sfxBuster);
 	                isShoot = true;
@@ -75,10 +75,10 @@ function playerShoot() {
 	            }
 	        break;
         
-	        case windstorm:
+	        case Weapons.WIND_STORM:
 	            if instance_number(objWindStorm) < 3
 	            {
-	                attackID = instance_create(box+image_xscale*9, yy, objWindStorm);
+	                attackID = instanceCreate(box+image_xscale*9, yy, objWindStorm);
 	                    attackID.xspeed = image_xscale * 3;
 	                    attackID.image_xscale = image_xscale;
 	                playSFX(sfxBuster);
@@ -91,10 +91,10 @@ function playerShoot() {
 	            }
 	        break;
         
-	        case pharaohshot:
+	        case Weapons.PHARAOH_SHOT:
 	            if instance_number(objPharaohShot) < 3
 	            {
-	                attackID = instance_create(box+image_xscale*4, yy, objPharaohShot);
+	                attackID = instanceCreate(box+image_xscale*4, yy, objPharaohShot);
 	                    attackID.xspeed = image_xscale * 4.5;
                     
 	                if global.keyUp && !global.keyDown
@@ -114,10 +114,10 @@ function playerShoot() {
 	            }
 	        break;
         
-	        case metalblade:
+	        case Weapons.METAL_BLADE:
 	            if instance_number(objMetalBlade) < 3
 	            {
-	                attackID = instance_create(x+image_xscale*3, yy, objMetalBlade);
+	                attackID = instanceCreate(x+image_xscale*3, yy, objMetalBlade);
                     
 	                if global.keyRight && !global.keyLeft && global.keyUp
 	                    attackID.dir = 45;
@@ -149,120 +149,120 @@ function playerShoot() {
 	            }
 	        break;
         
-	        case starcrash:
+	        case Weapons.STAR_CRASH:
 	            if instance_number(objStarCrash) < 1
 	            {
-	                attackID = instance_create(x, sprite_get_ycenter(), objStarCrash);
+	                attackID = instanceCreate(x, spriteGetYCenter(), objStarCrash);
 	            }
 	        break;
         
-	        case rushcoil:
+	        case Weapons.RUSH_COIL:
 	            if instance_number(objRushCoil) < 1
 	            {
 	                var tpY, airIncrease;
 	                tpY = 0;
-	                if ground == true
+	                if ground 
 	                    airIncrease = 0;
 	                else
-	                    airIncrease = 20; //When in the air, the upwards range is reduced because Rush could otherwise spawn above ceilings
+	                    airIncrease = 20; // When in the air, the upwards range is reduced because Rush could otherwise spawn above ceilings
                 
                 
-	                while !(!position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY-1 + airIncrease, objSolid) && !position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY-1 + airIncrease, prtMovingPlatformSolid)
-	                && !position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY-1 + airIncrease, objTopSolid) && !position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY-1 + airIncrease, prtMovingPlatformJumpthrough)
-	                && (position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY + airIncrease, objSolid) || position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY + airIncrease, prtMovingPlatformSolid)
-	                || position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY + airIncrease, objTopSolid) || position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY + airIncrease, prtMovingPlatformJumpthrough)))
-	                && !(position_meeting(x+image_xscale*26, sprite_get_ycenter()+tpY, objSolid) && tpY > sprite_get_height(mask_index)/2)
-	                && !(position_meeting(x+image_xscale*26, sprite_get_ycenter()+tpY, prtMovingPlatformSolid) && tpY > sprite_get_height(mask_index)/2)
-	                && !(position_meeting(x+image_xscale*26, sprite_get_ycenter()+tpY, objTopSolid) && tpY > sprite_get_height(mask_index)/2)
-	                && !(position_meeting(x+image_xscale*26, sprite_get_ycenter()+tpY, prtMovingPlatformJumpthrough) && tpY > sprite_get_height(mask_index)/2)
-	                && !position_meeting(x+image_xscale*26, sprite_get_ycenter()+tpY, objBossDoor)
+	                while !(!position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, objSolid) && !position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, prtMovingPlatformSolid)
+	                && !position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, objTopSolid) && !position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, prtMovingPlatformJumpthrough)
+	                && (position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, objSolid) || position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, prtMovingPlatformSolid)
+	                || position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, objTopSolid) || position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, prtMovingPlatformJumpthrough)))
+	                && !(position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, objSolid) && tpY > sprite_get_height(mask_index)/2)
+	                && !(position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, prtMovingPlatformSolid) && tpY > sprite_get_height(mask_index)/2)
+	                && !(position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, objTopSolid) && tpY > sprite_get_height(mask_index)/2)
+	                && !(position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, prtMovingPlatformJumpthrough) && tpY > sprite_get_height(mask_index)/2)
+	                && !position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, objBossDoor)
 	                && tpY <= 12+52
 	                {
 	                    tpY += 1;
 	                }
                 
-	                if position_meeting(x+image_xscale*26, sprite_get_ycenter()+tpY, objSolid)
-	                || position_meeting(x+image_xscale*26, sprite_get_ycenter()+tpY, prtMovingPlatformSolid)
-	                || position_meeting(x+image_xscale*26, sprite_get_ycenter()+tpY, objTopSolid)
-	                || position_meeting(x+image_xscale*26, sprite_get_ycenter()+tpY, prtMovingPlatformJumpthrough)
+	                if position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, objSolid)
+	                || position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, prtMovingPlatformSolid)
+	                || position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, objTopSolid)
+	                || position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, prtMovingPlatformJumpthrough)
 	                {
-	                    if position_meeting(x+image_xscale*26, sprite_get_ycenter()+tpY, objSolid)
+	                    if position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, objSolid)
 	                    {
 	                        var solidID;
-	                        solidID = instance_position(x+image_xscale*26, sprite_get_ycenter()+tpY, objSolid);
-	                        attackID = instance_create(x+image_xscale*26, solidID.y-16, objRushCoil);
+	                        solidID = instance_position(x+image_xscale*26, spriteGetYCenter()+tpY, objSolid);
+	                        attackID = instanceCreate(x+image_xscale*26, solidID.y-16, objRushCoil);
 	                            attackID.shouldLand = true;
 	                            attackID.image_xscale = image_xscale;
 	                    }
-	                    else if position_meeting(x+image_xscale*26, sprite_get_ycenter()+tpY, prtMovingPlatformSolid)
+	                    else if position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, prtMovingPlatformSolid)
 	                    {
 	                        var solidID;
-	                        solidID = instance_position(x+image_xscale*26, sprite_get_ycenter()+tpY, prtMovingPlatformSolid);
-	                        attackID = instance_create(x+image_xscale*26, solidID.bbox_top-16, objRushCoil);
+	                        solidID = instance_position(x+image_xscale*26, spriteGetYCenter()+tpY, prtMovingPlatformSolid);
+	                        attackID = instanceCreate(x+image_xscale*26, solidID.bbox_top-16, objRushCoil);
 	                            attackID.shouldLand = true;
 	                            attackID.image_xscale = image_xscale;
 	                    }
-	                    else if position_meeting(x+image_xscale*26, sprite_get_ycenter()+tpY, objTopSolid)
+	                    else if position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, objTopSolid)
 	                    {
 	                        var solidID;
-	                        solidID = instance_position(x+image_xscale*26, sprite_get_ycenter()+tpY, objTopSolid);
-	                        attackID = instance_create(x+image_xscale*26, solidID.y-16, objRushCoil);
+	                        solidID = instance_position(x+image_xscale*26, spriteGetYCenter()+tpY, objTopSolid);
+	                        attackID = instanceCreate(x+image_xscale*26, solidID.y-16, objRushCoil);
 	                            attackID.shouldLand = true;
 	                            attackID.image_xscale = image_xscale;
 	                    }
 	                    else
 	                    {
 	                        var solidID;
-	                        solidID = instance_position(x+image_xscale*26, sprite_get_ycenter()+tpY, prtMovingPlatformJumpthrough);
-	                        attackID = instance_create(x+image_xscale*26, solidID.bbox_top-16, objRushCoil);
+	                        solidID = instance_position(x+image_xscale*26, spriteGetYCenter()+tpY, prtMovingPlatformJumpthrough);
+	                        attackID = instanceCreate(x+image_xscale*26, solidID.bbox_top-16, objRushCoil);
 	                            attackID.shouldLand = true;
 	                            attackID.image_xscale = image_xscale;
 	                    }
 	                }
-	                else if !position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY-1 + airIncrease, objSolid)
-	                && !position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY-1 + airIncrease, prtMovingPlatformSolid)
-	                && !position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY-1 + airIncrease, objTopSolid)
-	                && !position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY-1 + airIncrease, prtMovingPlatformJumpthrough)
-	                && !position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY-1 + airIncrease, objBossDoor)
-	                && (position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY + airIncrease, objSolid) || position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY + airIncrease, prtMovingPlatformSolid)
-	                || position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY + airIncrease, objTopSolid) || position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY + airIncrease, prtMovingPlatformJumpthrough))
+	                else if !position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, objSolid)
+	                && !position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, prtMovingPlatformSolid)
+	                && !position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, objTopSolid)
+	                && !position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, prtMovingPlatformJumpthrough)
+	                && !position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, objBossDoor)
+	                && (position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, objSolid) || position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, prtMovingPlatformSolid)
+	                || position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, objTopSolid) || position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, prtMovingPlatformJumpthrough))
 	                {
-	                    if position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY + airIncrease, objSolid)
+	                    if position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, objSolid)
 	                    {
 	                        var solidID;
-	                        solidID = instance_position(x+image_xscale*26, sprite_get_ycenter()-tpY + airIncrease, objSolid);
-	                        attackID = instance_create(x+image_xscale*26, solidID.y-16, objRushCoil);
+	                        solidID = instance_position(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, objSolid);
+	                        attackID = instanceCreate(x+image_xscale*26, solidID.y-16, objRushCoil);
 	                            attackID.shouldLand = true;
 	                            attackID.image_xscale = image_xscale;
 	                    }
-	                    else if position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY + airIncrease, prtMovingPlatformSolid)
+	                    else if position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, prtMovingPlatformSolid)
 	                    {
 	                        var solidID;
-	                        solidID = instance_position(x+image_xscale*26, sprite_get_ycenter()-tpY + airIncrease, prtMovingPlatformSolid);
-	                        attackID = instance_create(x+image_xscale*26, solidID.bbox_top-16, objRushCoil);
+	                        solidID = instance_position(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, prtMovingPlatformSolid);
+	                        attackID = instanceCreate(x+image_xscale*26, solidID.bbox_top-16, objRushCoil);
 	                            attackID.shouldLand = true;
 	                            attackID.image_xscale = image_xscale;
 	                    }
-	                    else if position_meeting(x+image_xscale*26, sprite_get_ycenter()-tpY + airIncrease, objTopSolid)
+	                    else if position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, objTopSolid)
 	                    {
 	                        var solidID;
-	                        solidID = instance_position(x+image_xscale*26, sprite_get_ycenter()-tpY + airIncrease, objTopSolid);
-	                        attackID = instance_create(x+image_xscale*26, solidID.y-16, objRushCoil);
+	                        solidID = instance_position(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, objTopSolid);
+	                        attackID = instanceCreate(x+image_xscale*26, solidID.y-16, objRushCoil);
 	                            attackID.shouldLand = true;
 	                            attackID.image_xscale = image_xscale;
 	                    }
 	                    else
 	                    {
 	                        var solidID;
-	                        solidID = instance_position(x+image_xscale*26, sprite_get_ycenter()-tpY + airIncrease, prtMovingPlatformJumpthrough);
-	                        attackID = instance_create(x+image_xscale*26, solidID.bbox_top-16, objRushCoil);
+	                        solidID = instance_position(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, prtMovingPlatformJumpthrough);
+	                        attackID = instanceCreate(x+image_xscale*26, solidID.bbox_top-16, objRushCoil);
 	                            attackID.shouldLand = true;
 	                            attackID.image_xscale = image_xscale;
 	                    }
 	                }
 	                else
 	                {
-	                    attackID = instance_create(x+image_xscale*26, sprite_get_ycenter(), objRushCoil);
+	                    attackID = instanceCreate(x+image_xscale*26, spriteGetYCenter(), objRushCoil);
 	                        attackID.shouldLand = false;
 	                        attackID.image_xscale = image_xscale;
 	                }
@@ -271,7 +271,7 @@ function playerShoot() {
 	            {
 	                if instance_number(objBusterShot) + instance_number(objBusterShotHalfCharged) < 3
 	                {
-	                    attackID = instance_create(box+image_xscale*4, yy, objBusterShot);
+	                    attackID = instanceCreate(box+image_xscale*4, yy, objBusterShot);
 	                        attackID.xspeed = image_xscale * 5;
 	                    playSFX(sfxBuster);
 	                    isShoot = true;
@@ -280,17 +280,17 @@ function playerShoot() {
 	            }
 	        break;
         
-	        case rushjet:
+	        case Weapons.RUSH_JET:
 	            if instance_number(objRushJet) < 1
 	            {
-	                attackID = instance_create(x+image_xscale*26, sprite_get_ycenter()-8, objRushJet);
+	                attackID = instanceCreate(x+image_xscale*26, spriteGetYCenter()-8, objRushJet);
 	                        attackID.image_xscale = image_xscale;
 	            }
 	            else
 	            {
 	                if instance_number(objBusterShot) + instance_number(objBusterShotHalfCharged) < 3
 	                {
-	                    attackID = instance_create(box+image_xscale*4, yy, objBusterShot);
+	                    attackID = instanceCreate(box+image_xscale*4, yy, objBusterShot);
 	                        attackID.xspeed = image_xscale * 5;
 	                    playSFX(sfxBuster);
 	                    isShoot = true;
@@ -302,8 +302,8 @@ function playerShoot() {
 	}
 
 
-	//While shooting
-	if isShoot == true
+	// While shooting
+	if isShoot 
 	{
 	    isThrow = false;
 	    shootTimer += 1;
@@ -312,11 +312,11 @@ function playerShoot() {
 	        isShoot = false;
 	    }
 	}
-	else if isThrow == true //Throwing weapons, like Pharaoh Shot and Metal Blade
+	else if isThrow  // Throwing weapons, like Pharaoh Shot and Metal Blade
 	{
 	    isShoot = false;
     
-	    //To allow shooting in the opposite direction
+	    // To allow shooting in the opposite direction
 	    if global.keyShootPressed
 	    {
 	        if global.keyRight && !global.keyLeft
@@ -325,17 +325,17 @@ function playerShoot() {
 	            image_xscale = -1;
 	    }
     
-	    if ground == true && shootTimer == 0 && climbing == false //Only do this on the ground on the first frame
+	    if ground && shootTimer == 0 && !climbing // Only do this on the ground on the first frame
 	    {
 	        canMove = false;
-	        global.xspeed = 0;
+	        xspeed = 0;
 	        canSpriteChange = false;
-	        playerHandleSprites(); //We need to call this script because between throwing and checking throwing, it isn't executed and the wrong sprite would display
+	        playerHandleSprites(); // We need to call this script because between throwing and checking throwing, it isn't executed and the wrong sprite would display
 	        sprite_index = spriteStand;
-	        shootTimer = 5; //20 frames is too much to be frozen for. However, when not frozen, 20 frames looks better
+	        shootTimer = 5; // 20 frames is too much to be frozen for. However, when not frozen, 20 frames looks better
 	    }
     
-	    if ground == false && climbing == false
+	    if !ground && !climbing
 	    {
 	        canMove = true;
 	        canSpriteChange = true;
@@ -345,7 +345,7 @@ function playerShoot() {
 	    if shootTimer >= 20
 	    {
 	        isThrow = false;
-	        if ground == true
+	        if ground 
 	        {
 	            canMove = true;
 	            canSpriteChange = true;
@@ -354,16 +354,16 @@ function playerShoot() {
 	}
 
 
-	//Charging
-	if global.enableCharge == true
+	// Charging
+	if global.enableCharge 
 	{
-	    if global.weapon == megabuster && (global.keyShoot || (isSlide == true && chargeTimer != 0))
+	    if global.weapon == Weapons.MEGA_BUSTER && (global.keyShoot || (isSlide && chargeTimer != 0))
 	    {
-	        if (canMove == true || isSlide == true || climbing == true) && isShoot == false
+	        if (canMove || isSlide || climbing ) && !isShoot
 	        {
 	            isCharge = true;
             
-	            if isSlide == false
+	            if !isSlide
 	                initChargeTimer += 1;
                 
 	            if initChargeTimer >= initChargeTime
@@ -378,11 +378,11 @@ function playerShoot() {
 	                    var chargeTimeDiv, chargeCol;
 	                    chargeTimeDiv = round(chargeTime / 3);
 	                    if chargeTimer < chargeTimeDiv
-	                        chargeCol = make_color_rgb(168, 0, 32);     //Dark red
+	                        chargeCol = make_color_rgb(168, 0, 32);     // Dark red
 	                    else if chargeTimer < chargeTimeDiv * 2
-	                        chargeCol = make_color_rgb(228, 0, 88);     //Red (dark pink)
+	                        chargeCol = make_color_rgb(228, 0, 88);     // Red (dark pink)
 	                    else
-	                        chargeCol = make_color_rgb(248, 88, 152);   //Light red (pink)
+	                        chargeCol = make_color_rgb(248, 88, 152);   // Light red (pink)
                         
 	                    if chargeTimer mod 4 == 0 || chargeTimer mod 4 == 1
 	                        global.outlineCol = chargeCol;
@@ -393,25 +393,25 @@ function playerShoot() {
 	                {
 	                    if chargeTimer == chargeTime
 	                    {
-	                        sound_stop(sfxCharging);
+	                        audio_stop_sound(sfxCharging);
 	                        playSFX(sfxCharged);
 	                    }
                     
 	                    switch (chargeTimer/2 mod 3)
 	                    {
-	                        case 0: //Light blue helmet, black shirt, blue outline
+	                        case 0: // Light blue helmet, black shirt, blue outline
 	                            global.primaryCol = make_color_rgb(0, 232, 216);
 	                            global.secondaryCol = c_black;
 	                            global.outlineCol = make_color_rgb(0, 120, 248);
 	                        break;
                         
-	                        case 1: //Black helmet, blue shirt, light blue outline
+	                        case 1: // Black helmet, blue shirt, light blue outline
 	                            global.primaryCol = c_black;
 	                            global.secondaryCol = make_color_rgb(0, 120, 248);
 	                            global.outlineCol = make_color_rgb(0, 232, 216);
 	                        break;
                         
-	                        case 2: //Blue helmet, light blue shirt, blue outline
+	                        case 2: // Blue helmet, light blue shirt, blue outline
 	                            global.primaryCol = make_color_rgb(0, 120, 248);
 	                            global.secondaryCol = make_color_rgb(0, 232, 216);
 	                            global.outlineCol = c_black;
@@ -421,14 +421,14 @@ function playerShoot() {
 	            }
 	        }
 	    }
-	    else if global.weapon == megabuster && !global.keyShoot      //Release the charge shot
+	    else if global.weapon == Weapons.MEGA_BUSTER && !global.keyShoot      // Release the charge shot
 	    {
-	        if (canMove == true || climbing == true) && chargeTimer != 0
+	        if (canMove || climbing ) && chargeTimer != 0
 	        {
 	            isShoot = true;
 	            shootTimer = 0;
             
-	            if climbing == true
+	            if climbing 
 	            {
 	                image_xscale = climbShootXscale;
                 
@@ -440,14 +440,14 @@ function playerShoot() {
         
 	            if chargeTimer < chargeTime
 	            {
-	                attackID = instance_create(box+image_xscale*6, yy, objBusterShotHalfCharged);
+	                attackID = instanceCreate(box+image_xscale*6, yy, objBusterShotHalfCharged);
 	                    attackID.xspeed = image_xscale * 5;
 	                    attackID.image_xscale = image_xscale;
 	                playSFX(sfxBusterHalfCharged);
 	            }
 	            else
 	            {
-	                attackID = instance_create(box+image_xscale*14, yy, objBusterShotCharged);
+	                attackID = instanceCreate(box+image_xscale*14, yy, objBusterShotCharged);
 	                    attackID.xspeed = image_xscale * 5.5;
 	                    attackID.image_xscale = image_xscale;
 	                playSFX(sfxBusterCharged);
@@ -455,38 +455,38 @@ function playerShoot() {
             
 	            chargeTimer = 0;
 	            initChargeTimer = 0;
-	            sound_stop(sfxCharged);
-	            sound_stop(sfxCharging);
-	            event_user(0); //Reset the colors
+	            audio_stop_sound(sfxCharged);
+	            audio_stop_sound(sfxCharging);
+	            event_user(0); // Reset the colors
 	        } 
 	    }
 	}
 
 
-	//Charging the Pharaoh Shot
-	if global.weapon == pharaohshot && global.ammo[global.currentWeapon] > 0
+	// Charging the Pharaoh Shot
+	if global.weapon == Weapons.PHARAOH_SHOT && global.ammo[global.currentWeapon] > 0
 	{
 	    if global.keyShoot && !instance_exists(objPharaohShotCharging)
 	    {
 	        pharaohShotInitTimer += 1;
 	        if pharaohShotInitTimer >= 30
 	        {
-	            instance_create(x + image_xscale, y-20, objPharaohShotCharging);
+	            instanceCreate(x + image_xscale, y-20, objPharaohShotCharging);
 	            pharaohShotInitTimer = 0;
 	        }
 	    }
 	    else if !global.keyShoot && instance_exists(objPharaohShotCharging)
 	    {
-	        if (canMove == true || climbing == true)
+	        if (canMove  || climbing )
 	        {
-	            if climbing == true
+	            if climbing 
 	            {
 	                image_xscale = climbShootXscale;
 	            }
             
-	            if objPharaohShotCharging.sprite_index == sprPharaohShotCharging //Small shot
+	            if objPharaohShotCharging.sprite_index == sprPharaohShotCharging // Small shot
 	            {
-	                attackID = instance_create(box+image_xscale*4, yy, objPharaohShot);
+	                attackID = instanceCreate(box+image_xscale*4, yy, objPharaohShot);
 	                    attackID.xspeed = image_xscale * 4.5;
                     
 	                if global.keyUp && !global.keyDown
@@ -504,9 +504,9 @@ function playerShoot() {
 	                if global.ammo[global.currentWeapon] <= 0
 	                    global.ammo[global.currentWeapon] = 0;
 	            }
-	            else    //Big shot
+	            else    // Big shot
 	            {
-	                attackID = instance_create(box+image_xscale*10, yy, objPharaohShotCharged);
+	                attackID = instanceCreate(box+image_xscale*10, yy, objPharaohShotCharged);
 	                    attackID.xspeed = image_xscale * 4.5;
                     
 	                if global.keyUp && !global.keyDown

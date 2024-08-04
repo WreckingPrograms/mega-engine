@@ -1,6 +1,6 @@
-if canStep == true
+if canStep 
 {
-    if global.frozen == false
+    if !global.frozen
     {
         image_speed = imgSpeed;
         speed = 6;

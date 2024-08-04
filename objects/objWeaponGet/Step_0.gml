@@ -1,6 +1,6 @@
 switch phase
 {
-    case 0: //Preparing for moving up
+    case 0: // Preparing for moving up
         timer += 1;
         if timer >= 15
         {
@@ -9,7 +9,7 @@ switch phase
         }
     break;
     
-    case 1: //Moving up
+    case 1: // Moving up
         megaY -= 8;
         if megaY <= round(global.viewY+(global.viewHeight/2))
         {
@@ -18,7 +18,7 @@ switch phase
         }
     break;
     
-    case 2: //Teleporting animation
+    case 2: // Teleporting animation
         timer += 1;
         if timer >= 3
         {
@@ -34,7 +34,7 @@ switch phase
         }
     break;
     
-    case 3: //Waiting
+    case 3: // Waiting
         timer += 1;
         if timer >= 40
         {
@@ -43,7 +43,7 @@ switch phase
         }
     break;
     
-    case 4: //Moving right
+    case 4: // Moving right
         megaX += 2;
         if megaX >= round(global.viewX+(global.viewWidth*0.75))
         {
@@ -52,7 +52,7 @@ switch phase
         }
     break;
     
-    case 5: //Waiting for text
+    case 5: // Waiting for text
         timer += 1;
         if timer >= 40
         {
@@ -61,7 +61,7 @@ switch phase
         }
     break;
     
-    case 6: //Show "You got"
+    case 6: // Show "You got"
         timer += 1;
         
         if timer mod 3 == 0 && text1Alpha < 1
@@ -77,7 +77,7 @@ switch phase
         }
     break;
     
-    case 7: //Show weapon name
+    case 7: // Show weapon name
         timer += 1;
         
         if timer mod 3 == 0 && text2Alpha < 1
@@ -93,7 +93,7 @@ switch phase
         }
     break;
     
-    case 8: //Flicker between normal and weapon color
+    case 8: // Flicker between normal and weapon color
         timer += 1;
         if timer >= 40
         {
@@ -102,13 +102,13 @@ switch phase
         }
     break;
     
-    case 9: //Weapon color and timer for leaving
+    case 9: // Weapon color and timer for leaving
         timer += 1;
         if timer >= 4.5 * 60
         {
             timer = 0;
             var ID;
-            ID = instance_create(x, y, objFadeout);
+            ID = instanceCreate(x, y, objFadeout);
                 ID.type = "room";
                 ID.myRoom = rmPass;
         }

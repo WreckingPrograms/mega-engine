@@ -16,12 +16,12 @@ else
     gameOver = false;
     canSelectOption = true;
     
-    if global.passPlayVictory == true
+    if global.passPlayVictory 
         playMusicVolume(mscWeaponGet, 1);
 }
     
 var i;
-for(i = 0; i <= global.totalWeapons; i += 1)
+for (i = 0; i <= global.totalWeapons; i += 1)
 {
     global.ammo[i] = 28;
 }

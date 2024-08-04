@@ -1,5 +1,5 @@
-/// @function gravityNoGround
-/// @description Applies gravity no matter what
+// / @function gravityNoGround
+// / @description Applies gravity no matter what
 function gravityNoGround() {
 
 	yspeed += 0.25;

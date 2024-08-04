@@ -1,15 +1,15 @@
-/// @function playerSwitchWeapons
-/// @description Allows for quick weapon switching
-///				 If you do not want quick weapon switching in your game, simply remove the script from objMegaman's step event
+// / @function playerSwitchWeapons
+// / @description Allows for quick weapon switching
+// /				 If you do not want quick weapon switching in your game, simply remove the script from objMegaman's step event
 function playerSwitchWeapons() {
 
-	//Switching to the left
+	// Switching to the left
 	if global.keyWeaponSwitchLeftPressed
 	{
 	    var loops;
 	    loops = 0;
     
-	    while global.weaponUnlocked[global.currentWeapon] == false || loops == 0
+	    while !global.weaponUnlocked[global.currentWeapon] || loops == 0
 	    {
 	        global.currentWeapon -= 1;
 	        if global.currentWeapon < 0
@@ -22,14 +22,14 @@ function playerSwitchWeapons() {
 	    drawWeaponIconTimer = 30;
     
 	    global.weapon = global.weaponSlot[global.currentWeapon];
-	    event_user(0); //Colors
+	    event_user(0); // Colors
     
 	    with prtPlayerProjectile instance_destroy();
 	    with objReflectedProjectile instance_destroy();
 	    with prtRush instance_destroy();
 	    with objRushJet instance_destroy();
     
-	    if onRushJet == true
+	    if onRushJet 
 	    {
 	        onRushJet = false;
 	        canMove = true;
@@ -37,17 +37,17 @@ function playerSwitchWeapons() {
     
 	    playSFX(sfxWeaponSwitch);
     
-	    sound_stop(sfxCharging);
-	    sound_stop(sfxCharged);
+	    audio_stop_sound(sfxCharging);
+	    audio_stop_sound(sfxCharged);
 	}
 
-	//Switching to the right
+	// Switching to the right
 	if global.keyWeaponSwitchRightPressed
 	{
 	    var loops;
 	    loops = 0;
     
-	    while global.weaponUnlocked[global.currentWeapon] == false || loops == 0
+	    while !global.weaponUnlocked[global.currentWeapon] || loops == 0
 	    {
 	        global.currentWeapon += 1;
 	        if global.currentWeapon > global.totalWeapons
@@ -60,14 +60,14 @@ function playerSwitchWeapons() {
 	    drawWeaponIconTimer = 30;
     
 	    global.weapon = global.weaponSlot[global.currentWeapon];
-	    event_user(0); //Colors
+	    event_user(0); // Colors
     
 	    with prtPlayerProjectile instance_destroy();
 	    with objReflectedProjectile instance_destroy();
 	    with prtRush instance_destroy();
 	    with objRushJet instance_destroy();
     
-	    if onRushJet == true
+	    if onRushJet 
 	    {
 	        onRushJet = false;
 	        canMove = true;
@@ -75,12 +75,12 @@ function playerSwitchWeapons() {
     
 	    playSFX(sfxWeaponSwitch);
     
-	    sound_stop(sfxCharging);
-	    sound_stop(sfxCharged);
+	    audio_stop_sound(sfxCharging);
+	    audio_stop_sound(sfxCharged);
 	}
 
-	//Holding the left and right weapon switch keys at the same time results in the Mega Buster being selected
-	if global.keyWeaponSwitchLeft && global.keyWeaponSwitchRight && global.weapon != megabuster
+	// Holding the left and right weapon switch keys at the same time results in the Mega Buster being selected
+	if global.keyWeaponSwitchLeft && global.keyWeaponSwitchRight && global.weapon != Weapons.MEGA_BUSTER
 	{
 	    global.currentWeapon = 0;
     
@@ -88,14 +88,14 @@ function playerSwitchWeapons() {
 	    drawWeaponIconTimer = 30;
     
 	    global.weapon = global.weaponSlot[global.currentWeapon];
-	    event_user(0); //Colors
+	    event_user(0); // Colors
     
 	    with prtPlayerProjectile instance_destroy();
 	    with objReflectedProjectile instance_destroy();
 	    with prtRush instance_destroy();
 	    with objRushJet instance_destroy();
     
-	    if onRushJet == true
+	    if onRushJet 
 	    {
 	        onRushJet = false;
 	        canMove = true;
@@ -103,11 +103,11 @@ function playerSwitchWeapons() {
     
 	    playSFX(sfxWeaponSwitch);
     
-	    sound_stop(sfxCharging);
-	    sound_stop(sfxCharged);
+	    audio_stop_sound(sfxCharging);
+	    audio_stop_sound(sfxCharged);
 	}
 
-	//Timer
+	// Timer
 	if drawWeaponIconTimer != -1
 	{
 	    drawWeaponIconTimer -= 1;

@@ -47,7 +47,7 @@ if instance_exists(objMegaman)
     
     var ddy;
     if dy == -18
-        ddy = -17;  //To avoid dividing by 0
+        ddy = -17;  // To avoid dividing by 0
     else
         ddy = dy;
     

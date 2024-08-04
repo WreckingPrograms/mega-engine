@@ -1,7 +1,7 @@
 global._lives -= 1;
 
 var ID;
-ID = instance_create(x, y, objFadeout);
+ID = instanceCreate(x, y, objFadeout);
 
 global.lastRoom = room;
 
