@@ -1,9 +1,6 @@
-// / @function playerCamera
-// / @description Handles the camera. Call it in objMegaman
-function playerCamera() {
-
-
-
+// Handles the camera. Call it in objMegaman
+function playerCamera()
+{
 	// Follow the player
 	global.viewX = x - (global.viewWidth / 2);
 	global.viewY = y - (global.viewHeight / 2);
@@ -31,6 +28,4 @@ function playerCamera() {
 	    global.viewY = room_height - global.viewHeight;
 	else if global.viewY < 0
 	    global.viewY = 0;
-
-
 }

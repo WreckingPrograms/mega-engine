@@ -1,8 +1,5 @@
-// / @function spriteGetXCenter
-// / @description Get the horizontal center of the object this is called in
-function spriteGetXCenter() {
-
-	return round(x - sprite_xoffset + (sprite_width/2));
-
-
+// Get the horizontal center of the object this is called in, based on their sprite (not collision mask)
+function spriteGetXCenter()
+{
+	return round(x - sprite_xoffset + (sprite_width / 2));
 }

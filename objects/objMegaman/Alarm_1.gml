@@ -2,26 +2,30 @@
 
 if newSectionXOffset > 0 // Switching to the right
 {
-    x = sectionRight-6;
+    x = sectionRight - 6;
     playerCameraInit();
-    with instanceCreate(x, y, objSectionSwitcher) dir = "right";
+    with instanceCreate(x, y, objSectionSwitcher)
+		dir = Directions.RIGHT;
 }
 else if newSectionXOffset < 0 // Switching to the left
 {
-    x = sectionLeft+6;
+    x = sectionLeft + 6;
     playerCameraInit();
-    with instanceCreate(x, y, objSectionSwitcher) dir = "left";
+    with instanceCreate(x, y, objSectionSwitcher)
+		dir = Directions.LEFT;
 }
 else if newSectionYOffset > 0 // Switching down
 {
-    y  = sectionBottom-6 + sprite_yoffset - (sprite_height/2);
+    y  = sectionBottom - 6 + sprite_yoffset - (sprite_height / 2);
     playerCameraInit();
-    with instanceCreate(x, y, objSectionSwitcher) dir = "down";
+    with instanceCreate(x, y, objSectionSwitcher)
+		dir = Directions.DOWN;
 }
 else if newSectionYOffset < 0 // Switching up
 {
-    y  = sectionTop+6 + sprite_yoffset - (sprite_height/2);
+    y  = sectionTop + 6 + sprite_yoffset - (sprite_height / 2);
     playerCameraInit();
-    with instanceCreate(x, y, objSectionSwitcher) dir = "up";
+    with instanceCreate(x, y, objSectionSwitcher)
+		dir = Directions.UP;
 }
 

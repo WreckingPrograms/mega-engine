@@ -1,3 +1,3 @@
 if !movedByPlatform
-    movedPlatformID = -20;
+    movedPlatformID = noone;
 movedByPlatform = false;

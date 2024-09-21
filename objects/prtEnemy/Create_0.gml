@@ -17,3 +17,18 @@ weaponDamage[Weapons.STAR_CRASH] = 3;
 weaponDamageSpecial = array_create(Weapons.COUNT, 0); // For charged variations of weapons, etc.
 weaponDamageSpecial[Weapons.MEGA_BUSTER] = 3;
 weaponDamageSpecial[Weapons.PHARAOH_SHOT] = 4;
+
+// Function that's called when the enemy is hit by an attack
+// Individual enemies can override this function to trigger their own on-hit events, if desired
+// Returns whether or not the enemy was successfully damaged
+function onHit(weapon, inst, specialDamage=false, pierceType=WeaponPierceTypes.NO_PIERCE)
+{
+	return onEnemyHit(weapon, inst, specialDamage, pierceType);
+}
+
+// Function that's called when the enemy is hit by an attack
+// Individual enemies can override this function to trigger their own on-death events, if desired
+function onDeath(weapon, inst)
+{
+	onEnemyDeath(weapon, inst);
+}

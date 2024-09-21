@@ -1,6 +1,6 @@
 event_inherited();
 
-if !global.frozen && !dead
+if !isFrozen() && !dead
 {
     switch phase
     {
@@ -31,12 +31,14 @@ if !global.frozen && !dead
         
         case 1: // Active
             // Animation
-            if image_index < image_number-1
+            if image_index < image_number - 1
+			{
                 image_speed = 0.25;
+			}
             else
             {
                 image_speed = 0;
-                image_index = image_number-1;
+                image_index = image_number - 1;
             }
             
             // Timer

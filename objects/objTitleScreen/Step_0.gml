@@ -16,8 +16,7 @@ if global.keyPausePressed && canProceed
     drawText = false;
     playSFX(sfxMenuSelect);
     
-    var ID;
-    ID = instanceCreate(0, 0, objFadeout);
+    var ID = instanceCreate(0, 0, objFadeout);
         ID.type = "room";
         ID.myRoom = rmStageSelect;
 }

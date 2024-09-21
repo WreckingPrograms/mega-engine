@@ -13,8 +13,7 @@ if canSelectOption
             selectedOption = true;
             playSFX(sfxMenuSelect);
             
-            var ID;
-            ID = instanceCreate(x, y, objFadeout);
+            var ID = instanceCreate(x, y, objFadeout);
                 ID.type = "room";
             
             if option == 0

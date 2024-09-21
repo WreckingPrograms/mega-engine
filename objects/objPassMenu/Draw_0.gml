@@ -1,7 +1,6 @@
-var xx, yy1, yy2;
-xx = 78;
-yy1 = 171;
-yy2 = yy1 + 16;
+var xx = 78;
+var yy1 = 171;
+var yy2 = yy1 + 16;
 
 draw_sprite(sprPassText, !canSelectOption, 88, 164); // 1 when game over, 0 otherwise
 

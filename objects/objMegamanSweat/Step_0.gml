@@ -1,4 +1,4 @@
-if !global.frozen
+if !isFrozen()
 {    
     if floor(image_index) == 2
         image_speed = 0;

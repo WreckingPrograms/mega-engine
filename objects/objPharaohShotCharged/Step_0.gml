@@ -1,9 +1,9 @@
-if !global.frozen
+if !isFrozen()
 {
     x += xspeed;
     y += yspeed;
     
-    image_speed = 1/7;
+    image_speed = 1 / 7;
 }
 else
 {

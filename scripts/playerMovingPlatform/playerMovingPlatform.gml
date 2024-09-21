@@ -1,13 +1,13 @@
-// / @function playerMovingPlatform
-// / @description Handles moving platform collision
-function playerMovingPlatform() {
-
+// Handles moving platform collision
+function playerMovingPlatform()
+{
+	// Not changing any of this now because collision will be rewritten
 
 	// Jumpthrough moving platforms
 	mySolid = collision_rectangle(bbox_left, bbox_bottom+1, bbox_right, bbox_bottom+yspeed+1, prtMovingPlatformJumpthrough, false, true)
 	if mySolid >= 0
 	{
-	    if yspeed > 0 && (mySolid.id == movedPlatformID || movedPlatformID == -20)
+	    if yspeed > 0 && (mySolid.id == movedPlatformID || movedPlatformID == noone)
 	    {
 	        if !mySolid.dead
 	        {

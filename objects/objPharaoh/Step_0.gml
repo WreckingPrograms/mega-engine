@@ -1,6 +1,6 @@
 event_inherited();
 
-if !global.frozen
+if !isFrozen()
 {
     if isFight 
     {       
@@ -21,7 +21,6 @@ if !global.frozen
                         phase = 2;
                     else
                     {
-                        randomize();
                         phase = choose(1, 2, 3, 3); // There seems to be a higher chance of him shooting
                     }
                 }
@@ -37,26 +36,9 @@ if !global.frozen
                     if instance_exists(objMegaman)
                     {
                         startXScale = image_xscale;
-                        
-                        // Calculate the time needed to jump to MM's position, and with that, calculate the horizontal speed
-                        var dx, initYspeed;
-                        dx = spriteGetXCenterObject(objMegaman) - spriteGetXCenter();
-                        initYspeed = -6.5;
-                        
-                        var time, yy, yyspeed; // time: How much time (in frames) it would take to land on Mega Man's location
-                        yy = bbox_bottom;
-                        yyspeed = initYspeed;
-                        time = 0;
-                        
-                        while yy < objMegaman.bbox_bottom || yyspeed < 0
-                        {
-                            yyspeed += 0.25;
-                            yy += yyspeed;
-                            time += 1;
-                        }
-                        
-                        startXspeed = dx / time;
-                        yspeed = initYspeed;
+						
+						yspeed = -6.5;
+						startXspeed = arcCalcXspeed(yspeed, 0.25, x, y, objMegaman.x, objMegaman.y);
                         ground = false;
                     }
                     else
@@ -66,12 +48,14 @@ if !global.frozen
                     }
                 }
                 
-                if !place_meeting(x+startXspeed, y, objSolid) && !place_meeting(x+startXspeed, y, prtMovingPlatformSolid)
+                if !place_meeting(x + startXspeed, y, objSolid) && !placeMeetingMovingPlatform(x + startXspeed, y, prtMovingPlatformSolid)
+				{
                     xspeed = startXspeed;
+				}
                 else
                 {
-                    while place_meeting(x, y, objSolid)
-                            x -= image_xscale;
+                    while place_meeting(x, y, objSolid) || placeMeetingMovingPlatform(x, y, prtMovingPlatformSolid)
+						x -= image_xscale;
                             
                     xspeed = 0;
                 }
@@ -128,7 +112,7 @@ if !global.frozen
                     {
                         sprite_index = sprPharaohJumpShoot;
                         image_index = 0;
-                        image_speed = 6/60;
+                        image_speed = 6 / 60;
                     }
                 }
                 else if sprite_index == sprPharaohJumpShoot || sprite_index == sprPharaohJumpShootBack
@@ -145,27 +129,30 @@ if !global.frozen
                             else
                                 box = bbox_left;
                             
-                            instanceCreate(box, y-8, objPharaohManShot);
+                            instanceCreate(box, y - 8, objPharaohManShot);
                         }
                         
-                        image_speed = 6/60;
+                        image_speed = 6 / 60;
                     }
-                    else if floor(image_index) == image_number-1
+                    else if floor(image_index) == image_number - 1
                     {
                         image_index = image_number-1;
                         image_speed = 0;
                     }
                     else
                     {
-                        image_speed = 6/60;
+                        image_speed = 6 / 60;
                     }
                 }
                 
-                if !place_meeting(x+startXScale * 2, y, objSolid) && !place_meeting(x+startXScale * 2, y, prtMovingPlatformSolid)
+                if !place_meeting(x + (startXScale * 2), y, objSolid)
+					&& !placeMeetingMovingPlatform(x + (startXScale * 2), y, prtMovingPlatformSolid)
+				{
                     xspeed = startXScale * 2;
+				}
                 else
                 {
-                    while place_meeting(x, y, objSolid)
+                    while place_meeting(x, y, objSolid) || placeMeetingMovingPlatform(x, y, prtMovingPlatformSolid)
                         x -= image_xscale;
                         
                     xspeed = 0;
@@ -276,11 +263,11 @@ if !global.frozen
                         
                         var shootID, box;
                         if image_xscale == 1
-                            box = bbox_right+10;
+                            box = bbox_right + 10;
                         else
-                            box = bbox_left-10;
+                            box = bbox_left - 10;
                             
-                        shootID = instanceCreate(box, y+2, objPharaohManShotBig);
+                        shootID = instanceCreate(box, y + 2, objPharaohManShotBig);
                             shootID.image_xscale = image_xscale;
                     }
                     else if jumpTimer == 75

@@ -80,7 +80,7 @@ drawWeaponIcon = false; // Whether or not we should draw the weapon icon above o
 drawWeaponIconTimer = -1;
 onRushJet = false; // Are we on the Rush Jet?
 movedByPlatform = false;
-movedPlatformID = -20;
+movedPlatformID = noone;
 canSlide = true;
 canSlideTimer = 0;
 

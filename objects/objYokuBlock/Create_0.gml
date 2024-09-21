@@ -13,5 +13,5 @@ neverDespawn = true;
 timer = 0;
 phase = 0; // 0 = waiting to appear; 1 = active; 2 = waiting to reappear after disappearing
 sprite_index = sprYokuBlock;
-mySolid = -12;
+mySolid = noone;
 

@@ -1,11 +1,11 @@
-if !global.frozen
+if !isFrozen()
 {
     imgIndex += imgSpeed;
     
     // After fully charging, change sprites
     if sprite_index == sprPharaohShotCharging
     {
-        if imgIndex >= image_number-imgSpeed*3
+        if imgIndex >= image_number - (imgSpeed * 3)
         {
             sprite_index = sprPharaohShotCharged;
             imgIndex = 1;

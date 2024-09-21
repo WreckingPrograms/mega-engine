@@ -1,19 +1,11 @@
-if !global.frozen
+if !isFrozen()
 {
     gravityNoGround();
     
-    var ddy;
-    if dy == -18
-        ddy = -17;  // To avoid dividing by 0
-    else
-        ddy = dy;
-    
-    xspeed = dx / ( (3 + (ddy / 6)) * const );
-    
-    x += xspeed * image_xscale;
+    x += xspeed;
     y += yspeed;
     
-    image_speed = 1/6;
+    image_speed = 1 / 6;
 }
 else
 {

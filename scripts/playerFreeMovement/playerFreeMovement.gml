@@ -1,7 +1,6 @@
-// / @function playerFreeMovement
-// / @description Frees the player's movement (e.g. after being locked)
-function playerFreeMovement() {
-
+// Frees the player's movement (e.g. after being locked)
+function playerFreeMovement()
+{
 	with objMegaman
 	{
 	    canMove = true;
@@ -9,6 +8,4 @@ function playerFreeMovement() {
 	    canPause = true;
 	    mask_index = mskMegaman;
 	}
-
-
 }

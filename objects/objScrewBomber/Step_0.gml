@@ -1,10 +1,10 @@
 event_inherited();
 
-if !global.frozen && !dead
+if !isFrozen() && !dead
 {
     if instance_exists(objMegaman)
     {
-        if distance_to_object(objMegaman) <= radius || shooting  || image_index != 0
+        if distance_to_object(objMegaman) <= radius || shooting || image_index != 0
         {
             if !shooting
             {
@@ -48,12 +48,12 @@ if !global.frozen && !dead
                     if shootAmount != 2
                     {
                         var shootID;
-                        shootID = instanceCreate(x+8, y+3, objBeakBullet);
+                        shootID = instanceCreate(x + 8, y + 3, objBeakBullet);
                             shootID.image_index = col;
                             shootID.dir = 0;
                             shootID.xscale = 1;
                         
-                        shootID = instanceCreate(x+4, y+2, objBeakBullet);
+                        shootID = instanceCreate(x + 4, y + 2, objBeakBullet);
                             shootID.image_index = col;
                             shootID.dir = 45;
                             shootID.xscale = 1;
@@ -63,12 +63,12 @@ if !global.frozen && !dead
                             shootID.dir = 90;
                             shootID.xscale = 1;
                             
-                        shootID = instanceCreate(x-4, y+2, objBeakBullet);
+                        shootID = instanceCreate(x - 4, y + 2, objBeakBullet);
                             shootID.image_index = col;
                             shootID.dir = 135;
                             shootID.xscale = 1;
                             
-                        shootID = instanceCreate(x-8, y+3, objBeakBullet);
+                        shootID = instanceCreate(x - 8, y + 3, objBeakBullet);
                             shootID.image_index = col;
                             shootID.dir = 180;
                             shootID.xscale = 1;

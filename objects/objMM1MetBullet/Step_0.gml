@@ -1,7 +1,7 @@
-if !global.frozen
+if !isFrozen()
 {
-    xspeed = cos(degtorad(dir)) * 1.5 * xscale;
-    yspeed = -sin(degtorad(dir)) * 1.5;   // The vertical speed was, for some reason, inverted, which is why I used a minus. Don't ask me what actually caused this behaviour
+    xspeed = lengthdir_x(1.5, dir) * xscale;
+    yspeed = lengthdir_y(1.5, dir);
     
     x += xspeed;
     y += yspeed;

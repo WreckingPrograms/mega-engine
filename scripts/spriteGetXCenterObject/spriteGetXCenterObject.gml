@@ -1,11 +1,5 @@
-// / @function spriteGetXCenterObject
-// / @param id
-// / @description Get the horizontal center of a certain object
-function spriteGetXCenterObject(argument0) {
-
-	var v;
-	v = argument0;
-	return round(v.x - v.sprite_xoffset + (v.sprite_width/2));
-
-
+// Get the horizontal center of a certain object, based on their sprite (not collision mask)
+function spriteGetXCenterObject(inst)
+{
+	return round(inst.x - inst.sprite_xoffset + (inst.sprite_width / 2));
 }

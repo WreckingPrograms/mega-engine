@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"isFrozen",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"isFrozen",
+  "parent":{
+    "name":"Instance",
+    "path":"folders/Scripts/Instance.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

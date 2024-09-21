@@ -1,6 +1,6 @@
 event_inherited();
 
-if !global.frozen && !dead
+if !isFrozen() && !dead
 {
     if !instance_exists(bulletID)
     {
@@ -15,7 +15,7 @@ if !global.frozen && !dead
         shooting = true;
         animTimer = 0;
         image_index = 2;
-        bulletID = instanceCreate(x+(15+4)*image_xscale, y-2, objColtonBullet);
+        bulletID = instanceCreate(x+ (19 * image_xscale), y - 2, objColtonBullet);
             bulletID.image_xscale = image_xscale;
         playSFX(sfxColtonShoot);
     }

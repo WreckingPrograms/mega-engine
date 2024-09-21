@@ -20,8 +20,7 @@ else
         playMusicVolume(mscWeaponGet, 1);
 }
     
-var i;
-for (i = 0; i <= global.totalWeapons; i += 1)
+for (var i = 0; i <= global.totalWeapons; i += 1)
 {
     global.ammo[i] = 28;
 }

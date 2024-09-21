@@ -1,5 +1,4 @@
-var ID;
-ID = instanceCreate(x, y, objFadeout);
+var ID = instanceCreate(x, y, objFadeout);
     ID.type = "room";
     
 if !global.weaponUnlocked[global.weaponID]

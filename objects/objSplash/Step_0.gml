@@ -1,4 +1,4 @@
-if !global.frozen
+if !isFrozen()
 {
     image_speed = 0.15;
 }

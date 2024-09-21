@@ -1,8 +1,7 @@
-// / @function playerHandleSprites
-// / @description Handles the player's sprites, e.g. use different sprites when shooting
-// /				 Note that some sprites like sliding are static and are thus not altered in this script
-function playerHandleSprites() {
-
+// Handles the player's sprites, e.g. use different sprites when shooting
+// Note that some sprites like sliding are static and are thus not altered in this script
+function playerHandleSprites()
+{
 	if isShoot 
 	{
 	    spriteStand = sprMegamanStandShoot;
@@ -30,6 +29,4 @@ function playerHandleSprites() {
 	    spriteClimb = sprMegamanClimb;
 	    spriteGetup = sprMegamanClimbGetup;
 	}
-
-
 }

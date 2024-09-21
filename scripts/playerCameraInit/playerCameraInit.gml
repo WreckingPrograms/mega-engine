@@ -1,33 +1,35 @@
-// / @function playerCameraInit
-// / @description Initialize the camera
-// /				 For the meanings of newSectionXOffset/newSectionYOffset, see playerSwitchSections
-function playerCameraInit() {
-
-
-	var dist;
+// Initialize the camera
+// For the meanings of newSectionXOffset/newSectionYOffset, see playerSwitchSections
+function playerCameraInit()
+{
+	var dist = 0;
 
 	// Left
-	dist = 0;
-	while !place_meeting(floor((x+newSectionXOffset)/16)*16 - dist, y+newSectionYOffset, objSectionBorderLeft)
-	&& dist <= 16 * 2000
+	for (dist = 0; dist <= 16 * 2000; dist += 16)
 	{
-	    dist += 16;
+		var sectionBorder = instance_place(floor((x + newSectionXOffset) / 16) * 16 - dist, y + newSectionYOffset, objSectionBorderLeft);
+		if sectionBorder >= 0
+		{
+			sectionLeft = sectionBorder.x;
+			break;
+		}
 	}
-
+	
 	if dist >= 16 * 2000
 	{
 	    show_message("Got stuck on left");
 	}
 
-	sectionLeft = instance_place(floor((x+newSectionXOffset)/16)*16 - dist, y+newSectionYOffset, objSectionBorderLeft).x;
-
 
 	// Right
-	dist = 0;
-	while !place_meeting(ceil((x+newSectionXOffset)/16)*16 + dist, y+newSectionYOffset, objSectionBorderRight)
-	&& dist <= 16 * 2000
+	for (dist = 0; dist <= 16 * 2000; dist += 16)
 	{
-	    dist += 16;
+		var sectionBorder = instance_place(ceil((x + newSectionXOffset) / 16) * 16 + dist, y + newSectionYOffset, objSectionBorderRight);
+		if sectionBorder >= 0
+		{
+			sectionRight = sectionBorder.x + 16;
+			break;
+		}
 	}
 
 	if dist >= 16 * 2000
@@ -35,15 +37,16 @@ function playerCameraInit() {
 	    show_message("Got stuck on right");
 	}
 
-	sectionRight = instance_place(ceil((x+newSectionXOffset)/16)*16 + dist, y+newSectionYOffset, objSectionBorderRight).x + 16;
-
 
 	// Top
-	dist = 0;
-	while !place_meeting(x+newSectionXOffset, floor((y+newSectionYOffset)/16)*16 - dist, objSectionBorderTop)
-	&& dist <= 16 * 2000
+	for (dist = 0; dist <= 16 * 2000; dist += 16)
 	{
-	    dist += 16;
+		var sectionBorder = instance_place(x + newSectionXOffset, floor((y + newSectionYOffset) / 16) * 16 - dist, objSectionBorderTop);
+		if sectionBorder >= 0
+		{
+			sectionTop = sectionBorder.y;
+			break;
+		}
 	}
 
 	if dist >= 16 * 2000
@@ -52,23 +55,19 @@ function playerCameraInit() {
 	}
 
 
-	sectionTop = instance_place(x+newSectionXOffset, floor((y+newSectionYOffset)/16)*16 - dist, objSectionBorderTop).y;
-
-
 	// Bottom
-	dist = 0;
-	while !place_meeting(x+newSectionXOffset, ceil((y+newSectionYOffset)/16)*16 + dist, objSectionBorderBottom)
-	&& dist <= 16 * 2000
+	for (dist = 0; dist <= 16 * 2000; dist += 16)
 	{
-	    dist += 16;
+		var sectionBorder = instance_place(x + newSectionXOffset, ceil((y + newSectionYOffset) / 16) * 16 + dist, objSectionBorderBottom);
+		if sectionBorder >= 0
+		{
+			sectionBottom = sectionBorder.y + 16;
+			break;
+		}
 	}
 
 	if dist >= 16 * 2000
 	{
 	    show_message("Got stuck on bottom");
 	}
-
-	sectionBottom = instance_place(x+newSectionXOffset, ceil((y+newSectionYOffset)/16)*16 + dist, objSectionBorderBottom).y + 16;
-
-
 }

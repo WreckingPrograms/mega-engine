@@ -13,14 +13,14 @@ if !teleporting && !showReady
     if drawWeaponIcon 
     {
         if !climbing
-            draw_sprite_ext(sprWeaponIconsColor, global.weapon, round(x-8) + image_xscale, round(y-30), 1, 1, 0, c_white, 1);
+            draw_sprite_ext(sprWeaponIconsColor, global.weapon, x - 8 + image_xscale, y - 30, 1, 1, 0, c_white, 1);
         else
-            draw_sprite_ext(sprWeaponIconsColor, global.weapon, round(x-8), round(y-30), 1, 1, 0, c_white, 1);
+            draw_sprite_ext(sprWeaponIconsColor, global.weapon, x - 8, y - 30, 1, 1, 0, c_white, 1);
     }
 }
 else if teleporting 
 {   
-    if round(global.viewY-32+teleportY) >= y
+    if round(global.viewY - 32 + teleportY) >= y
     {
         if teleportTimer == 0
             playSFX(sfxTeleportIn);
@@ -54,9 +54,10 @@ else if teleporting
     else
     {
         // Teleporting downwards
-        draw_sprite_ext(spriteTeleport, image_index, round(x), round(global.viewY-32+teleportY), image_xscale, image_yscale, image_angle, c_white, 1);
-        draw_sprite_ext(sprMegamanTeleportPrimary, image_index, round(x), round(global.viewY-32+teleportY), image_xscale, image_yscale, image_angle, global.primaryCol, 1);
-        draw_sprite_ext(sprMegamanTeleportSecondary, image_index, round(x), round(global.viewY-32+teleportY), image_xscale, image_yscale, image_angle, global.secondaryCol, 1);
+		var teleDrawY = global.viewY - 32 + teleportY;
+        draw_sprite_ext(spriteTeleport, image_index, x, teleDrawY, image_xscale, image_yscale, image_angle, c_white, 1);
+        draw_sprite_ext(sprMegamanTeleportPrimary, image_index, x, teleDrawY, image_xscale, image_yscale, image_angle, global.primaryCol, 1);
+        draw_sprite_ext(sprMegamanTeleportSecondary, image_index, x, teleDrawY, image_xscale, image_yscale, image_angle, global.secondaryCol, 1);
         
         teleportY += 7;
     }
@@ -66,10 +67,12 @@ else if showReady
     // Draw the READY text
     readyTimer += 1;
     
-    var readyIndicator;
-    readyIndicator = readyTimer mod 12;
+    var readyIndicator = readyTimer % 12;
     if readyIndicator >= 6 && readyIndicator <= 11 // For the last 7 frames of every 14 frames, show the READY text
-        draw_sprite_ext(sprReady, 0, round(global.viewX+(global.viewWidth/2)), round(global.viewY+(global.viewHeight/2)), 1, 1, 0, c_white, 1);
+	{
+        draw_sprite_ext(sprReady, 0, round(global.viewX + (global.viewWidth / 2)), round(global.viewY + (global.viewHeight / 2)),
+			1, 1, 0, c_white, 1);
+	}
         
     if readyTimer >= 72
     {

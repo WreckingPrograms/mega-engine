@@ -1,8 +1,10 @@
 if !dead
 {
-    if other.canHit 
-    {  
-        with other playerGetHit(other.contactDamage);
-    }
+	var damage = contactDamage;
+	with other
+	{
+		if canHit
+			playerGetHit(damage);
+	}
 }
 

@@ -5,8 +5,8 @@ if global.mTanks < 1
     
 playSFX(sfxImportantItem);
 
-if pickupID != -15
+if pickupKey != ""
 {
-    global.pickupCollected[pickupID] = true;
+    global.collectedPickups[$ pickupKey] = true;
 }
 

@@ -1,13 +1,10 @@
-// / @function playerGetHit
-// / @param health
-// / @description Makes the player get hit
-// /				 Call it like this: with objMegaman playerGetHit();
-function playerGetHit(argument0) {
-
-
+// Makes the player get hit
+// Call it like this: with objMegaman playerGetHit();
+function playerGetHit(damage)
+{
 	if canHit 
 	{
-	    global._health -= argument0;
+	    global._health -= damage;
     
 	    canHit = false;
 	    isHit = true;
@@ -21,7 +18,7 @@ function playerGetHit(argument0) {
     
 	    // When sliding and there's a solid above us, we should not experience knockback
 	    // If we did, we would clip inside the ceiling above us
-	    if !(isSlide  && (place_meeting(x, y-3, objSolid) || place_meeting(x, y-3, prtMovingPlatformSolid)))
+	    if !(isSlide && (place_meeting(x, y - 3, objSolid) || placeMeetingMovingPlatform(x, y - 3, prtMovingPlatformSolid)))
 	    {
 	        canMove = false;
 	        canSpriteChange = false;
@@ -35,15 +32,13 @@ function playerGetHit(argument0) {
 	            sprite_index = spriteHit;
             
 	            // Create sweat effects
-	            instanceCreate(spriteGetXCenter()-11, spriteGetYCenter()-17, objMegamanSweat);
-	            instanceCreate(spriteGetXCenter(), spriteGetYCenter()-17, objMegamanSweat);
-	            instanceCreate(spriteGetXCenter()+11, spriteGetYCenter()-17, objMegamanSweat);
+	            instanceCreate(spriteGetXCenter() - 11, spriteGetYCenter() - 17, objMegamanSweat);
+	            instanceCreate(spriteGetXCenter(), spriteGetYCenter() - 17, objMegamanSweat);
+	            instanceCreate(spriteGetXCenter() + 11, spriteGetYCenter() - 17, objMegamanSweat);
 	        }
 	    }
     
 	    if global._health > 0
 	        playSFX(sfxHit);
 	}
-
-
 }

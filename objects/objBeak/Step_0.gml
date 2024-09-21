@@ -1,17 +1,17 @@
 event_inherited();
 
-if !global.frozen && !dead
+if !isFrozen() && !dead
 {
     if !shooting
     {
         shootTimer += 1;
-        if shootTimer == 60+30
+        if shootTimer == 90
             image_index = 1;
-        else if shootTimer == 67+30
+        else if shootTimer == 97
             image_index = 2;
-        else if shootTimer == 74+30
+        else if shootTimer == 104
             image_index = 3;
-        else if shootTimer == 77+30
+        else if shootTimer >= 107
         {
             shootTimer = 0;
             shooting = true;
@@ -22,8 +22,7 @@ if !global.frozen && !dead
         shootTimer += 1;
         if shootTimer == 1
         {
-            var shootID;
-            shootID = instanceCreate(x+image_xscale*16, y+8, objBeakBullet);
+            var shootID = instanceCreate(x + (image_xscale * 16), y + 8, objBeakBullet);
                 shootID.image_index = col;
                 shootID.dir = 45;
                 shootID.xscale = dir;
@@ -32,8 +31,7 @@ if !global.frozen && !dead
         }
         else if shootTimer == 31
         {
-            var shootID;
-            shootID = instanceCreate(x+image_xscale*16, y+8, objBeakBullet);
+            var shootID = instanceCreate(x + (image_xscale * 16), y + 8, objBeakBullet);
                 shootID.image_index = col;
                 shootID.dir = 15;
                 shootID.xscale = dir;
@@ -42,8 +40,7 @@ if !global.frozen && !dead
         }
         else if shootTimer == 61
         {
-            var shootID;
-            shootID = instanceCreate(x+image_xscale*16, y+8, objBeakBullet);
+            var shootID = instanceCreate(x + (image_xscale * 16), y + 8, objBeakBullet);
                 shootID.image_index = col;
                 shootID.dir = -15;
                 shootID.xscale = dir;
@@ -52,8 +49,7 @@ if !global.frozen && !dead
         }
         else if shootTimer == 91
         {
-            var shootID;
-            shootID = instanceCreate(x+image_xscale*16, y+8, objBeakBullet);
+            var shootID = instanceCreate(x + (image_xscale * 16), y + 8, objBeakBullet);
                 shootID.image_index = col;
                 shootID.dir = -45;
                 shootID.xscale = dir;
@@ -62,11 +58,11 @@ if !global.frozen && !dead
                 
             image_index = 2;
         }
-        else if shootTimer == 91+7
+        else if shootTimer == 98
         {
             image_index = 1;
         }
-        else if shootTimer == 91+14
+        else if shootTimer >= 105
         {
             image_index = 0;
             shooting = false;

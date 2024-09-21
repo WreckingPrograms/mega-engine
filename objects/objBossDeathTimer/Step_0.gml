@@ -2,14 +2,13 @@ if isMM && !teleporting
 {
     if !absorbing
     {
-        var destX;
-        destX = round(global.viewX + (global.viewWidth/2));
+        var destX = round(global.viewX + (global.viewWidth/2));
         
         checkGround();
         gravityCheckGround();
         generalCollision();
         
-        if x < destX-2 || x > destX+2
+        if x < destX - 2 || x > destX + 2
         {
             if x < destX
             {
@@ -22,16 +21,22 @@ if isMM && !teleporting
                 image_xscale = -1;
             }
             
-            if (place_meeting(x+xspeed*8, y, objSolid) || place_meeting(x+xspeed*8, y, prtMovingPlatformSolid))
-            && ground 
+            if ground && (place_meeting(x + (xspeed * 8), y, objSolid)
+				|| placeMeetingMovingPlatform(x + (xspeed * 8), y, prtMovingPlatformSolid))
             {
-                if ((position_meeting(bbox_right+xspeed*8, bbox_top, objSolid) || position_meeting(bbox_right+xspeed*8, bbox_top, prtMovingPlatformSolid))
-                && image_xscale == 1)
-                || ((position_meeting(bbox_left+xspeed*8, bbox_top, objSolid) || position_meeting(bbox_left+xspeed*8, bbox_top, prtMovingPlatformSolid))
-                && image_xscale == -1) // If we are blocked by a wall of at least 2 blocks high, perform a high jump
+                if (image_xscale == 1 && (position_meeting(bbox_right + (xspeed * 8), bbox_top, objSolid)
+					|| positionMeetingMovingPlatform(bbox_right + (xspeed * 8), bbox_top, prtMovingPlatformSolid)))
+                || (image_xscale == -1 && (position_meeting(bbox_left + (xspeed * 8), bbox_top, objSolid)
+					|| positionMeetingMovingPlatform(bbox_left + (xspeed * 8), bbox_top, prtMovingPlatformSolid)))
+				{
+					// If we are blocked by a wall of at least 2 blocks high, perform a high jump
                     yspeed = -5.25;
-                else // Else, perform a short, 1-block-high jump
+				}
+                else 
+				{
+					// Else, perform a short, 1-block-high jump
                     yspeed = -3.5;
+				}
             }
             
             if ground 
@@ -69,9 +74,9 @@ if isMM && !teleporting
                 }
             }
             
-            if yspeed > 0 && y >= global.viewY+112 && !canInitJump && !global.weaponUnlocked[global.weaponID]
+            if yspeed > 0 && y >= global.viewY + 112 && !canInitJump && !global.weaponUnlocked[global.weaponID]
             {
-                y = global.viewY+112;
+                y = global.viewY + 112;
                 absorbing = true;
             }
         }
@@ -90,18 +95,19 @@ if isMM && !teleporting
                 absorbAmount += 1;
                 
                 playSFX(sfxAbsorb);
-                var ID, fastSpd, slowSpd, radius, angle;
-                fastSpd = 7;
-                slowSpd = 3;radius = global.viewWidth/2;
-                angle = 0;
+                var fastSpd = 7;
+                var slowSpd = 3;
+				var radius = global.viewWidth / 2;
+                var angle = 0;
                 
-                repeat 8
+                for (var angle = 0; angle < 360; angle += 45)
                 {
-                    angle += 0.25*pi;
-                    
-                    ID = instanceCreate(spriteGetXCenter() + radius*cos(angle), spriteGetYCenter() + radius*sin(angle), objAbsorbEffect);
+                    var ID = instanceCreate(spriteGetXCenter() + lengthdir_x(radius, angle),
+							spriteGetYCenter() + lengthdir_y(radius, angle), objAbsorbEffect);
                         ID.spd = fastSpd;
-                    ID = instanceCreate(spriteGetXCenter() + radius*cos(angle), spriteGetYCenter() + radius*sin(angle), objAbsorbEffect);
+						
+                    ID = instanceCreate(spriteGetXCenter() + lengthdir_x(radius, angle),
+							spriteGetYCenter() + lengthdir_y(radius, angle), objAbsorbEffect);
                         ID.spd = slowSpd; 
                 }
             }

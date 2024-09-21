@@ -1,14 +1,9 @@
-// Sets the ID of this pickup, so that we can despawn it when the room starts if the pickup has already been collected in the level
+// Destroy the pickup if it's already been collected on a previous life
 // However, if it's been dropped by an enemy, this can be ignored
 if !(alarm[0] != -1 || alarm[1] != -1)
-{
-    if pickupID == -15
-    {
-        pickupID = global.currentPickupID;
-        global.currentPickupID += 1;
-    }
-    
-    if global.pickupCollected[pickupID] 
+{    
+	pickupKey = string(x) + "," + string(y);
+    if variable_struct_exists(global.collectedPickups, pickupKey)
         instance_destroy();
 }
 

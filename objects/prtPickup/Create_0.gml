@@ -1,2 +1,1 @@
-pickupID = -15;
-
+pickupKey = "";

@@ -1,12 +1,11 @@
 event_inherited();
 
 pose = sprPharaohPose;
-poseImgSpeed = 3/60;
+poseImgSpeed = 3 / 60;
 contactDamage = 4;
 
 global.weaponID = 3; // The weapon ID in the pause screen; can be found in objGlobalControl's Create event
-global.bossID = 7; // The ID on the stage select screen. The top-left has an ID of 0, then it goes clockwise (so the left panel's ID is 7)
-            // The middle panel's ID is 8
+global.bossID = 3; // The ID on the stage select screen. See objStageSelect's Create event for more info
 
 ground = false;
 attackTimer = 0;

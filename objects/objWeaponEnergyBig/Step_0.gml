@@ -1,6 +1,6 @@
-if !global.frozen
+if !isFrozen()
 {
-    image_speed = 1/6;
+    image_speed = 1 / 6;
     
     if flash 
     {

@@ -1,6 +1,6 @@
 event_inherited();
 
-image_speed = 1/6;
+image_speed = 1 / 6;
 hlth = 2;
 flash = false;
 flashTimer = 0;

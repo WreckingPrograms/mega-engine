@@ -1,17 +1,16 @@
 if size >= 3
 {
-    var i;
-    for (i = 0; i < size; i += 1)
+    for (var i = 0; i < size; i += 1)
     {
         if i == 0
             draw_sprite(sprMM2Conveyor, arrowImg, round(x), round(y));
         else if i == size-1
-            draw_sprite(sprMM2Conveyor, arrowImg, round(x)+i*16, round(y));
+            draw_sprite(sprMM2Conveyor, arrowImg, round(x) + (i * 16), round(y));
         else
-            draw_sprite(sprMM2Conveyor, midImg, round(x)+i*16, round(y));
+            draw_sprite(sprMM2Conveyor, midImg, round(x) + (i * 16), round(y));
     }
     
-    if !global.frozen
+    if !isFrozen()
     {
         //  Animation // 
         
@@ -53,13 +52,12 @@ if size >= 3
 }
 else
 {
-    var i;
-    for (i = 0; i < size; i += 1)
+    for (var i = 0; i < size; i += 1)
     {
-        draw_sprite(sprMM2Conveyor, midImg, round(x)+i*16, round(y));
+        draw_sprite(sprMM2Conveyor, midImg, round(x) + (i * 16), round(y));
     }
     
-    if !global.frozen
+    if !isFrozen()
     {
         //  Animation // 
         

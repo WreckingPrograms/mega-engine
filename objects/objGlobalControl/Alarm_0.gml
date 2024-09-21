@@ -1,8 +1,7 @@
-// / @description Initialize the game
-
-global.msc = -2;
+// Initialize the game
     
-display_reset(0, true); // Enables V-synch to make everything look nicer (without V-sync, GM Studio games tend to look pretty bad)
+display_reset(0, true); // Enables V-sync
+randomize();
     
 room_goto_next();
 global.eTanks = 0;
@@ -11,11 +10,8 @@ global._lives = 2;
 
 global.font = font_add_sprite(sprFont, ord("!"), true, 0);
 global.MM3font = font_add_sprite(sprMM3Font, ord("!"), true, 0);
-      
-for (var i = 0; i <= 1000; i += 1) // If you somehow have over 1000 pickups in one room, increase this number
-{
-    global.pickupCollected[i] = false;
-}
+
+global.collectedPickups = {};
     
 for (var i = 0; i <= 7; i += 1)
 {
@@ -27,6 +23,7 @@ global.checkpoint = false;
 global.checkpointX = 0;
 global.checkpointY = 0;
 global.levelStart = false;
+global.msc = -1;
     
 global.primaryCol = c_white;
 global.secondaryCol = c_white;
@@ -64,8 +61,8 @@ global.weaponUnlocked[6] = true; // Usually, Rush Coil is available from the beg
 global.weaponSlot[7] = Weapons.RUSH_JET;
 global.weaponUnlocked[7] = true; // We have no RM that unlocks Rush Jet yet
     
-global.weaponUnlocked[global.totalWeapons+1] = true; // E-tank
-global.weaponUnlocked[global.totalWeapons+2] = true; // M-tank
+global.weaponUnlocked[global.totalWeapons + 1] = true; // E-tank
+global.weaponUnlocked[global.totalWeapons + 2] = true; // M-tank
     
     
 // Names

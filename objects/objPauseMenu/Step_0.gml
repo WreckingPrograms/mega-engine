@@ -31,7 +31,7 @@ switch phase
         // Select the weapon/tank
         if global.keyJumpPressed || global.keyPausePressed || global.keyShootPressed
         {
-            if option != global.totalWeapons+1 && option != global.totalWeapons+2
+            if option != global.totalWeapons + 1 && option != global.totalWeapons + 2
             {
                 phase = 3;
                 global.currentWeapon = option;
@@ -50,7 +50,7 @@ switch phase
                 
                 playSFX(sfxMenuSelect);
             }
-            else if option == global.totalWeapons+1
+            else if option == global.totalWeapons + 1
             {
                 if global.eTanks > 0 && global._health < 28
                 {
@@ -65,16 +65,18 @@ switch phase
                     playSFX(sfxError);
                 }
             }
-            else if option == global.totalWeapons+2
+            else if option == global.totalWeapons + 2
             {
                 if global.mTanks > 0
                 {
-                    var proceed;
-                    proceed = false;
-                    for (i = 1; i <= global.totalWeapons; i += 1)
+                    var proceed = false;
+                    for (var i = 1; i <= global.totalWeapons; i += 1)
                     {
                         if ceil(global.ammo[i]) < 28
+						{
                             proceed = true;
+							break;
+						}
                     }
                     
                     if ceil(global._health) < 28
@@ -162,8 +164,7 @@ switch phase
         {
             eTankTimer = 0;
             
-            var proceed;
-            proceed = false;
+            var proceed = false;
             for (i = 1; i <= global.totalWeapons; i += 1)
             {
                 if global.ammo[i] < 28

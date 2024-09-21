@@ -1,4 +1,4 @@
-if !global.frozen
+if !isFrozen()
 {
     image_speed = 0.35;
     
@@ -6,7 +6,7 @@ if !global.frozen
     // The mask is still the same as the normal size, however, to make things more fair
     // The sprite during this state is sprStarCrashInit
     endInitTimer += 1;
-    if endInitTimer == floor((1/image_speed) * sprite_get_number(sprStarCrashInit))
+    if sprite_index != sprStarCrash && endInitTimer >= floor((1 / image_speed) * sprite_get_number(sprStarCrashInit))
     {
         sprite_index = sprStarCrash;
         image_index = 0;
@@ -36,9 +36,7 @@ if !global.frozen
             followPlayer = false;
             xspeed = dir * spd;
             
-            global.ammo[global.currentWeapon] -= global.weaponAmmo[global.weaponSlot[global.currentWeapon]];
-            if global.ammo[global.currentWeapon] <= 0
-                global.ammo[global.currentWeapon] = 0;
+			playerConsumeAmmo(global.currentWeapon);
         }
     }
     

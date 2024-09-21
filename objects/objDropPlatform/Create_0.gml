@@ -9,6 +9,6 @@ timer = 0;
 dropTimerMax = 15;
 rebuildTimerMax = 10;
 
-topSolidID = instanceCreate(x-16, y, objTopSolid);
+topSolidID = instanceCreate(x - 16, y, objTopSolid);
     topSolidID.image_xscale = 2;
 

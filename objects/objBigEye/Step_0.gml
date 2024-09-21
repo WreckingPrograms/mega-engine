@@ -1,6 +1,6 @@
 event_inherited();
 
-if !global.frozen && !dead
+if !isFrozen() && !dead
 {
     checkGround();
     gravityCheckGround();
@@ -13,7 +13,6 @@ if !global.frozen && !dead
         {
             if repeatAmount < 2
             {
-                randomize();
                 highJump = choose(true, false); // False means a low jump, true means a high jump
             }
             else
@@ -28,7 +27,7 @@ if !global.frozen && !dead
                 
             // To not make the Big Eye spam one jump height by pure randomness
             // Because if he spams low jumps, it's nearly impossible to pass him
-            if highJump  && repeatIsHigh 
+            if highJump && repeatIsHigh 
                 repeatAmount += 1;
             else if !highJump && !repeatIsHigh
                 repeatAmount += 1;

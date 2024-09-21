@@ -1,9 +1,11 @@
-if !global.frozen
+if !isFrozen()
 {   
     if isIntro 
     {
         if y < ystart
+		{
             gravityNoGround();
+		}
         else
         {
             y = ystart;
@@ -14,9 +16,9 @@ if !global.frozen
                 image_index = 0;
             image_speed = poseImgSpeed;
             
-            if image_index >= image_number-1
+            if image_index >= image_number - 1
             {
-                image_index = image_number-1;
+                image_index = image_number - 1;
                 image_speed = 0;
                 isIntro = false;
             }
@@ -51,27 +53,19 @@ if !global.frozen
             audio_stop_all();
             playSFX(sfxDeath);
             
-            var i, explosionID;
-                
-            i = 0;
-            repeat 8
-            {
-                explosionID = instanceCreate(x, y, objMegamanExplosion);
-                    explosionID.dir = i;
-                    explosionID.spd = 1.5;
-                    
-                i += 45;
-            }
-            
-            i = 0;
-            repeat 8
-            {
-                explosionID = instanceCreate(x, y, objMegamanExplosion);
-                    explosionID.dir = i;
-                    explosionID.spd = 2.5;
-                    
-                i += 45;
-            }
+            for (var i = 0; i < 360; i += 45)
+	        {
+	            var explosionID = instanceCreate(x, y, objMegamanExplosion);
+	                explosionID.dir = i;
+	                explosionID.spd = 1.5;
+	        }
+        
+	        for (var i = 0; i < 360; i += 45)
+	        {
+	            explosionID = instanceCreate(x, y, objMegamanExplosion);
+	                explosionID.dir = i;
+	                explosionID.spd = 2.5;
+	        }
             
             instance_destroy();
             instanceCreate(x, y, objBossDeathTimer);

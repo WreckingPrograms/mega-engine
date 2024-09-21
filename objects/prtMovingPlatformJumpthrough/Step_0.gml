@@ -1,8 +1,10 @@
-// /More stable moving platform code!
+// More stable moving platform code!
+
+// Not rewriting this now. Collision rewrite pending
 
 event_inherited();
 
-if !global.frozen && !dead
+if !isFrozen() && !dead
 {
     x += xspeed;
     y += yspeed;
@@ -22,7 +24,7 @@ if !global.frozen && !dead
         
         var canProceed;
         canProceed = false;
-        if objMegaman.movedPlatformID == id || objMegaman.movedPlatformID == -20
+        if objMegaman.movedPlatformID == id || objMegaman.movedPlatformID == noone
             canProceed = true;
         else if objMegaman.movedPlatformID.yspeed == useYspeed && abs(objMegaman.movedPlatformID.bbox_top - bbox_top) <= useYspeed + 3
             canProceed = true;
@@ -44,7 +46,7 @@ if !global.frozen && !dead
                 {
                     movedByPlatform = true;
                     
-                    if movedPlatformID == -20
+                    if movedPlatformID == noone
                         movedPlatformID = other.id;
                         
                     x += xsp;

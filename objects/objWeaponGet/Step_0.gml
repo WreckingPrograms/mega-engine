@@ -11,9 +11,9 @@ switch phase
     
     case 1: // Moving up
         megaY -= 8;
-        if megaY <= round(global.viewY+(global.viewHeight/2))
+        if megaY <= round(global.viewY + (global.viewHeight / 2))
         {
-            megaY = round(global.viewY+(global.viewHeight/2));
+            megaY = round(global.viewY + (global.viewHeight / 2));
             phase = 2;
         }
     break;
@@ -45,9 +45,9 @@ switch phase
     
     case 4: // Moving right
         megaX += 2;
-        if megaX >= round(global.viewX+(global.viewWidth*0.75))
+        if megaX >= round(global.viewX + (global.viewWidth * 0.75))
         {
-            megaX = round(global.viewX+(global.viewWidth*0.75));
+            megaX = round(global.viewX + (global.viewWidth * 0.75));
             phase = 5;
         }
     break;
@@ -64,7 +64,7 @@ switch phase
     case 6: // Show "You got"
         timer += 1;
         
-        if timer mod 3 == 0 && text1Alpha < 1
+        if timer % 3 == 0 && text1Alpha < 1
             text1Alpha += 1/3;
             
         if text1Alpha > 1
@@ -80,7 +80,7 @@ switch phase
     case 7: // Show weapon name
         timer += 1;
         
-        if timer mod 3 == 0 && text2Alpha < 1
+        if timer % 3 == 0 && text2Alpha < 1
             text2Alpha += 1/3;
             
         if text2Alpha > 1
@@ -107,8 +107,7 @@ switch phase
         if timer >= 4.5 * 60
         {
             timer = 0;
-            var ID;
-            ID = instanceCreate(x, y, objFadeout);
+            var ID = instanceCreate(x, y, objFadeout);
                 ID.type = "room";
                 ID.myRoom = rmPass;
         }

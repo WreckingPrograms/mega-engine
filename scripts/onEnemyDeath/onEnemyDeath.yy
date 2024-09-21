@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"onEnemyDeath",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"onEnemyDeath",
+  "parent":{
+    "name":"Entities",
+    "path":"folders/Scripts/Entities.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

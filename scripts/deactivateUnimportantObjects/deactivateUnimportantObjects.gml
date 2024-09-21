@@ -1,7 +1,6 @@
-// / @function deactivateUnimportantObjects
-// / @description Deactivates umimportant objects. Even deactivates objects inside the section
-function deactivateUnimportantObjects() {
-
+// Deactivates umimportant objects. Even deactivates objects inside the section
+function deactivateUnimportantObjects()
+{
 	instance_deactivate_all(true);
 
 	// Add more important objects as they are added
@@ -33,6 +32,4 @@ function deactivateUnimportantObjects() {
 	    instance_activate_object(prtGimmick);
 	    instance_activate_object(objBossControl);
 	}
-
-
 }

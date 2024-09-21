@@ -10,8 +10,8 @@
   "name":"objLife",
   "overriddenProperties":[],
   "parent":{
-    "name":"Tanks",
-    "path":"folders/Objects/LevelObjects/Drops/Tanks.yy",
+    "name":"Drops",
+    "path":"folders/Objects/LevelObjects/Drops.yy",
   },
   "parentObjectId":{
     "name":"prtPickup",

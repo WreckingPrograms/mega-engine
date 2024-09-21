@@ -1,8 +1,10 @@
-// /More stable moving platform code!
+// More stable moving platform code!
+
+// Not rewriting this now. Collision rewrite pending
 
 event_inherited();
 
-if !global.frozen && !dead
+if !isFrozen() && !dead
 {
     x += xspeed;
     y += yspeed;

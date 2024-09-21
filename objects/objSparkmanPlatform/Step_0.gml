@@ -1,10 +1,10 @@
 event_inherited();
 
-if !global.frozen && !dead
+if !isFrozen() && !dead
 {
-    if place_meeting(x, y-1, objMegaman) && !place_meeting(x-1, y, objMegaman) && !place_meeting(x+1, y, objMegaman)
+    if place_meeting(x, y - 1, objMegaman) && !place_meeting(x - 1, y, objMegaman) && !place_meeting(x + 1, y, objMegaman)
     {
-        if objMegaman.ground  && phase == 0
+        if objMegaman.ground && phase == 0
         {
             phase = 1;
         }
@@ -14,6 +14,7 @@ if !global.frozen && !dead
     {
         yspeed = 0;
             
+		// TODO is all this still needed with new moving platform code?
         subYspeed -= acc;
         
         if subYspeed < -maxSpeed
@@ -41,16 +42,15 @@ if !global.frozen && !dead
         {
             y = round(y);
             
-            var yy;
-            yy = 0;
+            var yy = 0;
             while place_meeting(x, y, objSolid) || place_meeting(x, y, objSpike) || place_meeting(x, y, objSparkmanPlatformStop)
             {
                 y += 1;
                 yy += 1;
             }
             
-            if place_meeting(x, y-yy-1, objMegaman)
-                objMegaman.y = bbox_top-16;
+            if place_meeting(x, y - yy - 1, objMegaman)
+                objMegaman.y = bbox_top - 16;
             
             subYspeed = 0;
             subY = 0;

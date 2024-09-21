@@ -2,10 +2,7 @@ if global.keyDownPressed
 {
     playSFX(sfxMenuMove);
     
-    var loops;
-    loops = 0; // How many times the while-loop has been passed through
-    
-    while !global.weaponUnlocked[option] || loops == 0
+    do
     {
         // The bottom of the left column and the right column;
         // when the bottom of the left column is selected and we press down, we want to select the E-tank
@@ -20,36 +17,32 @@ if global.keyDownPressed
         }
         else if option == 5 // The bottom of the left column
         {
-            option = global.totalWeapons+1; // E-tank
+            option = global.totalWeapons + 1; // E-tank
         }
         else // The bottom of the right column
         {
-            option = global.totalWeapons+2; // M-tank
+            option = global.totalWeapons + 2; // M-tank
         }
             
-        if option != global.totalWeapons+1 && option != global.totalWeapons+2
+        if option != global.totalWeapons + 1 && option != global.totalWeapons + 2
         {
             global.weapon = global.weaponSlot[option];
             with objMegaman event_user(0);
         }
-        
-        loops += 1;
     }
+	until global.weaponUnlocked[option];
 }
 else if global.keyUpPressed
 {
     playSFX(sfxMenuMove);
     
-    var loops;
-    loops = 0;
-    
-    while !global.weaponUnlocked[option] || loops == 0
+    do
     {
-        if option == global.totalWeapons+2 // M-tank
+        if option == global.totalWeapons + 2 // M-tank
         {
             option = global.totalWeapons; // The bottom weapon of the right column
         }
-        else if option == global.totalWeapons+1 // E-tank
+        else if option == global.totalWeapons + 1 // E-tank
         {
             if global.totalWeapons > 5
                 option = 5; // The bottom weapon of the left column
@@ -58,35 +51,34 @@ else if global.keyUpPressed
         }
         else if option == 6 // The top weapon of the right column
         {
-            option = global.totalWeapons+2; // M-tank
+            option = global.totalWeapons + 2; // M-tank
         }
         else if option == 0 // The top weapon of the left column
         {
-            option = global.totalWeapons+1; // E-tank
+            option = global.totalWeapons + 1; // E-tank
         }
         else
         {
             option -= 1;
             if option < 0
-                option = global.totalWeapons+1;
-            else if option > global.totalWeapons+1
+                option = global.totalWeapons + 1;
+            else if option > global.totalWeapons + 1
                 option = 0;
         }
             
-        if option != global.totalWeapons+1 && option != global.totalWeapons+2
+        if option != global.totalWeapons + 1 && option != global.totalWeapons + 2
         {
             global.weapon = global.weaponSlot[option];
             with objMegaman event_user(0);
         }
-        
-        loops += 1;
     }
+	until global.weaponUnlocked[option];
 }
 
 if global.keyLeftPressed || global.keyRightPressed
 {
     if global.totalWeapons > 5 // If there is a right column of weapons
-    && option != global.totalWeapons+1 && option != global.totalWeapons+2 // When the E-tank or M-tank is not selected
+		&& option != global.totalWeapons + 1 && option != global.totalWeapons + 2 // When the E-tank or M-tank is not selected
     {
         if option > 5
             option -= 6;
@@ -102,12 +94,12 @@ if global.keyLeftPressed || global.keyRightPressed
     }
     
     // E-Tanks and M-Tanks
-    if option == global.totalWeapons+1 || option == global.totalWeapons+2
+    if option == global.totalWeapons + 1 || option == global.totalWeapons + 2
     {
-        if option == global.totalWeapons+1
-            option = global.totalWeapons+2;
+        if option == global.totalWeapons + 1
+            option = global.totalWeapons + 2;
         else
-            option = global.totalWeapons+1;
+            option = global.totalWeapons + 1;
             
         playSFX(sfxMenuMove);
     }
@@ -128,7 +120,7 @@ if global.keyLeftPressed || global.keyRightPressed
             option -= 1;
     }
     
-    if option != global.totalWeapons+1 && option != global.totalWeapons+2
+    if option != global.totalWeapons + 1 && option != global.totalWeapons + 2
     {
         global.weapon = global.weaponSlot[option];
         with objMegaman event_user(0);

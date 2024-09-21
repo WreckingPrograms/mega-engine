@@ -1,10 +1,8 @@
-// / @function playerCollision
-// / @description Handles the player's collision code
-function playerCollision() {
-
-
+// Handles the player's collision code
+function playerCollision()
+{
 	// Floor
-	var mySolid = instance_place(x, y+yspeed, objSolid);
+	var mySolid = instance_place(x, y + yspeed, objSolid);
 	if mySolid >= 0 && yspeed > 0
 	{
 	    y = mySolid.y - (sprite_get_height(mask_index) - sprite_get_yoffset(mask_index));
@@ -13,15 +11,11 @@ function playerCollision() {
     
 	    if playLandSound 
 	        playSFX(sfxLand);
-    
-	    // Note: there used to be a system here that set MM's sprite to the walking sprite when landing
-	    // However, due to complications such as climbing up ladders, it was a lot of work for such a minor feature
-	    // Therefore, it has been removed
 	}
 
 
 	// Wall
-	mySolid = instance_place(x+xspeed, y, objSolid);
+	mySolid = instance_place(x + xspeed, y, objSolid);
 	if mySolid >= 0 && xspeed != 0
 	{
 	    if xspeed < 0
@@ -34,14 +28,17 @@ function playerCollision() {
 	            x += 1;
 	    }
 	    else
-	        x = mySolid.x - (sprite_get_width(mask_index) - sprite_get_xoffset(mask_index)) + (sprite_get_width(mask_index) - sprite_get_bbox_right(mask_index)) - 1;
+		{
+	        x = mySolid.x - (sprite_get_width(mask_index) - sprite_get_xoffset(mask_index))
+				+ (sprite_get_width(mask_index) - sprite_get_bbox_right(mask_index)) - 1;
+		}
         
 	    xspeed = 0;
 	}
 
 
 	// Ceiling
-	mySolid = instance_place(x, y+yspeed, objSolid);
+	mySolid = instance_place(x, y + yspeed, objSolid);
 	if mySolid >= 0 && yspeed < 0
 	{
 		y = mySolid.bbox_bottom + sprite_get_yoffset(mask_index);
@@ -56,7 +53,7 @@ function playerCollision() {
 
 
 	// Topsolids
-	mySolid = instance_place(x, y+yspeed, objTopSolid);
+	mySolid = instance_place(x, y + yspeed, objTopSolid);
 	if mySolid >= 0 && yspeed > 0
 	{
 	    if !place_meeting(x, y, mySolid)
@@ -74,6 +71,8 @@ function playerCollision() {
 	// Spikes
 	if !instance_exists(objSectionSwitcher)
 	{
+		// I don't wanna change this now since collision will be rewritten anyway...
+	
 	    // Lots of extra checks to make solid collision take priority over spike collision
 	    // What this means is that when jumping on a solid and spike at the same time, you won't die, unlike in Mega Engine 1.5
 	    var wallOffset = 0;
@@ -114,6 +113,4 @@ function playerCollision() {
 	        exit;
 	    }
 	}
-
-
 }

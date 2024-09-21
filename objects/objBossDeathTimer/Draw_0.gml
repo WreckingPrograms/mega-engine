@@ -22,20 +22,20 @@ if isMM
                 exit;
             }
             
-            if !global.frozen
+            if !isFrozen()
                 teleportTimer += 1;
         }
         else
         {
             // Teleporting upwards            
-            if !global.frozen
+            if !isFrozen()
                 teleportY -= 7;
         }
         
-        draw_sprite_ext(sprMegamanTeleport, image_index, round(x), round(y+teleportY), image_xscale, image_yscale, image_angle, c_white, 1);
-        draw_sprite_ext(sprMegamanTeleportPrimary, image_index, round(x), round(y+teleportY), image_xscale, image_yscale, image_angle, global.primaryCol, 1);
-        draw_sprite_ext(sprMegamanTeleportSecondary, image_index, round(x), round(y+teleportY), image_xscale, image_yscale, image_angle, global.secondaryCol, 1);
-        draw_sprite_ext(sprMegamanTeleportOutline, image_index, round(x), round(y+teleportY), image_xscale, image_yscale, image_angle, global.outlineCol, 1);
+        draw_sprite_ext(sprMegamanTeleport, image_index, x, y + teleportY, image_xscale, image_yscale, image_angle, c_white, 1);
+        draw_sprite_ext(sprMegamanTeleportPrimary, image_index, x, y + teleportY, image_xscale, image_yscale, image_angle, global.primaryCol, 1);
+        draw_sprite_ext(sprMegamanTeleportSecondary, image_index, x, y + teleportY, image_xscale, image_yscale, image_angle, global.secondaryCol, 1);
+        draw_sprite_ext(sprMegamanTeleportOutline, image_index, x, y + teleportY, image_xscale, image_yscale, image_angle, global.outlineCol, 1);
     }
 }
 

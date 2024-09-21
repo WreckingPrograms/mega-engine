@@ -4,7 +4,9 @@ if door
     alarm[1] = ceil(4 / 0.15)
 }
 else
+{
     image_speed = imgSpd;
+}
     
 canStep = true;
 

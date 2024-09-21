@@ -1,7 +1,7 @@
-// / @function generalCollision
-// / @description Handles a general object's collision code
-function generalCollision() {
-
+// Handles a general object's collision code
+function generalCollision() 
+{
+	// Not touching this now, collision rewrite pending
 
 	// Floor
 	var mySolid;

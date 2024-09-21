@@ -1,29 +1,27 @@
 // Moving the lines
-var i;
-
-for (i = 0; i < totalLinesUp; i += 1)
+for (var i = 0; i < totalLinesUp; i += 1)
 {
     lineUpY[i] -= lineSpd;
     
     if lineUpY[i] < -28 && createLineUp[i] 
     {
         totalLinesUp += 1;
-        lineUpY[totalLinesUp-1] = round(room_height/2) - 14;
-        createLineUp[totalLinesUp-1] = true;
+        lineUpY[totalLinesUp - 1] = round(room_height / 2) - 14;
+        createLineUp[totalLinesUp - 1] = true;
         
         createLineUp[i] = false;
     }
 }
 
-for (i = 0; i < totalLinesDown; i += 1)
+for (var i = 0; i < totalLinesDown; i += 1)
 {
     lineDownY[i] += lineSpd;
     
     if lineDownY[i] > room_height && createLineDown[i] 
     {
         totalLinesDown += 1;
-        lineDownY[totalLinesDown-1] = round(room_height/2) - 14;
-        createLineDown[totalLinesDown-1] = true;
+        lineDownY[totalLinesDown - 1] = round(room_height / 2) - 14;
+        createLineDown[totalLinesDown - 1] = true;
         
         createLineDown[i] = false;
     }
@@ -40,9 +38,9 @@ else
 {
     bossSprite = pose;
     bossImg += poseImgSpeed;
-    if bossImg >= sprite_get_number(pose)-1
+    if bossImg >= sprite_get_number(pose) - 1
     {
-        bossImg = sprite_get_number(pose)-1;
+        bossImg = sprite_get_number(pose) - 1;
     }
 }
 
@@ -54,7 +52,7 @@ if bossRGB < 255
     if bossRGBTimer >= bossRGBTimerMax
     {
         bossRGBTimer = 0;
-        bossRGB += ceil(255/4);
+        bossRGB += ceil(255 / 4);
         if bossRGB > 255
             bossRGB = 255;
     }

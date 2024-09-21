@@ -1,8 +1,5 @@
-// / @function spriteGetTop
-// / @description Get the very top of the object this is called in
-function spriteGetTop() {
-
+// Get the very top of the object this is called in, based on their sprite (not collision mask)
+function spriteGetTop()
+{
 	return round(y - sprite_yoffset);
-
-
 }

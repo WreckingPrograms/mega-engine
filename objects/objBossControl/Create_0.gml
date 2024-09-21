@@ -19,4 +19,10 @@ healthBarTimerMax = 100;
 canInitDeactivation = true;
 
 myBoss = instance_nearest(x, y, prtBoss);
+if myBoss == noone
+{
+	show_message("objBossControl could not find a boss. Exiting game!");
+	game_end();
+}
+
 global.bossHealth = 0;

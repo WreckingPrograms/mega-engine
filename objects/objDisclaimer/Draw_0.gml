@@ -9,7 +9,7 @@ draw_set_font(global.font);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 
-draw_text(round(room_width/2), round(room_height/2), string_hash_to_newline(disclaimerText));
+draw_text(round(room_width / 2), round(room_height / 2), disclaimerText);
 
 draw_set_color(oldCol);
 draw_set_alpha(oldAlpha);

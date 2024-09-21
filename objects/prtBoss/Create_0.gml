@@ -1,3 +1,5 @@
+event_inherited();
+
 startIntro = false;
 isIntro = false;
 startFight = false;

@@ -1,10 +1,7 @@
-// / @function playMusic
-// / @param filename
-// / @description Plays music
+// Plays music
+// Example: playMusic(mscBeta)
 function playMusic(musicAsset)
 {
-	// Example: playMusic(mscBeta)
-
 	if global.msc >= 0
 		audio_stop_sound(global.msc);
 

@@ -1,7 +1,6 @@
-// / @function playerLockMovement
-// / @description Locks the player's movement
-function playerLockMovement() {
-
+// Locks the player's movement
+function playerLockMovement()
+{
 	with objMegaman
 	{
 	    isStep = false;
@@ -18,6 +17,4 @@ function playerLockMovement() {
 	    xspeed = 0;
 	    yspeed = 0;
 	}
-
-
 }

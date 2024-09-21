@@ -1,16 +1,16 @@
 event_inherited();
 
-if !global.frozen
+if !isFrozen()
 {
     if sprite_index == sprRushJet
     {
         if canJet  // Waiting for Megaman
         {
-            if collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_top-1, objMegaman, false, false) >= 0
+            if collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_top - 1, objMegaman, false, false) >= 0
             {
                 if instance_exists(objMegaman)
                 {
-                    if objMegaman.ground  && objMegaman.bbox_bottom <= bbox_top && objMegaman.yspeed >= 0
+                    if objMegaman.ground && objMegaman.bbox_bottom <= bbox_top && objMegaman.yspeed >= 0
                     {
                         canJet = false;
                         alarm[0] = -1;
@@ -35,7 +35,7 @@ if !global.frozen
                 }
             }
             
-            if collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_top-1, objMegaman, false, false) >= 0
+            if collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_top - 1, objMegaman, false, false) >= 0
             {               
                 if instance_exists(objMegaman)
                 {
@@ -47,48 +47,23 @@ if !global.frozen
                         objMegaman.onRushJet = true;
                         
                         // Move vertically
-                        if global.keyUp && !place_meeting(objMegaman.x, y-sprite_get_height(mskMegaman)-abs(yspeed)-1, objSolid)
-                        && !place_meeting(x, y-abs(yspeed)-1, objSolid)
+                        if global.keyUp && !place_meeting(objMegaman.x, y - sprite_get_height(mskMegaman) - abs(yspeed) - 1, objSolid)
+							&& !place_meeting(x, y - abs(yspeed) - 1, objSolid)
+							&& !placeMeetingMovingPlatform(objMegaman.x, y - sprite_get_height(mskMegaman) - abs(yspeed) - 1, prtMovingPlatformSolid)
+							&& !placeMeetingMovingPlatform(x, y - abs(yspeed) - 1, prtMovingPlatformSolid)
                         {
-                            if !place_meeting(objMegaman.x, y-sprite_get_height(mskMegaman)-abs(yspeed)-1, prtMovingPlatformSolid)
-                            && !place_meeting(x, y-abs(yspeed)-1, prtMovingPlatformSolid)
-                                yspeed = -ySpd;
-                            else if place_meeting(objMegaman.x, y-sprite_get_height(mskMegaman)-abs(yspeed)-1, prtMovingPlatformSolid)
-                            {
-                                if instance_place(objMegaman.x, y-sprite_get_height(mskMegaman)-abs(yspeed)-1, prtMovingPlatformSolid).dead 
-                                    yspeed = -ySpd;
-                                else
-                                    yspeed = 0;
-                            }
-                            else
-                            {
-                                if instance_place(x, y-sprite_get_height(mskMegaman)-abs(yspeed)-1, prtMovingPlatformSolid).dead 
-                                    yspeed = -ySpd;
-                                else
-                                    yspeed = 0;
-                            }
+                            yspeed = -ySpd;
                         }
-                        else if global.keyDown && !place_meeting(x, y+abs(yspeed)+1, objSolid) && !place_meeting(x, y+abs(yspeed)+1, objTopSolid)
+                        else if global.keyDown && !place_meeting(x, y + abs(yspeed) + 1, objSolid)
+							&& !place_meeting(x, y + abs(yspeed) + 1, objTopSolid)
+							&& !placeMeetingMovingPlatform(x, y + abs(yspeed) + 1, prtMovingPlatformSolid, prtMovingPlatformJumpthrough)
                         {
-                            if !place_meeting(x, y+abs(yspeed)+1, prtMovingPlatformSolid) && !place_meeting(x, y+abs(yspeed)+1, prtMovingPlatformJumpthrough)
-                                yspeed = ySpd;
-                            else if place_meeting(x, y+abs(yspeed)+1, prtMovingPlatformSolid)
-                            {
-                                if instance_place(x, y+abs(yspeed)+1, prtMovingPlatformSolid).dead 
-                                    yspeed = ySpd;
-                                else
-                                    yspeed = 0;
-                            }
-                            else
-                            {
-                                if instance_place(x, y+abs(yspeed)+1, prtMovingPlatformJumpthrough).dead 
-                                    yspeed = ySpd;
-                                else
-                                    yspeed = 0;
-                            }
+                            yspeed = ySpd;
                         }
                         else
+						{
                             yspeed = 0;
+						}
                     }
                 }
             }
@@ -107,14 +82,9 @@ if !global.frozen
             }
         }
         
-        if place_meeting(x, y, objSolid)
+        if place_meeting(x, y, objSolid) || placeMeetingMovingPlatform(x, y, prtMovingPlatformSolid)
         {
             event_perform(ev_alarm, 0);
-        }
-        else if place_meeting(x, y, prtMovingPlatformSolid)
-        {
-            if !instance_place(x, y, prtMovingPlatformSolid).dead
-                event_perform(ev_alarm, 0);
         }
         
         image_speed = 0.25;

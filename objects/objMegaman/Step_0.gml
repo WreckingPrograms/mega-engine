@@ -1,4 +1,4 @@
-if !global.frozen
+if !isFrozen()
 {
     // Shooting (before sprite handling to update the sprites properly)
     playerShoot();

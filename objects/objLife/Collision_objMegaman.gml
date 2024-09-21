@@ -5,8 +5,7 @@ if global._lives < 9
     
 playSFX(sfxImportantItem);
 
-if pickupID != -15
+if pickupKey != ""
 {
-    global.pickupCollected[pickupID] = true;
+    global.collectedPickups[$ pickupKey] = true;
 }
-

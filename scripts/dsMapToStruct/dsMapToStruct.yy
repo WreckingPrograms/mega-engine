@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"dsMapToStruct",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"dsMapToStruct",
+  "parent":{
+    "name":"Util",
+    "path":"folders/Scripts/Util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

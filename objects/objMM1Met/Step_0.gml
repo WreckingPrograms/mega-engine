@@ -1,6 +1,6 @@
 event_inherited();
 
-if !global.frozen && !dead
+if !isFrozen() && !dead
 {
     if instance_exists(objMegaman)
     {
@@ -27,21 +27,15 @@ if !global.frozen && !dead
         {
             // Shoot
             var ID;
-            ID = instanceCreate(x+image_xscale*8, spriteGetYCenter(), objMM1MetBullet);
-            {
+            ID = instanceCreate(x + (image_xscale * 8), spriteGetYCenter(), objMM1MetBullet);
                 ID.dir = 45;
                 ID.xscale = image_xscale;
-            }
-            ID = instanceCreate(x+image_xscale*8, spriteGetYCenter(), objMM1MetBullet);
-            {
+            ID = instanceCreate(x + (image_xscale * 8), spriteGetYCenter(), objMM1MetBullet);
                 ID.dir = 0;
                 ID.xscale = image_xscale;
-            }
-            ID = instanceCreate(x+image_xscale*8, spriteGetYCenter(), objMM1MetBullet);
-            {
+            ID = instanceCreate(x + (image_xscale * 8), spriteGetYCenter(), objMM1MetBullet);
                 ID.dir = -45;
                 ID.xscale = image_xscale;
-            }
             
             playSFX(sfxEnemyShootClassic);
         }

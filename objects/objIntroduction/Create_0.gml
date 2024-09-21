@@ -3,14 +3,14 @@
 playMusicNoLoopVolume(mscIntroduction, 0.7);
 
 totalLinesUp = 2;
-lineUpY[0] = round(room_height/4)-21;
-lineUpY[1] = round(room_height/2)-14;
+lineUpY[0] = round(room_height / 4) - 21;
+lineUpY[1] = round(room_height / 2) - 14;
 createLineUp[0] = true; // If the line can spawn a new line (it's set to false once it creates a new line, to avoid endless clones)
 createLineUp[1] = true;
 
 totalLinesDown = 2;
-lineDownY[0] = round(3*(room_height/4))-7;
-lineDownY[1] = round(room_height/2)-14;
+lineDownY[0] = round(3 * (room_height / 4)) - 7;
+lineDownY[1] = round(room_height / 2) - 14;
 createLineDown[0] = true;
 createLineDown[1] = true;
 
@@ -25,7 +25,7 @@ switch global.introductionBoss
     case "pharaoh": // Pharaoh Man; currently the only boss
         standSprite = sprPharaohStand; // The standing sprite
         pose = sprPharaohPose; // The posing sprite
-        poseImgSpeed = 3/60; // The image speed (animation speed) of the pose
+        poseImgSpeed = 3 / 60; // The image speed (animation speed) of the pose
         name = "PHARAOH MAN";
     break;
 }

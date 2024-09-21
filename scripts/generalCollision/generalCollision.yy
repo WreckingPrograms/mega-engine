@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"generalCollision",
   "parent":{
-    "name":"Collision_Gravity",
-    "path":"folders/Scripts/Collision_Gravity.yy",
+    "name":"Entities",
+    "path":"folders/Scripts/Entities.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

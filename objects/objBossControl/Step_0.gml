@@ -1,5 +1,5 @@
-if x >= global.viewX && x <= global.viewX+global.viewWidth-1
-&& y >= global.viewY && y <= global.viewY+global.viewHeight-1
+if x >= global.viewX && x <= global.viewX + global.viewWidth - 1
+	&& y >= global.viewY && y <= global.viewY + global.viewHeight - 1
 {
     // Locks the player and activates the boss (but won't make the boss move yet, it just performs its starting pose)
     // Also plays the boss music

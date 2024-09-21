@@ -30,7 +30,6 @@ weaponDamage[Weapons.WIND_STORM] = 2;
 shootTimer = 0;
 shooting = false;
 shootAmount = 0;
-randomize();
 shootAmountMax = choose(5, 10);
 xspeed = 0;
 yspeed = 0;

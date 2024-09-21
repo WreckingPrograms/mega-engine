@@ -5,7 +5,7 @@ if canStep  && playerSpeedHorDoor != 0 // When the door is closing, we should no
     if !(door && !canProgressDoor)
     {
         // Right
-        if dir == "right"
+        if dir == Directions.RIGHT
         {
             global.viewX += screenSpeedHor;
             
@@ -33,8 +33,7 @@ if canStep  && playerSpeedHorDoor != 0 // When the door is closing, we should no
                 }
                 else
                 {
-                    var bossdr;
-                    bossdr = instance_place(objMegaman.sectionLeft, y, objBossDoor);
+                    var bossdr = instance_place(objMegaman.sectionLeft, y, objBossDoor);
                     if bossdr >= 0
                     {
                         bossdr.opening = false;
@@ -56,7 +55,7 @@ if canStep  && playerSpeedHorDoor != 0 // When the door is closing, we should no
         }
         
         // Left
-        else if dir == "left"
+        else if dir == Directions.LEFT
         {
             global.viewX -= screenSpeedHor;
             
@@ -71,9 +70,9 @@ if canStep  && playerSpeedHorDoor != 0 // When the door is closing, we should no
                 objMegaman.x -= playerSpeedHorDoor;
             }
             
-            if global.viewX <= objMegaman.sectionRight-global.viewWidth
+            if global.viewX <= objMegaman.sectionRight - global.viewWidth
             {
-                global.viewX = objMegaman.sectionRight-global.viewWidth;
+                global.viewX = objMegaman.sectionRight - global.viewWidth;
                 
                 if !door
                 {
@@ -84,8 +83,7 @@ if canStep  && playerSpeedHorDoor != 0 // When the door is closing, we should no
                 }
                 else
                 {
-                    var bossdr;
-                    bossdr = instance_place(objMegaman.sectionRight, y, objBossDoor);
+                    var bossdr = instance_place(objMegaman.sectionRight, y, objBossDoor);
                     if bossdr >= 0
                     {
                         bossdr.opening = false;
@@ -107,7 +105,7 @@ if canStep  && playerSpeedHorDoor != 0 // When the door is closing, we should no
         }
         
         // Down
-        else if dir == "down"
+        else if dir == Directions.DOWN
         {
             global.viewY += screenSpeedVert;
             y += playerSpeedVert;
@@ -125,7 +123,7 @@ if canStep  && playerSpeedHorDoor != 0 // When the door is closing, we should no
         }
         
         // Up
-        else if dir == "up"
+        else if dir == Directions.UP
         {
             global.viewY -= screenSpeedVert;
             y -= playerSpeedVert;

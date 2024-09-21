@@ -13,8 +13,8 @@ if global._health < 28
     playSFX(sfxEnergyRestore, true);
 }
 
-if pickupID != -15
+if pickupKey != ""
 {
-    global.pickupCollected[pickupID] = true;
+    global.collectedPickups[$ pickupKey] = true;
 }
 

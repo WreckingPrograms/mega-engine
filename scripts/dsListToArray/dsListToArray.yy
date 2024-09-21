@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"drawSpriteTiled",
+  "%Name":"dsListToArray",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"drawSpriteTiled",
+  "name":"dsListToArray",
   "parent":{
-    "name":"Drawing",
-    "path":"folders/Scripts/Drawing.yy",
+    "name":"Util",
+    "path":"folders/Scripts/Util.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

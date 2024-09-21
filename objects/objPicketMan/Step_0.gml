@@ -1,6 +1,6 @@
 event_inherited();
 
-if !global.frozen && !dead
+if !isFrozen() && !dead
 {
     if instance_exists(objMegaman)
     {
@@ -18,7 +18,6 @@ if !global.frozen && !dead
             shootTimer = 0;
             shooting = true;
             image_index = 1;
-            randomize();
             shootAmountMax = choose(5, 10);
         }
     }
@@ -28,8 +27,7 @@ if !global.frozen && !dead
         if shootTimer == 15
         {
             image_index = 2;
-            var shootID;
-            shootID = instanceCreate(x+image_xscale*16, spriteGetYCenter(), objPicket);
+            var shootID = instanceCreate(x + (image_xscale * 16), spriteGetYCenter(), objPicket);
                 shootID.image_xscale = image_xscale;
             
             shootAmount += 1;

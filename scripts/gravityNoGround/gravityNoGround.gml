@@ -1,10 +1,8 @@
-// / @function gravityNoGround
-// / @description Applies gravity no matter what
-function gravityNoGround() {
-
-	yspeed += 0.25;
-	if yspeed > 7
-	    yspeed = 7;
-
-
+// Applies gravity no matter what
+function gravityNoGround(grav=undefined, maxSpeed=undefined)
+{
+	yspeed += grav ?? 0.25;
+	maxSpeed = maxSpeed ?? 7;
+	if yspeed > maxSpeed
+	    yspeed = maxSpeed;
 }

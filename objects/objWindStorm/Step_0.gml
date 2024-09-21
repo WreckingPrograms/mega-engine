@@ -1,4 +1,4 @@
-if !global.frozen
+if !isFrozen()
 {
     checkGround();
     generalCollision();

@@ -1,28 +1,22 @@
-// / @function playerShoot
-// / @description Handles Mega Man's shooting
-function playerShoot() {
-
-
+// Handles Mega Man's shooting
+function playerShoot()
+{
 	var box, yy, attackID;
 	if image_xscale == 1
-	    box = bbox_right+6;
+	    box = bbox_right + 6;
 	else
-	    box = bbox_left-6;
+	    box = bbox_left - 6;
     
 	switch sprite_index
 	{
-	    case spriteStand: yy = y+4; break;
-	    case spriteStep: yy = y+4; break;
-	    case spriteWalk: yy = y+4; break;
-	    case spriteJump: yy = y+3; break;
-	    case spriteClimb: yy = y+4; break;
-	    default: yy = y+4; break;
+	    case spriteJump: yy = y + 3; break;
+	    default: yy = y + 4; break;
 	}
 
 
 	// Shooting
-	if global.keyShootPressed && canShoot  && (canMove  || climbing  || isThrow  || onRushJet )
-	&& instance_number(objBusterShotCharged) < 1 && global.ammo[global.currentWeapon] > 0
+	if global.keyShootPressed && canShoot  && (canMove || climbing || isThrow || onRushJet)
+		&& instance_number(objBusterShotCharged) < 1 && global.ammo[global.currentWeapon] > 0
 	{   
 	    if climbing 
 	    {
@@ -47,258 +41,7 @@ function playerShoot() {
 	    }
             
     
-	    switch global.weapon
-	    {
-	        case Weapons.MEGA_BUSTER:
-	            if instance_number(objBusterShot) + instance_number(objBusterShotHalfCharged) < 3
-	            {
-	                attackID = instanceCreate(box+image_xscale*4, yy, objBusterShot);
-	                    attackID.xspeed = image_xscale * 5;
-	                playSFX(sfxBuster);
-	                isShoot = true;
-	                shootTimer = 0;
-	            }
-	        break;
-        
-	        case Weapons.SILVER_TOMAHAWK:
-	            if instance_number(objSilverTomahawk) < 2
-	            {
-	                attackID = instanceCreate(box+image_xscale*12, yy, objSilverTomahawk);
-	                    attackID.xspeed = image_xscale * 3.5;
-	                playSFX(sfxBuster);
-	                isShoot = true;
-	                shootTimer = 0;
-                
-	                global.ammo[global.currentWeapon] -= global.weaponAmmo[global.weaponSlot[global.currentWeapon]];
-	                if global.ammo[global.currentWeapon] <= 0
-	                    global.ammo[global.currentWeapon] = 0;
-	            }
-	        break;
-        
-	        case Weapons.WIND_STORM:
-	            if instance_number(objWindStorm) < 3
-	            {
-	                attackID = instanceCreate(box+image_xscale*9, yy, objWindStorm);
-	                    attackID.xspeed = image_xscale * 3;
-	                    attackID.image_xscale = image_xscale;
-	                playSFX(sfxBuster);
-	                isShoot = true;
-	                shootTimer = 0;
-                
-	                global.ammo[global.currentWeapon] -= global.weaponAmmo[global.weaponSlot[global.currentWeapon]];
-	                if global.ammo[global.currentWeapon] <= 0
-	                    global.ammo[global.currentWeapon] = 0;
-	            }
-	        break;
-        
-	        case Weapons.PHARAOH_SHOT:
-	            if instance_number(objPharaohShot) < 3
-	            {
-	                attackID = instanceCreate(box+image_xscale*4, yy, objPharaohShot);
-	                    attackID.xspeed = image_xscale * 4.5;
-                    
-	                if global.keyUp && !global.keyDown
-	                    attackID.yspeed = -4.5;
-	                else if global.keyDown && !global.keyUp
-	                    attackID.yspeed = 4.5;
-	                else
-	                    attackID.yspeed = 0;
-                    
-	                playSFX(sfxPharaohShot);
-	                isThrow = true;
-	                shootTimer = 0;
-                
-	                global.ammo[global.currentWeapon] -= global.weaponAmmo[global.weaponSlot[global.currentWeapon]];
-	                if global.ammo[global.currentWeapon] <= 0
-	                    global.ammo[global.currentWeapon] = 0;
-	            }
-	        break;
-        
-	        case Weapons.METAL_BLADE:
-	            if instance_number(objMetalBlade) < 3
-	            {
-	                attackID = instanceCreate(x+image_xscale*3, yy, objMetalBlade);
-                    
-	                if global.keyRight && !global.keyLeft && global.keyUp
-	                    attackID.dir = 45;
-	                else if global.keyLeft && !global.keyRight && global.keyUp
-	                    attackID.dir = 135;
-	                else if global.keyLeft && !global.keyRight && global.keyDown
-	                    attackID.dir = 225;
-	                else if global.keyRight && !global.keyLeft && global.keyDown
-	                    attackID.dir = 315;
-	                else if global.keyUp
-	                    attackID.dir = 90;
-	                else if global.keyDown
-	                    attackID.dir = 270;
-	                else
-	                {
-	                    if image_xscale == -1
-	                        attackID.dir = 180;
-	                    else
-	                        attackID.dir = 0;
-	                }
-                    
-	                playSFX(sfxMetalBlade);
-	                isThrow = true;
-	                shootTimer = 0;
-                
-	                global.ammo[global.currentWeapon] -= global.weaponAmmo[global.weaponSlot[global.currentWeapon]];
-	                if global.ammo[global.currentWeapon] <= 0
-	                    global.ammo[global.currentWeapon] = 0;
-	            }
-	        break;
-        
-	        case Weapons.STAR_CRASH:
-	            if instance_number(objStarCrash) < 1
-	            {
-	                attackID = instanceCreate(x, spriteGetYCenter(), objStarCrash);
-	            }
-	        break;
-        
-	        case Weapons.RUSH_COIL:
-	            if instance_number(objRushCoil) < 1
-	            {
-	                var tpY, airIncrease;
-	                tpY = 0;
-	                if ground 
-	                    airIncrease = 0;
-	                else
-	                    airIncrease = 20; // When in the air, the upwards range is reduced because Rush could otherwise spawn above ceilings
-                
-                
-	                while !(!position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, objSolid) && !position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, prtMovingPlatformSolid)
-	                && !position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, objTopSolid) && !position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, prtMovingPlatformJumpthrough)
-	                && (position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, objSolid) || position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, prtMovingPlatformSolid)
-	                || position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, objTopSolid) || position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, prtMovingPlatformJumpthrough)))
-	                && !(position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, objSolid) && tpY > sprite_get_height(mask_index)/2)
-	                && !(position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, prtMovingPlatformSolid) && tpY > sprite_get_height(mask_index)/2)
-	                && !(position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, objTopSolid) && tpY > sprite_get_height(mask_index)/2)
-	                && !(position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, prtMovingPlatformJumpthrough) && tpY > sprite_get_height(mask_index)/2)
-	                && !position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, objBossDoor)
-	                && tpY <= 12+52
-	                {
-	                    tpY += 1;
-	                }
-                
-	                if position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, objSolid)
-	                || position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, prtMovingPlatformSolid)
-	                || position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, objTopSolid)
-	                || position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, prtMovingPlatformJumpthrough)
-	                {
-	                    if position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, objSolid)
-	                    {
-	                        var solidID;
-	                        solidID = instance_position(x+image_xscale*26, spriteGetYCenter()+tpY, objSolid);
-	                        attackID = instanceCreate(x+image_xscale*26, solidID.y-16, objRushCoil);
-	                            attackID.shouldLand = true;
-	                            attackID.image_xscale = image_xscale;
-	                    }
-	                    else if position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, prtMovingPlatformSolid)
-	                    {
-	                        var solidID;
-	                        solidID = instance_position(x+image_xscale*26, spriteGetYCenter()+tpY, prtMovingPlatformSolid);
-	                        attackID = instanceCreate(x+image_xscale*26, solidID.bbox_top-16, objRushCoil);
-	                            attackID.shouldLand = true;
-	                            attackID.image_xscale = image_xscale;
-	                    }
-	                    else if position_meeting(x+image_xscale*26, spriteGetYCenter()+tpY, objTopSolid)
-	                    {
-	                        var solidID;
-	                        solidID = instance_position(x+image_xscale*26, spriteGetYCenter()+tpY, objTopSolid);
-	                        attackID = instanceCreate(x+image_xscale*26, solidID.y-16, objRushCoil);
-	                            attackID.shouldLand = true;
-	                            attackID.image_xscale = image_xscale;
-	                    }
-	                    else
-	                    {
-	                        var solidID;
-	                        solidID = instance_position(x+image_xscale*26, spriteGetYCenter()+tpY, prtMovingPlatformJumpthrough);
-	                        attackID = instanceCreate(x+image_xscale*26, solidID.bbox_top-16, objRushCoil);
-	                            attackID.shouldLand = true;
-	                            attackID.image_xscale = image_xscale;
-	                    }
-	                }
-	                else if !position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, objSolid)
-	                && !position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, prtMovingPlatformSolid)
-	                && !position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, objTopSolid)
-	                && !position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, prtMovingPlatformJumpthrough)
-	                && !position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY-1 + airIncrease, objBossDoor)
-	                && (position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, objSolid) || position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, prtMovingPlatformSolid)
-	                || position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, objTopSolid) || position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, prtMovingPlatformJumpthrough))
-	                {
-	                    if position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, objSolid)
-	                    {
-	                        var solidID;
-	                        solidID = instance_position(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, objSolid);
-	                        attackID = instanceCreate(x+image_xscale*26, solidID.y-16, objRushCoil);
-	                            attackID.shouldLand = true;
-	                            attackID.image_xscale = image_xscale;
-	                    }
-	                    else if position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, prtMovingPlatformSolid)
-	                    {
-	                        var solidID;
-	                        solidID = instance_position(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, prtMovingPlatformSolid);
-	                        attackID = instanceCreate(x+image_xscale*26, solidID.bbox_top-16, objRushCoil);
-	                            attackID.shouldLand = true;
-	                            attackID.image_xscale = image_xscale;
-	                    }
-	                    else if position_meeting(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, objTopSolid)
-	                    {
-	                        var solidID;
-	                        solidID = instance_position(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, objTopSolid);
-	                        attackID = instanceCreate(x+image_xscale*26, solidID.y-16, objRushCoil);
-	                            attackID.shouldLand = true;
-	                            attackID.image_xscale = image_xscale;
-	                    }
-	                    else
-	                    {
-	                        var solidID;
-	                        solidID = instance_position(x+image_xscale*26, spriteGetYCenter()-tpY + airIncrease, prtMovingPlatformJumpthrough);
-	                        attackID = instanceCreate(x+image_xscale*26, solidID.bbox_top-16, objRushCoil);
-	                            attackID.shouldLand = true;
-	                            attackID.image_xscale = image_xscale;
-	                    }
-	                }
-	                else
-	                {
-	                    attackID = instanceCreate(x+image_xscale*26, spriteGetYCenter(), objRushCoil);
-	                        attackID.shouldLand = false;
-	                        attackID.image_xscale = image_xscale;
-	                }
-	            }
-	            else
-	            {
-	                if instance_number(objBusterShot) + instance_number(objBusterShotHalfCharged) < 3
-	                {
-	                    attackID = instanceCreate(box+image_xscale*4, yy, objBusterShot);
-	                        attackID.xspeed = image_xscale * 5;
-	                    playSFX(sfxBuster);
-	                    isShoot = true;
-	                    shootTimer = 0;
-	                }
-	            }
-	        break;
-        
-	        case Weapons.RUSH_JET:
-	            if instance_number(objRushJet) < 1
-	            {
-	                attackID = instanceCreate(x+image_xscale*26, spriteGetYCenter()-8, objRushJet);
-	                        attackID.image_xscale = image_xscale;
-	            }
-	            else
-	            {
-	                if instance_number(objBusterShot) + instance_number(objBusterShotHalfCharged) < 3
-	                {
-	                    attackID = instanceCreate(box+image_xscale*4, yy, objBusterShot);
-	                        attackID.xspeed = image_xscale * 5;
-	                    playSFX(sfxBuster);
-	                    isShoot = true;
-	                    shootTimer = 0;
-	                }
-	            }
-	        break;
-	    }
+	    playerUseWeapon(global.weapon, yy, box);
 	}
 
 
@@ -312,7 +55,7 @@ function playerShoot() {
 	        isShoot = false;
 	    }
 	}
-	else if isThrow  // Throwing weapons, like Pharaoh Shot and Metal Blade
+	else if isThrow // Throwing weapons, like Pharaoh Shot and Metal Blade
 	{
 	    isShoot = false;
     
@@ -359,7 +102,7 @@ function playerShoot() {
 	{
 	    if global.weapon == Weapons.MEGA_BUSTER && (global.keyShoot || (isSlide && chargeTimer != 0))
 	    {
-	        if (canMove || isSlide || climbing ) && !isShoot
+	        if (canMove || isSlide || climbing) && !isShoot
 	        {
 	            isCharge = true;
             
@@ -384,7 +127,7 @@ function playerShoot() {
 	                    else
 	                        chargeCol = make_color_rgb(248, 88, 152);   // Light red (pink)
                         
-	                    if chargeTimer mod 4 == 0 || chargeTimer mod 4 == 1
+	                    if chargeTimer % 4 == 0 || chargeTimer % 4 == 1
 	                        global.outlineCol = chargeCol;
 	                    else
 	                        global.outlineCol = c_black;
@@ -397,7 +140,7 @@ function playerShoot() {
 	                        playSFX(sfxCharged);
 	                    }
                     
-	                    switch (chargeTimer/2 mod 3)
+	                    switch ((chargeTimer / 2) % 3)
 	                    {
 	                        case 0: // Light blue helmet, black shirt, blue outline
 	                            global.primaryCol = make_color_rgb(0, 232, 216);
@@ -421,9 +164,9 @@ function playerShoot() {
 	            }
 	        }
 	    }
-	    else if global.weapon == Weapons.MEGA_BUSTER && !global.keyShoot      // Release the charge shot
+	    else if global.weapon == Weapons.MEGA_BUSTER && !global.keyShoot // Release the charge shot
 	    {
-	        if (canMove || climbing ) && chargeTimer != 0
+	        if (canMove || climbing) && chargeTimer != 0
 	        {
 	            isShoot = true;
 	            shootTimer = 0;
@@ -440,14 +183,14 @@ function playerShoot() {
         
 	            if chargeTimer < chargeTime
 	            {
-	                attackID = instanceCreate(box+image_xscale*6, yy, objBusterShotHalfCharged);
+	                attackID = instanceCreate(box + (image_xscale * 6), yy, objBusterShotHalfCharged);
 	                    attackID.xspeed = image_xscale * 5;
 	                    attackID.image_xscale = image_xscale;
 	                playSFX(sfxBusterHalfCharged);
 	            }
 	            else
 	            {
-	                attackID = instanceCreate(box+image_xscale*14, yy, objBusterShotCharged);
+	                attackID = instanceCreate(box + (image_xscale * 14), yy, objBusterShotCharged);
 	                    attackID.xspeed = image_xscale * 5.5;
 	                    attackID.image_xscale = image_xscale;
 	                playSFX(sfxBusterCharged);
@@ -471,13 +214,13 @@ function playerShoot() {
 	        pharaohShotInitTimer += 1;
 	        if pharaohShotInitTimer >= 30
 	        {
-	            instanceCreate(x + image_xscale, y-20, objPharaohShotCharging);
+	            instanceCreate(x + image_xscale, y - 20, objPharaohShotCharging);
 	            pharaohShotInitTimer = 0;
 	        }
 	    }
 	    else if !global.keyShoot && instance_exists(objPharaohShotCharging)
 	    {
-	        if (canMove  || climbing )
+	        if (canMove || climbing)
 	        {
 	            if climbing 
 	            {
@@ -486,7 +229,7 @@ function playerShoot() {
             
 	            if objPharaohShotCharging.sprite_index == sprPharaohShotCharging // Small shot
 	            {
-	                attackID = instanceCreate(box+image_xscale*4, yy, objPharaohShot);
+	                attackID = instanceCreate(box + (image_xscale * 4), yy, objPharaohShot);
 	                    attackID.xspeed = image_xscale * 4.5;
                     
 	                if global.keyUp && !global.keyDown
@@ -500,13 +243,11 @@ function playerShoot() {
 	                isThrow = true;
 	                shootTimer = 0;
                 
-	                global.ammo[global.currentWeapon] -= global.weaponAmmo[global.weaponSlot[global.currentWeapon]];
-	                if global.ammo[global.currentWeapon] <= 0
-	                    global.ammo[global.currentWeapon] = 0;
+	                playerConsumeAmmo(global.currentWeapon);
 	            }
-	            else    // Big shot
+	            else  // Big shot
 	            {
-	                attackID = instanceCreate(box+image_xscale*10, yy, objPharaohShotCharged);
+	                attackID = instanceCreate(box + (image_xscale * 10), yy, objPharaohShotCharged);
 	                    attackID.xspeed = image_xscale * 4.5;
                     
 	                if global.keyUp && !global.keyDown
@@ -520,9 +261,7 @@ function playerShoot() {
 	                isThrow = true;
 	                shootTimer = 0;
                 
-	                global.ammo[global.currentWeapon] -= 2;
-	                if global.ammo[global.currentWeapon] <= 0
-	                    global.ammo[global.currentWeapon] = 0;
+					playerConsumeAmmo(global.currentWeapon, 2);
 	            }
             
 	            with objPharaohShotCharging instance_destroy();
@@ -537,6 +276,4 @@ function playerShoot() {
 	{
 	    pharaohShotInitTimer = 0;
 	}
-
-
 }

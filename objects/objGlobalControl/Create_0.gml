@@ -40,5 +40,6 @@ if room == rmInit
 else if global.levelStart 
 {
     event_user(0);
+	global.levelStart = false;
 }
 

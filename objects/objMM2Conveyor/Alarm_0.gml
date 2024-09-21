@@ -2,7 +2,7 @@
 // This code fixes that
 if dir == -1
 {
-    with instanceCreate(x+size*16-15, y, objSolid)
+    with instanceCreate(x + (size * 16) - 15, y, objSolid)
         visible = false;
 }
 

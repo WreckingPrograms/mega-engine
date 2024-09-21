@@ -1,12 +1,11 @@
 global._lives -= 1;
-
-var ID;
-ID = instanceCreate(x, y, objFadeout);
-
 global.lastRoom = room;
 
+var ID = instanceCreate(x, y, objFadeout);
 if global._lives >= 0
+{
     ID.type = "restart";
+}
 else
 {
     ID.type = "room";
