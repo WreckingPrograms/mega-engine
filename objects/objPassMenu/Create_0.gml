@@ -9,7 +9,12 @@ if global._lives < 0
     gameOver = true;
     canSelectOption = false;
     playMusicNoLoopVolume(mscGameOver, 1);
-    alarm[0] = 240;
+    delay(240, function() {
+	
+		canSelectOption = true;
+		playMusicVolume(mscPassScreen, 1);
+
+	});
 }
 else
 {

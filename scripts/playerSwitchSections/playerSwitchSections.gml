@@ -8,7 +8,7 @@ function playerSwitchSections()
 	
 	var startedSectionSwitch = false;
 
-	if x > sectionRight - 6 && place_meeting(x - xspeed + 6, y, objSectionArrowRight) // Right
+	if x > sectionRight - 6 && place_meeting(x - (xspeed * global.dt) + 6, y, objSectionArrowRight) // Right
 		&& collision_rectangle(sectionRight + 1, bbox_top, sectionRight + 2, bbox_bottom, objSolid, false, false) < 0
 	{
 		startedSectionSwitch = true;
@@ -23,7 +23,7 @@ function playerSwitchSections()
         
 	    alarm[1] = 1;
 	}
-	else if x < sectionLeft + 6 && place_meeting(x-xspeed - 6, y, objSectionArrowLeft) // Left
+	else if x < sectionLeft + 6 && place_meeting(x - (xspeed * global.dt) - 6, y, objSectionArrowLeft) // Left
 		&& collision_rectangle(sectionLeft - 1, bbox_top, sectionLeft - 2, bbox_bottom, objSolid, false, false) < 0
 	{
 		startedSectionSwitch = true;
@@ -38,7 +38,7 @@ function playerSwitchSections()
     
 	    alarm[1] = 1;
 	}
-	else if spriteGetYCenter() > sectionBottom - 6 && place_meeting(x, spriteGetYCenter() - yspeed + 6, objSectionArrowDown) // Down
+	else if spriteGetYCenter() > sectionBottom - 6 && place_meeting(x, spriteGetYCenter() - (yspeed * global.dt) + 6, objSectionArrowDown) // Down
 		&& collision_rectangle(bbox_left + 4, sectionBottom + 1, bbox_right - 4, sectionBottom + 2, objSolid, false, false) < 0
 	{
 		startedSectionSwitch = true;
@@ -47,7 +47,7 @@ function playerSwitchSections()
     
 	    alarm[1] = 1;
 	}
-	else if spriteGetYCenter() < sectionTop + 6 && climbing && place_meeting(x, spriteGetYCenter() - yspeed - 6, objSectionArrowUp) // Up
+	else if spriteGetYCenter() < sectionTop + 6 && climbing && place_meeting(x, spriteGetYCenter() - (yspeed * global.dt) - 6, objSectionArrowUp) // Up
 		&& collision_rectangle(bbox_left + 4, sectionTop - 1, bbox_right - 4, sectionTop - 2, objSolid, false, false) < 0
 	{
 		startedSectionSwitch = true;

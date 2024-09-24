@@ -46,5 +46,11 @@ bossTextInterval = 7; // The amount of frames between letters showing up
 bossTextPos = 0;
 bossDisplayName = "";
 
-alarm[0] = 450; // Going to the level
+// Going to the level
+delay(450, function() {
 
+	var ID = instanceCreate(0, 0, objFadeout);
+	    ID.type = "room";
+	    ID.myRoom = global.destinationLevel;
+
+});

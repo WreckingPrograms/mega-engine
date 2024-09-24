@@ -2,8 +2,8 @@ if canStep
 {
     if !isFrozen()
     {
-        image_speed = imgSpeed;
-        speed = 6;
+        image_speed = imgSpd * global.dt;
+        speed = 6 * global.dt;
     }
     else
     {

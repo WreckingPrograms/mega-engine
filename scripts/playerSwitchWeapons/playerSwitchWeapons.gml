@@ -67,8 +67,8 @@ function playerSwitchWeapons()
 	// Timer
 	if drawWeaponIconTimer != -1
 	{
-	    drawWeaponIconTimer -= 1;
-	    if drawWeaponIconTimer == 0
+	    drawWeaponIconTimer = max(drawWeaponIconTimer - (1 * global.dt), -1);
+	    if drawWeaponIconTimer <= 0
 	    {
 	        drawWeaponIcon = false;
 	    }

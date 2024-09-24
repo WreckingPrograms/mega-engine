@@ -1,4 +1,5 @@
 timer = 0; // The timer has multiple uses
+subTimer = 0;
 megaX = round(room_width / 2);
 megaY = room_height + 40;
 megaSpr = sprMegamanWeaponGetTeleport;

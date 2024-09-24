@@ -20,11 +20,7 @@ event_perform(ev_step_begin, 0); // Registers the key inputs
 global._health = 28;
 global.weapon = 0;  // Can have values from the Weapons enum, even those that are not on the pause menu
 global.currentWeapon = 0;   // Only the weapons used in the level; only those that are on the pause menu
-
-
 global.frozen = false;
-global.currentPickupID = 0; // Each pickup (health, weapon energy, life, tanks) has an ID
-                            // This way, we can make it despawn when the room starts if the pickup has already been collected in that level
 
 
 

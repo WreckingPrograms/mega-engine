@@ -8,81 +8,71 @@ if !isFrozen() && !dead
         {
             if !shooting
             {
-                shootTimer += 1;
-                if shootTimer == 85
-                {
-                    image_index = 1;
-                }
-                else if shootTimer == 90
+                shootTimer += 1 * global.dt;
+                if shootTimer >= 90
                 {
                     image_index = 2;
                     animate = true;
                     shooting = true;
                     shootTimer = 0;
                 }
+				else if shootTimer >= 85
+                {
+                    image_index = 1;
+                }
             }
             else
             {
-                shootTimer += 1;
-                if shootTimer == 24
+                shootTimer += 1 * global.dt;
+				if shootAmount == 2 && shootTimer >= 29
                 {
-                    if shootAmount == 2
-                    {
-                        animate = false;
-                        image_index = 1;
-                        animateTimer = 0;
-                    }
+                    shootTimer = 0;
+                    shooting = false;
+                    shootAmount = 0;
+                    image_index = 0;
                 }
-                else if shootTimer == 29
+                else if shootAmount == 2 && shootTimer >= 24
                 {
-                    if shootAmount == 2
-                    {
-                        shootTimer = 0;
-                        shooting = false;
-                        shootAmount = 0;
-                        image_index = 0;
-                    }
+                    animate = false;
+                    image_index = 1;
+                    animateTimer = 0;
                 }
-                else if shootTimer == 30
+                else if shootAmount != 2 && shootTimer >= 30
                 {
-                    if shootAmount != 2
-                    {
-                        var shootID;
-                        shootID = instanceCreate(x + 8, y + 3, objBeakBullet);
-                            shootID.image_index = col;
-                            shootID.dir = 0;
-                            shootID.xscale = 1;
+                    var shootID = instanceCreate(x + 8, y + 3, objBeakBullet);
+                        shootID.image_index = col;
+                        shootID.dir = 0;
+                        shootID.xscale = 1;
                         
-                        shootID = instanceCreate(x + 4, y + 2, objBeakBullet);
-                            shootID.image_index = col;
-                            shootID.dir = 45;
-                            shootID.xscale = 1;
+                    shootID = instanceCreate(x + 4, y + 2, objBeakBullet);
+                        shootID.image_index = col;
+                        shootID.dir = 45;
+                        shootID.xscale = 1;
                             
-                        shootID = instanceCreate(x, y, objBeakBullet);
-                            shootID.image_index = col;
-                            shootID.dir = 90;
-                            shootID.xscale = 1;
+                    shootID = instanceCreate(x, y, objBeakBullet);
+                        shootID.image_index = col;
+                        shootID.dir = 90;
+                        shootID.xscale = 1;
                             
-                        shootID = instanceCreate(x - 4, y + 2, objBeakBullet);
-                            shootID.image_index = col;
-                            shootID.dir = 135;
-                            shootID.xscale = 1;
+                    shootID = instanceCreate(x - 4, y + 2, objBeakBullet);
+                        shootID.image_index = col;
+                        shootID.dir = 135;
+                        shootID.xscale = 1;
                             
-                        shootID = instanceCreate(x - 8, y + 3, objBeakBullet);
-                            shootID.image_index = col;
-                            shootID.dir = 180;
-                            shootID.xscale = 1;
+                    shootID = instanceCreate(x - 8, y + 3, objBeakBullet);
+                        shootID.image_index = col;
+                        shootID.dir = 180;
+                        shootID.xscale = 1;
                             
-                        shootAmount += 1;
-                        shootTimer = 0;
-                        playSFX(sfxEnemyShootClassic);
-                    }
+                    shootAmount += 1;
+                    shootTimer = 0;
+                    playSFX(sfxEnemyShootClassic);
                 }
             }
             
             if animate 
             {
-                animateTimer += 1;
+                animateTimer += 1 * global.dt;
                 if animateTimer >= 4
                 {
                     animateTimer = 0;
@@ -99,7 +89,7 @@ if !isFrozen() && !dead
         else
         {
             if shootTimer < 85
-                shootTimer += 1;
+                shootTimer += 1 * global.dt;
         }
     }
 }

@@ -2,10 +2,10 @@ if !isFrozen()
 {
     gravityNoGround();
     
-    x += xspeed;
-    y += yspeed;
+    x += xspeed * global.dt;
+    y += yspeed * global.dt;
     
-    image_speed = 1 / 6;
+    image_speed = 1 / 6 * global.dt;
 }
 else
 {

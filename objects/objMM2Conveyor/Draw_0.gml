@@ -15,10 +15,10 @@ if size >= 3
         //  Animation // 
         
         // Arrows
-        arrowTimer += 1;
+        arrowTimer += 1 * global.dt;
         if arrowTimer >= 13
         {
-            arrowTimer = 0;
+            arrowTimer -= 13;
             if arrowImg == 4
             {
                 if dir == 1
@@ -31,10 +31,10 @@ if size >= 3
         }
         
         // Middle
-        midTimer += 1;
+        midTimer += 1 * global.dt;
         if midTimer >= 5
         {
-            midTimer = 0;
+            midTimer -= 5;
             if midImg == 0
                 midImg = 1;
             else
@@ -62,10 +62,10 @@ else
         //  Animation // 
         
         // Middle
-        midTimer += 1;
+        midTimer += 1 * global.dt;
         if midTimer >= 5
         {
-            midTimer = 0;
+            midTimer -= 5;
             if midImg == 0
                 midImg = 1;
             else

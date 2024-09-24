@@ -2,7 +2,7 @@ if isMM && !teleporting
 {
     if !absorbing
     {
-        var destX = round(global.viewX + (global.viewWidth/2));
+        var destX = round(global.viewX + (global.viewWidth / 2));
         
         checkGround();
         gravityCheckGround();
@@ -52,7 +52,7 @@ if isMM && !teleporting
         }
         else
         {
-            if canInitJump  && ground 
+            if canInitJump && ground 
             {
                 if !global.weaponUnlocked[global.weaponID] // Only absorb the power if it's not already been unlocked
                 {
@@ -68,22 +68,23 @@ if isMM && !teleporting
                     // Teleport out
                     yspeed = 0;
                     teleporting = true;
-                    alarm[2] = 60;
+					delay(60, startFadeOut);
                     playSFX(sfxTeleportOut);
                     sprite_index = sprMegamanTeleport;
                 }
             }
             
-            if yspeed > 0 && y >= global.viewY + 112 && !canInitJump && !global.weaponUnlocked[global.weaponID]
+            if yspeed >= 0 && y >= global.viewY + 112 && !canInitJump && !global.weaponUnlocked[global.weaponID]
             {
                 y = global.viewY + 112;
+				yspeed = 0;
                 absorbing = true;
             }
         }
         
         
-        x += xspeed;
-        y += yspeed;
+        x += xspeed * global.dt;
+        y += yspeed * global.dt;
     }
     else
     {
@@ -120,24 +121,26 @@ if isMM && !teleporting
                 if ground 
                 {
                     sprite_index = sprMegamanStand;
-                    image_speed = 0;
+                    imgSpd = 0;
                     image_index = 0;
                     
-                    startTeleportTimer += 1;
+                    startTeleportTimer += 1 * global.dt;
                     if startTeleportTimer >= 55
                     {
                         startTeleportTimer = 0;
                         yspeed = 0;
                         teleporting = true;
-                        alarm[2] = 60;
+                        delay(60, startFadeOut);
                         playSFX(sfxTeleportOut);
                         sprite_index = sprMegamanTeleport;
                     }
                 }
                 
-                y += yspeed;
+                y += yspeed * global.dt;
             }
         }
     }
+	
+	image_speed = imgSpd * global.dt;
 }
 

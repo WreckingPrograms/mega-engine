@@ -30,6 +30,7 @@ weaponDamage[Weapons.WIND_STORM] = 2;
 
 // Enemy specific code
 shootTimer = 0;
+shootPhase = 0;
 shooting = false;
 image_speed = 0;
 image_index = 0;

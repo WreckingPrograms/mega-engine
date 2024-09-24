@@ -3,7 +3,6 @@ if dir == -1
 else
     direction = 135;
     
-speed = 6;
-imgSpeed = image_speed;
+speed = 6 * global.dt;
 canStep = true;
 

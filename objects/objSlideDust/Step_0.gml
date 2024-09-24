@@ -1,10 +1,9 @@
 if !isFrozen()
 {
-    image_speed = 0.2;
+    image_speed = 0.2 * global.dt;
 }
 else
 {
     image_speed = 0;
-    alarm[0] += 1;
 }
 

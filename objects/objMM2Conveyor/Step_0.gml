@@ -4,6 +4,6 @@ if !isFrozen() && !dead
 {
     xspeed = dir * spd;
     
-    x -= xspeed;
+    x -= xspeed * global.dt;
 }
 

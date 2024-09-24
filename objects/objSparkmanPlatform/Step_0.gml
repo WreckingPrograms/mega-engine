@@ -15,14 +15,14 @@ if !isFrozen() && !dead
         yspeed = 0;
             
 		// TODO is all this still needed with new moving platform code?
-        subYspeed -= acc;
+        subYspeed -= acc * global.dt;
         
         if subYspeed < -maxSpeed
             subYspeed = -maxSpeed;
         else if subYspeed > maxSpeed
             subYspeed = maxSpeed;
             
-        subY += subYspeed;
+        subY += subYspeed * global.dt;
         
         while subY >= 1
         {

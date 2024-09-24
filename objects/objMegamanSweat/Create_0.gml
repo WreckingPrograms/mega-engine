@@ -1,5 +1,5 @@
-image_speed = 3 / 20;
+image_speed = 3 / 20 * global.dt;
 image_index = 0;
 
-alarm[0] = 20;
+delay(20, function() { instance_destroy(); });
 

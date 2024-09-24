@@ -16,8 +16,38 @@ mask_index = sprNothing;
 
 spd = 1;
 ySpd = 1;
+
+teleportAwayForce = function() {
+
+	teleportingUp = true;
+	sprite_index = sprRushTeleport;
+	playSFX(sfxTeleportOut);
+	dead = true;
+	xspeed = 0;
+	yspeed = 0;
+	mask_index = sprNothing;
+
+	with objMegaman
+	{
+	    if onRushJet 
+	    {
+	        onRushJet = false;
+	        canMove = true;
+	    }
+	}
+	
+};
+
+teleportAway = function() {
+
+	if !canJet
+		return;
+		
+	teleportAwayForce();
+	
+};
     
-alarm[0] = 4 * 60;
+delay(4 * 60, teleportAway);
 
 // Moving platform code
 dead = true;

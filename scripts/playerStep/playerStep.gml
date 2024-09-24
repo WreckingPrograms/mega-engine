@@ -3,10 +3,10 @@ function playerStep()
 {
 	// Check for ground
 	var prevGround = ground;
-	var solidBelow = instance_place(x, y + yspeed + 1, objSolid);
-	var topSolidBelow = instance_place(x, y + yspeed + 1, objTopSolid);
-	var movingPlatformJumpthroughBelow = placeMeetingMovingPlatform(x, y + yspeed + 1, prtMovingPlatformJumpthrough);
-	var movingPlatformSolidBelow = placeMeetingMovingPlatform(x, y + yspeed + 1, prtMovingPlatformSolid);
+	var solidBelow = instance_place(x, y + (yspeed * global.dt) + 1, objSolid);
+	var topSolidBelow = instance_place(x, y + (yspeed * global.dt) + 1, objTopSolid);
+	var movingPlatformJumpthroughBelow = placeMeetingMovingPlatform(x, y + (yspeed * global.dt) + 1, prtMovingPlatformJumpthrough);
+	var movingPlatformSolidBelow = placeMeetingMovingPlatform(x, y + (yspeed * global.dt) + 1, prtMovingPlatformSolid);
 	var movingPlatformSolidInside = placeMeetingMovingPlatform(x, y, prtMovingPlatformSolid);
 	if solidBelow || (topSolidBelow && yspeed >= 0) || (movingPlatformJumpthroughBelow && yspeed >= 0)
 		|| (movingPlatformSolidBelow && !movingPlatformSolidInside)
@@ -22,7 +22,7 @@ function playerStep()
     
 	    if topSolidBelow && !endCheck
 	    {
-	        ground = (bbox_bottom <= instance_place(x, y + yspeed + 1, objTopSolid).bbox_top);
+	        ground = (bbox_bottom <= topSolidBelow.bbox_top);
 			endCheck = true;
 	    }
     
@@ -30,8 +30,8 @@ function playerStep()
 		var platformList = ds_list_create();
 		if !endCheck
 		{
-			var totalPlatforms = collision_rectangle_list(bbox_left, bbox_bottom + yspeed, bbox_right, bbox_bottom + yspeed + 1,
-				prtMovingPlatformJumpthrough, false, true, platformList, false);
+			var totalPlatforms = collision_rectangle_list(bbox_left, bbox_bottom + (yspeed * global.dt), bbox_right,
+				bbox_bottom + (yspeed * global.dt) + 1, prtMovingPlatformJumpthrough, false, true, platformList, false);
 			for (var i = 0; i < totalPlatforms; i++)
 			{				
 				var pltfm = platformList[| i];
@@ -61,7 +61,7 @@ function playerStep()
 		if !endCheck
 		{
 			ds_list_clear(platformList);
-			totalPlatforms = instance_place_list(x, y + yspeed + 1, prtMovingPlatformSolid, platformList, false);
+			totalPlatforms = instance_place_list(x, y + (yspeed * global.dt) + 1, prtMovingPlatformSolid, platformList, false);
 			
 			for (var i = 0; i < totalPlatforms; i++)
 			{
@@ -90,7 +90,7 @@ function playerStep()
 	// Lasts two frames because one extra frame is required for the collision to register
 	if playLandSoundTimer < 2
 	{
-	    playLandSoundTimer += 1;
+	    playLandSoundTimer += 1 * global.dt;
 	}
 	else
 	{
@@ -106,6 +106,8 @@ function playerStep()
 			var horDir = (global.keyRight ? 1 : 0) + (global.keyLeft ? -1 : 0);
 	        if horDir != 0
 	        {
+				var checkAhead = horDir * max(abs(horDir) * global.dt, 1); // Look further ahead at low FPS, but always at least one pixel
+			
 				// Moving horizontally
 	            if canInitStep 
 	            {
@@ -118,7 +120,7 @@ function playerStep()
 	                if !(place_meeting(x, y + 1, objIce) && sign(xspeed) == -horDir)
 	                {
 	                    // Normal physics
-	                    if !place_meeting(x + horDir, y, objSolid) && !placeMeetingMovingPlatform(x + horDir, y, prtMovingPlatformSolid)
+	                    if !place_meeting(x + checkAhead, y, objSolid) && !placeMeetingMovingPlatform(x + checkAhead, y, prtMovingPlatformSolid)
 						{
 	                        xspeed = walkSpeed * horDir;
 						}
@@ -126,9 +128,9 @@ function playerStep()
 	                else
 	                {
 	                    // Ice physics
-	                    if !place_meeting(x + horDir, y, objSolid) && !placeMeetingMovingPlatform(x + horDir, y, prtMovingPlatformSolid)
+	                    if !place_meeting(x + checkAhead, y, objSolid) && !placeMeetingMovingPlatform(x + checkAhead, y, prtMovingPlatformSolid)
 						{
-	                        xspeed += iceDecWalk * horDir;
+	                        xspeed += iceDecWalk * horDir * global.dt;
 						}
 	                }
                     
@@ -137,7 +139,7 @@ function playerStep()
 	                if canSpriteChange 
 	                {
 	                    sprite_index = spriteWalk;
-	                    image_speed = 0.15;
+	                    image_speed = 0.15 * global.dt;
 	                }
 	            }
 	        }
@@ -153,11 +155,11 @@ function playerStep()
 	            {
 	                // Ice physics
 	                if xspeed > 0
-	                    xspeed -= iceDec;
+	                    xspeed -= iceDec * global.dt;
 	                else if xspeed < 0
-	                    xspeed += iceDec;
+	                    xspeed += iceDec * global.dt;
                     
-	                if xspeed > -iceDec && xspeed < iceDec
+	                if xspeed > -iceDec * global.dt && xspeed < iceDec * global.dt
 	                    xspeed = 0;
 	            }
             
@@ -181,15 +183,18 @@ function playerStep()
         
 	        if canSpriteChange 
 	            sprite_index = spriteJump;
+				
+			var checkAhead = max(global.dt, 1);
             
-	        if global.keyLeft && !global.keyRight && !place_meeting(x - 1, y, objSolid)
-				&& !placeMeetingMovingPlatform(x - 1, y, prtMovingPlatformSolid)
+	        if global.keyLeft && !global.keyRight && !place_meeting(x - checkAhead, y, objSolid)
+				&& !placeMeetingMovingPlatform(x - checkAhead, y, prtMovingPlatformSolid)
 	        {
 				xspeed = -walkSpeed;
 	            image_xscale = -1;
 	        }
-	        else if global.keyRight && !global.keyLeft && !place_meeting(x + 1 + ((prevXScale == -1) ? 1 : 0), y, objSolid)
-				&& !placeMeetingMovingPlatform(x + 1 + ((prevXScale == -1) ? 1 : 0), y, prtMovingPlatformSolid) // For some reason, while on the left of the wall and facing left, then jumping and holding right would clip you through it. Prevented by checking if the player was facing left on the previous frame, and if so, disallow Mega Man to move if 2 pixels away from the wall instead of 1
+	        else if global.keyRight && !global.keyLeft
+				&& !place_meeting(x + checkAhead + ((prevXScale == -1) ? checkAhead : 0), y, objSolid)
+				&& !placeMeetingMovingPlatform(x + checkAhead + ((prevXScale == -1) ? checkAhead : 0), y, prtMovingPlatformSolid) // For some reason, while on the left of the wall and facing left, then jumping and holding right would clip you through it. Prevented by checking if the player was facing left on the previous frame, and if so, disallow Mega Man to move if 2 pixels away from the wall instead of 1
 	        {
 				xspeed = walkSpeed;
 	            image_xscale = 1;
@@ -219,7 +224,7 @@ function playerStep()
 	        else
 	        {
 	            sprite_index = spriteWalk;
-	            image_speed = 0.15;
+	            image_speed = 0.15 * global.dt;
 	        }
 	    }
 	    else
@@ -234,7 +239,7 @@ function playerStep()
 	{
 	    if blinkImage == 0
 	    {
-	        blinkTimer += 1;
+	        blinkTimer += 1 * global.dt;
 	        if blinkTimer >= blinkTimerMax
 	        {
 	            blinkImage = 1;
@@ -243,7 +248,7 @@ function playerStep()
 	    }
 	    else
 	    {
-	        blinkTimer += 1;
+	        blinkTimer += 1 * global.dt;
 	        if blinkTimer >= blinkDuration
 	        {
 	            blinkImage = 0;
@@ -269,7 +274,7 @@ function playerStep()
 	    if canSpriteChange 
 	        sprite_index = spriteStep;
     
-	    stepTimer += 1;
+	    stepTimer += 1 * global.dt;
 	    if stepTimer >= stepFrames
 	    {
 	        isStep = false;
@@ -279,20 +284,20 @@ function playerStep()
 
 
 	// Move
-	x += xspeed;
-	y += yspeed;
+	x += xspeed * global.dt;
+	y += yspeed * global.dt;
 
 
 	// Stop movement at section borders
 	var sectionBufferHor = 6; // How far away from sections the player must be
 	if x > sectionRight - sectionBufferHor && !place_meeting(x + sectionBufferHor, y, objSectionArrowRight)
-		&& !place_meeting(x - xspeed, y, objSectionArrowRight)
+		&& !place_meeting(x - (xspeed * global.dt), y, objSectionArrowRight)
 	{
 	    x = sectionRight - sectionBufferHor;
 	    xspeed = 0;
 	}
 	else if x < sectionLeft + sectionBufferHor && !place_meeting(x - sectionBufferHor, y, objSectionArrowLeft)
-		&& !place_meeting(x - xspeed, y, objSectionArrowLeft)
+		&& !place_meeting(x - (xspeed * global.dt), y, objSectionArrowLeft)
 	{
 	    x = sectionLeft + sectionBufferHor;
 	    xspeed = 0;
@@ -402,14 +407,14 @@ function playerStep()
 	    {
 	        isStep = false;
 	        canInitStep = false;
-	        slideTimer += 1;
+	        slideTimer += 1 * global.dt;
         
 	        if (place_meeting(x, y - 3, objSolid) || placeMeetingMovingPlatform(x, y - 3, prtMovingPlatformSolid))
-				&& (ground || place_meeting(x - slideSpeed + 1, y + 1, objSolid)
-					|| place_meeting(x - slideSpeed + 1, y + 1, objTopSolid)
-					|| placeMeetingMovingPlatform(x - slideSpeed + 1, y + 1, prtMovingPlatformJumpthrough, prtMovingPlatformSolid)
-					|| place_meeting(x - slideSpeed + 1, y, objSolid)
-					|| placeMeetingMovingPlatform(x - slideSpeed + 1, y, prtMovingPlatformSolid)) // Extra check because if Mega Man falls down while sliding and a wall is on the other side of him and a ceiling is on top of him, when turning around on the right frame he would zip through the solids
+				&& (ground || place_meeting(x - (slideSpeed * global.dt) + 1, y + 1, objSolid)
+					|| place_meeting(x - (slideSpeed * global.dt) + 1, y + 1, objTopSolid)
+					|| placeMeetingMovingPlatform(x - (slideSpeed * global.dt) + 1, y + 1, prtMovingPlatformJumpthrough, prtMovingPlatformSolid)
+					|| place_meeting(x - (slideSpeed * global.dt) + 1, y, objSolid)
+					|| placeMeetingMovingPlatform(x - (slideSpeed * global.dt) + 1, y, prtMovingPlatformSolid)) // Extra check because if Mega Man falls down while sliding and a wall is on the other side of him and a ceiling is on top of him, when turning around on the right frame he would zip through the solids
 	        {            
 				// Sliding under a ceiling
 				if global.keyLeft && !global.keyRight
@@ -448,7 +453,7 @@ function playerStep()
 	                    ground = false;
 	                }
                         
-	                if !place_meeting(x, y+1, objIce)
+	                if !place_meeting(x, y + 1, objIce)
 	                    xspeed = 0;
 	                else
 	                    xspeed = walkSpeed * image_xscale;
@@ -478,7 +483,7 @@ function playerStep()
 	else
 	{
 	    if canSlideTimer < 1
-	        canSlideTimer += 1;
+	        canSlideTimer += 1 * global.dt;
 	    else
 	        canSlide = true;
 	}
@@ -513,7 +518,7 @@ function playerStep()
 	    else if ladderDown >= 0
 	    {
 	        x = ladderDown.x + 8;
-	        y += climbSpeed;
+	        y += climbSpeed * global.dt;
 	        ground = false;
 	    }
     
@@ -534,12 +539,12 @@ function playerStep()
 	    // Movement
 	    if global.keyUp && !global.keyDown && !isShoot && !isThrow
 	    {
-	        climbSpriteTimer += 1;
+	        climbSpriteTimer += 1 * global.dt;
 	        yspeed = -climbSpeed;
 	    }
 	    else if global.keyDown && !global.keyUp && !isShoot && !isThrow
 	    {
-	        climbSpriteTimer += 1;
+	        climbSpriteTimer += 1 * global.dt;
 	        yspeed = climbSpeed;
 	    }
 	    else
@@ -555,7 +560,7 @@ function playerStep()
     
 	    if climbSpriteTimer >= 8 && sprite_index == spriteClimb && !isShoot && !isThrow
 	    {
-	        climbSpriteTimer = 0;
+	        climbSpriteTimer -= 8;
 	        image_xscale = -image_xscale;
 	    }
     
@@ -572,7 +577,7 @@ function playerStep()
 	    }
     
 	    // Releasing the ladder
-	    if (ground  && !global.keyUp) || !place_meeting(x, y, objLadder) || (global.keyJumpPressed && !global.keyUp)
+	    if (ground && !global.keyUp) || !place_meeting(x, y, objLadder) || (global.keyJumpPressed && !global.keyUp)
 	    {
 	        climbing = false;
 	        canMove = true;
@@ -581,7 +586,20 @@ function playerStep()
 	        image_xscale = ladderXScale;
 	        yspeed = 0;
         
-	        if position_meeting(x, bbox_bottom + 15, objTopSolid) || ground
+	        if !place_meeting(x, y, objLadder)
+	        {
+	            var topSolidID = instance_place(x, y + 2, objTopSolid);
+	            if topSolidID >= 0
+				{
+	                y = topSolidID.y - 16;
+					ground = true;
+				}
+                
+	            playLandSound = false;
+	            playLandSoundTimer = 0;
+	        }
+			
+			if position_meeting(x, bbox_bottom + 15, objTopSolid) || ground
 	        {
 	            if (global.keyRight && !global.keyLeft) || (global.keyLeft && !global.keyRight)
 	            {
@@ -607,16 +625,6 @@ function playerStep()
 			{
 	            sprite_index = spriteJump;
 			}
-        
-	        if !place_meeting(x, y, objLadder)
-	        {
-	            var topSolidID = instance_place(x, y + 2, objTopSolid);
-	            if topSolidID >= 0
-	                y = topSolidID.y - (sprite_get_height(mask_index) - sprite_get_yoffset(mask_index));
-                
-	            playLandSound = false;
-	            playLandSoundTimer = 0;
-	        }
 	    }
 	}
 
@@ -636,7 +644,7 @@ function playerStep()
 	    currentGrav = gravWater;
 	    currentJumpSpeed = jumpSpeedWater;
     
-	    bubbleTimer += 1;
+	    bubbleTimer += 1 * global.dt;
 	    if bubbleTimer >= 10
 	    {
 	        bubbleTimer = 0;
@@ -655,7 +663,7 @@ function playerStep()
 	// Leaving the water
 	if inWater 
 	{
-	    var wtr = instance_place(x, y - yspeed, objWater);
+	    var wtr = instance_place(x, y - (yspeed * global.dt), objWater);
 	    if wtr >= 0
 	    {
 	        if bbox_bottom < wtr.bbox_top
@@ -671,7 +679,7 @@ function playerStep()
 	// While being hit
 	if isHit 
 	{
-	    hitTimer += 1;
+	    hitTimer += 1 * global.dt;
 	    if hitTimer >= hitTime
 	    {
 	        isHit = false;
@@ -690,7 +698,7 @@ function playerStep()
 	    }
 	    else
 	    {
-	        drawHitspark = (hitTimer % 4 == 0 || hitTimer % 4 == 1); // 2 frames on, 2 frames off
+	        drawHitspark = (hitTimer % 4 < 2); // 2 frames on, 2 frames off
 	    }
 	}
 
@@ -698,7 +706,7 @@ function playerStep()
 	// Invincibility
 	if invincibilityTimer != 0
 	{
-	    invincibilityTimer -= 1;
+	    invincibilityTimer -= 1 * global.dt;
 	    if invincibilityTimer <= 0
 	    {
 	        invincibilityTimer = 0;
@@ -707,7 +715,7 @@ function playerStep()
 	    }
 	    else
 	    {
-	        visible = (invincibilityTimer % 2 == 0);
+	        visible = (invincibilityTimer % 2 < 1);
 	    }
 	}
 
@@ -743,7 +751,7 @@ function playerStep()
 	// Gravity
 	if !ground && canGravity 
 	{
-	    yspeed += currentGrav;
+	    yspeed += currentGrav * global.dt;
 	    if yspeed > maxVspeed
 	        yspeed = maxVspeed;
 	}

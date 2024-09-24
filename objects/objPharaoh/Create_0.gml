@@ -8,11 +8,13 @@ global.weaponID = 3; // The weapon ID in the pause screen; can be found in objGl
 global.bossID = 3; // The ID on the stage select screen. See objStageSelect's Create event for more info
 
 ground = false;
-attackTimer = 0;
+attackTimer = -100;
 jumpTimer = 0;
 jumpAmount = 0;
 canInitShoot = true;
+imgSpd = 0;
 phase = 0; // 0 = nothing; 1 = jumping; 2 = jumping and shooting; 3 = shooting the big shot
+jumpPhase = 0;
 
 
 // For the Weapon Get screen

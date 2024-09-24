@@ -11,7 +11,12 @@ function onEnemyHit(weapon, inst, specialDamage, pierceType)
 	        visible = false;
 	    }
         
-	    alarm[11] = 2;
+	    delay(2, function() {
+		
+			if !dead
+				visible = true;
+	
+		});
         
 		stopWeaponSound(inst.object_index);
 	    playSFX(sfxEnemyHit);

@@ -14,7 +14,7 @@ function onEnemyDeath(weapon, inst)
 	                windID.enemyYScale = image_yscale;
 	                windID.enemyAngle = image_angle;
 	                windID.image_index = other.image_index;
-	                windID.image_speed = other.image_speed;
+	                windID.imgSpeed = other.image_speed / global.dt;
 	                windID.image_xscale = other.image_xscale;
                 
 	            dead = false;

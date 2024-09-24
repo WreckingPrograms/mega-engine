@@ -22,20 +22,21 @@ else if teleporting
 {   
     if round(global.viewY - 32 + teleportY) >= y
     {
+		var floorTeleportTimer = floor(teleportTimer);
         if teleportTimer == 0
             playSFX(sfxTeleportIn);
         
         // Done teleporting; play a little animation before giving Mega Man control
-        if teleportTimer != 9   // MM disappears for one frame in MM6
+        if floorTeleportTimer != 9   // MM disappears for one frame in MM6
             drawPlayer();
         
-        if teleportTimer == 2
+        if floorTeleportTimer == 2
             image_index = 1;
-        else if teleportTimer == 4
+        else if floorTeleportTimer == 4
             image_index = 0;
-        else if teleportTimer == 6
+        else if floorTeleportTimer == 6
             image_index = 2;
-        else if teleportTimer = 9
+        else if floorTeleportTimer >= 9
         {
             teleporting = false;
             teleportTimer = 0;
@@ -49,7 +50,7 @@ else if teleporting
             exit;
         }
         
-        teleportTimer += 1;
+        teleportTimer += 1 * global.dt;
     }
     else
     {
@@ -59,16 +60,16 @@ else if teleporting
         draw_sprite_ext(sprMegamanTeleportPrimary, image_index, x, teleDrawY, image_xscale, image_yscale, image_angle, global.primaryCol, 1);
         draw_sprite_ext(sprMegamanTeleportSecondary, image_index, x, teleDrawY, image_xscale, image_yscale, image_angle, global.secondaryCol, 1);
         
-        teleportY += 7;
+        teleportY += 7 * global.dt;
     }
 }
 else if showReady 
 {
     // Draw the READY text
-    readyTimer += 1;
+    readyTimer += 1 * global.dt;
     
     var readyIndicator = readyTimer % 12;
-    if readyIndicator >= 6 && readyIndicator <= 11 // For the last 7 frames of every 14 frames, show the READY text
+    if readyIndicator >= 6 // For the last 7 frames of every 14 frames, show the READY text
 	{
         draw_sprite_ext(sprReady, 0, round(global.viewX + (global.viewWidth / 2)), round(global.viewY + (global.viewHeight / 2)),
 			1, 1, 0, c_white, 1);

@@ -12,9 +12,7 @@ if !isFrozen()
             sprite_index = pose;
             yspeed = 0;
             
-            if image_speed == 0
-                image_index = 0;
-            image_speed = poseImgSpeed;
+            image_speed = poseImgSpeed * global.dt;
             
             if image_index >= image_number - 1
             {
@@ -40,8 +38,9 @@ if !isFrozen()
         if healthpoints > 0
         {
             canHit = false;
-            alarm[9] = 1;
-            alarm[10] = 45; // Being able to get hit again
+			
+			delay(1, toggleHitspark)
+			delay(45, endInvincibility);
             drawBoss = true;
             drawHitSpark = false;
             
@@ -75,14 +74,11 @@ if !isFrozen()
     prevHealthPoints = healthpoints;
     
     
-    x += xspeed;
-    y += yspeed;
+    x += xspeed * global.dt;
+    y += yspeed * global.dt;
 }
 else
 {
-    if alarm[9] != -1
-        alarm[9] += 1;
-    if alarm[10] != -1
-        alarm[10] += 1;
+    // Nothing to do here for now
 }
 

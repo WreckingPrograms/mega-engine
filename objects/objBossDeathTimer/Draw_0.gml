@@ -8,28 +8,29 @@ if isMM
     {
         if teleportY == 0
         {
-            if teleportTimer == 2
+			var floorTeleportTimer = floor(teleportTimer);
+            if floorTeleportTimer == 2
                 image_index = 2;
-            else if teleportTimer == 4
+            else if floorTeleportTimer == 4
                 image_index = 0;
-            else if teleportTimer == 6
+            else if floorTeleportTimer == 6
                 image_index = 1;
-            else if teleportTimer = 9
+            else if floorTeleportTimer >= 9
             {
-                teleportY -= 7;
+                teleportY -= 7 * global.dt;
                 image_speed = 0;
                 image_index = 0;
                 exit;
             }
             
             if !isFrozen()
-                teleportTimer += 1;
+                teleportTimer += 1 * global.dt;
         }
         else
         {
             // Teleporting upwards            
             if !isFrozen()
-                teleportY -= 7;
+                teleportY -= 7 * global.dt;
         }
         
         draw_sprite_ext(sprMegamanTeleport, image_index, x, y + teleportY, image_xscale, image_yscale, image_angle, c_white, 1);

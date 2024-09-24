@@ -14,11 +14,11 @@ playerCameraInit();
 // Physics variables
 grav = 0.25; // The player's gravity
 gravWater = 0.38 * grav; // The player's gravity in water
-jumpSpeed = 4.75 + grav*2;  // Dunno why grav needs to be multiplied by 2, but MM jumps as high as in MM5 when doing so
-jumpSpeedWater = 4.85 + grav*2;
+jumpSpeed = 4.75 + (grav * 2);  // Dunno why grav needs to be multiplied by 2, but MM jumps as high as in MM5 when doing so
+jumpSpeedWater = 4.85 + (grav * 2);
 walkSpeed = 1.296875;
 maxVspeed = 7;
-stepSpeed = 1/7;
+stepSpeed = 1 / 7;
 stepFrames = 7;
 iceDec = 0.025; // The deceleration on ice when not holding any buttons
 iceDecWalk = 0.05; // The deceleration on ice when moving in the opposite direction

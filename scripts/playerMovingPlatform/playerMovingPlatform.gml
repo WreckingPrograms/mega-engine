@@ -4,7 +4,7 @@ function playerMovingPlatform()
 	// Not changing any of this now because collision will be rewritten
 
 	// Jumpthrough moving platforms
-	mySolid = collision_rectangle(bbox_left, bbox_bottom+1, bbox_right, bbox_bottom+yspeed+1, prtMovingPlatformJumpthrough, false, true)
+	mySolid = collision_rectangle(bbox_left, bbox_bottom+1, bbox_right, bbox_bottom+(yspeed * global.dt)+1, prtMovingPlatformJumpthrough, false, true)
 	if mySolid >= 0
 	{
 	    if yspeed > 0 && (mySolid.id == movedPlatformID || movedPlatformID == noone)
@@ -28,11 +28,11 @@ function playerMovingPlatform()
 	// Floor (moving platforms)
 	var maxID;
 	maxID = -1;
-	while place_meeting(x, y+yspeed, prtMovingPlatformSolid) /*&& yspeed >= 0*/ && !place_meeting(x, y, prtMovingPlatformSolid)
-	&& collision_rectangle(bbox_left, bbox_bottom, bbox_right, bbox_bottom+yspeed+1, prtMovingPlatformSolid, false, false) >= 0
+	while place_meeting(x, y+(yspeed * global.dt), prtMovingPlatformSolid) /*&& yspeed >= 0*/ && !place_meeting(x, y, prtMovingPlatformSolid)
+	&& collision_rectangle(bbox_left, bbox_bottom, bbox_right, bbox_bottom+(yspeed * global.dt)+1, prtMovingPlatformSolid, false, false) >= 0
 	{
 	    maxID += 1;
-	    ID[maxID] = instance_place(x, y+yspeed, prtMovingPlatformSolid);
+	    ID[maxID] = instance_place(x, y+(yspeed * global.dt), prtMovingPlatformSolid);
 	    if !ID[maxID].dead
 	    {
 	        y = ID[maxID].bbox_top - (sprite_get_height(mask_index) - sprite_get_yoffset(mask_index));
@@ -60,7 +60,7 @@ function playerMovingPlatform()
 	// Wall (moving platforms)
 	maxID = -1;
 	var pltfm;
-	pltfm = collision_rectangle(bbox_left+xspeed, bbox_top, bbox_right+xspeed, bbox_bottom-4, prtMovingPlatformSolid, false, false);
+	pltfm = collision_rectangle(bbox_left+(xspeed * global.dt), bbox_top, bbox_right+(xspeed * global.dt), bbox_bottom-4, prtMovingPlatformSolid, false, false);
 	while pltfm >= 0 && xspeed != 0
 	&& collision_rectangle(bbox_left+4, bbox_bottom, bbox_right-4, bbox_bottom+3, pltfm, false, false) < 0
 	{
@@ -85,7 +85,7 @@ function playerMovingPlatform()
 	    }
     
 	    instance_deactivate_object(ID[maxID]);
-	    pltfm = collision_rectangle(bbox_left+xspeed, bbox_top, bbox_right+xspeed, bbox_bottom-4, prtMovingPlatformSolid, false, false);
+	    pltfm = collision_rectangle(bbox_left+(xspeed * global.dt), bbox_top, bbox_right+(xspeed * global.dt), bbox_bottom-4, prtMovingPlatformSolid, false, false);
 	}
 
 	for (i = 0; i <= maxID; i += 1)
@@ -96,10 +96,10 @@ function playerMovingPlatform()
 
 	// Ceiling (moving platforms)
 	maxID = -1;
-	while place_meeting(x, y+yspeed+sign(yspeed), prtMovingPlatformSolid) && yspeed < 0 && !place_meeting(x, y, prtMovingPlatformSolid)
+	while place_meeting(x, y+(yspeed * global.dt)+sign(yspeed), prtMovingPlatformSolid) && yspeed < 0 && !place_meeting(x, y, prtMovingPlatformSolid)
 	{
 	    maxID += 1;
-	    ID[maxID] = instance_place(x, y+yspeed+sign(yspeed), prtMovingPlatformSolid);
+	    ID[maxID] = instance_place(x, y+(yspeed * global.dt)+sign(yspeed), prtMovingPlatformSolid);
 	    if !ID[maxID].dead && yspeed <= ID[maxID].yspeed
 	    {
 	        y = ID[maxID].bbox_bottom + sprite_get_yoffset(mask_index);

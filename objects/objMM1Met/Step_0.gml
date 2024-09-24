@@ -21,9 +21,9 @@ if !isFrozen() && !dead
     
     if !canShoot
     {
-        cooldownTimer += 1;
+        cooldownTimer += 1 * global.dt;
         
-        if cooldownTimer == 17
+        if cooldownTimer >= 17 && shootPhase == 0
         {
             // Shoot
             var ID;
@@ -38,15 +38,18 @@ if !isFrozen() && !dead
                 ID.xscale = image_xscale;
             
             playSFX(sfxEnemyShootClassic);
+			shootPhase = 1;
         }
-        else if cooldownTimer == 30
+        else if cooldownTimer >= 30 && shootPhase == 1
         {
             image_index = 0;
+			shootPhase = 2;
         }
         else if cooldownTimer >= 80
         {
             canShoot = true;
             cooldownTimer = 0;
+			shootPhase = 0;
         }
     }
     
@@ -61,6 +64,7 @@ else
     if dead 
     {
         cooldownTimer = 0;
+		shootPhase = 0;
         canShoot = true;
         image_index = 0;
     }

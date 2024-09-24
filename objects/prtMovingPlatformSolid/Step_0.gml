@@ -6,8 +6,11 @@ event_inherited();
 
 if !isFrozen() && !dead
 {
-    x += xspeed;
-    y += yspeed;
+	var useXspeed = xspeed * global.dt;
+	var useYspeed = yspeed * global.dt;
+
+    x += useXspeed;
+    y += useYspeed;
     
     //  Push the player in the direction we're moving
     if place_meeting(x, y, objMegaman)
@@ -83,14 +86,14 @@ if !isFrozen() && !dead
     
     //  If the player is standing on us, move them
     var checkYspeed;
-    if yspeed > 0
-        checkYspeed = yspeed;
+    if useYspeed > 0
+        checkYspeed = useYspeed;
     else
         checkYspeed = 0;
         
     if place_meeting(x, y - checkYspeed - 1, objMegaman)
     {
-        if objMegaman.ground  && objMegaman.bbox_bottom <= bbox_top + abs(yspeed) + abs(objMegaman.yspeed) + 2
+        if objMegaman.ground && objMegaman.bbox_bottom <= bbox_top + abs(useYspeed) + abs(objMegaman.yspeed * global.dt) + 2
         && !objMegaman.movedByPlatform && !objMegaman.teleporting
         && !objMegaman.showReady
         {
@@ -98,8 +101,8 @@ if !isFrozen() && !dead
             {
                 var proceed, xsp, ysp;
                 proceed = true;
-                xsp = other.xspeed;
-                ysp = other.yspeed;
+                xsp = useXspeed;
+                ysp = useYspeed;
                 
                 instance_deactivate_object(other.id);
                 if place_meeting(x + xsp, y + ysp, objSolid) || place_meeting(x + xsp, y + ysp, prtMovingPlatformSolid)

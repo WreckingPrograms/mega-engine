@@ -94,7 +94,7 @@ if !selected
 
 
 // Animation
-imgIndex += imgSpd;
+imgIndex += imgSpd * global.dt;
 if imgIndex >= 2
     imgIndex -= 2;
 

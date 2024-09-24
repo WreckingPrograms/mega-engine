@@ -21,7 +21,7 @@ if !isFrozen() && !dead
         
         // Preparing to drop down
         case 1:
-            timer += 1;
+            timer += 1 * global.dt;
             if timer >= dropTimerMax
             {
                 timer = 0;
@@ -32,9 +32,10 @@ if !isFrozen() && !dead
         
         // Dropping down animation
         case 2:
-            timer += 1;
-            if timer mod 3 == 1
+            timer += 1 * global.dt;
+            if timer >= 1
             {
+				timer -= 3;
                 image_index += 1;
                 if image_index == 4
                 {
@@ -48,7 +49,7 @@ if !isFrozen() && !dead
         
         // Dropped down
         case 3:
-            timer += 1;
+            timer += 1 * global.dt;
             if timer >= rebuildTimerMax
             {
                 timer = 0;
@@ -59,15 +60,16 @@ if !isFrozen() && !dead
         
         // Rebuilding animation
         case 4:
-            timer += 1;
-            if timer == 1
+            timer += 1 * global.dt;
+            if timer == 1 * global.dt
             {
                 topSolidID = instanceCreate(x - 16, y, objTopSolid);
                     topSolidID.image_xscale = 2;
             }
             
-            if timer % 3 == 1
+            if timer >= 1
             {
+				timer -= 3;
                 image_index -= 1;
                 if image_index == 0
                 {

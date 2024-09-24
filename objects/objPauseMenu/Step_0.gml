@@ -1,10 +1,10 @@
 switch phase
 {
     case 0: // Fading in
-        blackAlphaTimer += 1;
+        blackAlphaTimer += 1 * global.dt;
         if blackAlphaTimer >= blackAlphaTimerMax
         {
-            blackAlphaTimer = 0;
+            blackAlphaTimer -= blackAlphaTimerMax;
             blackAlpha += blackAlphaIncrease;
             if blackAlpha >= 1
                 phase = 1;
@@ -14,10 +14,10 @@ switch phase
     case 1: // Fading out
         event_user(0); // Moving the selection
             
-        blackAlphaTimer += 1;
+        blackAlphaTimer += 1 * global.dt;
         if blackAlphaTimer >= blackAlphaTimerMax
         {
-            blackAlphaTimer = 0;
+            blackAlphaTimer -= blackAlphaTimerMax;
             blackAlpha -= blackAlphaIncrease;
             if blackAlpha <= 0
                 phase = 2;
@@ -104,10 +104,10 @@ switch phase
     break;
     
     case 3: // Fading out
-        blackAlphaTimer += 1;
+        blackAlphaTimer += 1 * global.dt;
         if blackAlphaTimer >= blackAlphaTimerMax
         {
-            blackAlphaTimer = 0;
+            blackAlphaTimer -= blackAlphaTimerMax;
             blackAlpha += blackAlphaIncrease;
             if blackAlpha >= 1
             {
@@ -122,10 +122,10 @@ switch phase
     break;
     
     case 4: // Fading in
-        blackAlphaTimer += 1;
+        blackAlphaTimer += 1 * global.dt;
         if blackAlphaTimer >= blackAlphaTimerMax
         {
-            blackAlphaTimer = 0;
+            blackAlphaTimer -= blackAlphaTimerMax;
             blackAlpha -= blackAlphaIncrease;
             if blackAlpha <= 0
             {
@@ -138,13 +138,13 @@ switch phase
     case 5: // E-Tank restoring health
         if global._health < 28
         {
-            eTankTimer += 1;
+            eTankTimer += 1 * global.dt;
             if eTankTimer >= 3
             {
                 global._health += 1;
                 if global._health > 28
                     global._health = 28;
-                eTankTimer = 0;
+                eTankTimer -= 3;
             }
         }
         else
@@ -159,10 +159,10 @@ switch phase
     break;
     
     case 6: // M-Tank restoring energy
-        eTankTimer += 1; // While it's technically an M-tank, we can use the same timer as the E-tank without any problems, since the two can't fill at the same time
+        eTankTimer += 1 * global.dt; // While it's technically an M-tank, we can use the same timer as the E-tank without any problems, since the two can't fill at the same time
         if eTankTimer >= 3
         {
-            eTankTimer = 0;
+            eTankTimer -= 3;
             
             var proceed = false;
             for (i = 1; i <= global.totalWeapons; i += 1)

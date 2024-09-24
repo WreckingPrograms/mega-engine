@@ -1,14 +1,14 @@
-blackAlphaTimer += 1;
+blackAlphaTimer += 1 * global.dt;
 
 if blackAlphaTimer >= blackAlphaTimerMax
 {
     blackAlpha -= blackAlphaDecrease;
-    blackAlphaTimer = 0;
+    blackAlphaTimer -= blackAlphaTimerMax;
 }
 
 if blackAlpha <= 0 && canAlarm 
 {
-    alarm[1] = 4;
+    delay(4, function() { instance_destroy(); });
     canAlarm = false;
 }
 

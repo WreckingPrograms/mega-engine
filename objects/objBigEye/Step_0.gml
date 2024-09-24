@@ -8,8 +8,36 @@ if !isFrozen() && !dead
     
     if ground 
     {
-        moveTimer += 1;
-        if moveTimer == 1
+        moveTimer += 1 * global.dt;
+		if moveTimer >= 40
+        {
+            if highJump 
+            {
+                yspeed = -6;
+                xspeed = image_xscale * 1;
+                image_index = 3;
+            }
+            else
+            {
+                yspeed = -3;
+                xspeed = image_xscale * 1;
+                image_index = 2;
+            }
+            
+            moveTimer = 0;
+        }
+		else if moveTimer >= 6
+        {
+            if highJump 
+                image_index = 1;
+            else
+                image_index = 0;
+        }
+		else if moveTimer >= 4
+        {
+            image_index = 0;
+        }
+        else if moveTimer == 1 * global.dt
         {
             if repeatAmount < 2
             {
@@ -48,38 +76,10 @@ if !isFrozen() && !dead
             xspeed = 0;
             yspeed = 0;
         }
-        else if moveTimer == 4
-        {
-            image_index = 0;
-        }
-        else if moveTimer == 6
-        {
-            if highJump 
-                image_index = 1;
-            else
-                image_index = 0;
-        }
-        else if moveTimer == 40
-        {
-            if highJump 
-            {
-                yspeed = -6;
-                xspeed = image_xscale * 1;
-                image_index = 3;
-            }
-            else
-            {
-                yspeed = -3;
-                xspeed = image_xscale * 1;
-                image_index = 2;
-            }
-            
-            moveTimer = 0;
-        }
     }
     
-    x += xspeed;
-    y += yspeed;
+    x += xspeed * global.dt;
+    y += yspeed * global.dt;
     
     prevGround = ground;
 }

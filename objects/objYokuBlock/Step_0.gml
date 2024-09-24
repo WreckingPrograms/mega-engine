@@ -6,7 +6,7 @@ if !isFrozen() && !dead
     {
         case 0: // Waiting to appear
             // Timer
-            timer += 1;
+            timer += 1 * global.dt;
             if timer >= startup
             {
                 timer = 0;
@@ -33,7 +33,7 @@ if !isFrozen() && !dead
             // Animation
             if image_index < image_number - 1
 			{
-                image_speed = 0.25;
+                image_speed = 0.25 * global.dt;
 			}
             else
             {
@@ -42,7 +42,7 @@ if !isFrozen() && !dead
             }
             
             // Timer
-            timer += 1;
+            timer += 1 * global.dt;
             if timer >= active
             {
                 timer = 0;
@@ -57,7 +57,7 @@ if !isFrozen() && !dead
         
         case 2: // Waiting to reappear after disappearing
             // Timer
-            timer += 1;
+            timer += 1 * global.dt;
             if timer >= wait
             {
                 timer = 0;

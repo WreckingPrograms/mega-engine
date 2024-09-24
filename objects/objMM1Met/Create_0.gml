@@ -30,6 +30,7 @@ weaponDamage[Weapons.WIND_STORM] = 2;
 radius = 4 * 16; // Four blocks; the radius that MM needs to enter to trigger the shooting of the Met
 cooldownTimer = 0;
 canShoot = true;
+shootPhase = 0;
 image_speed = 0;
 image_index = 0;
 

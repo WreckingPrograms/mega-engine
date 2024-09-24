@@ -13,8 +13,8 @@ if instance_exists(objMegaman)
     with objMegaman visible = false;
     sprite_index = objMegaman.sprite_index;
     image_index = objMegaman.image_index;
-    imgSpd = objMegaman.image_speed;
-    image_speed = imgSpd;
+    imgSpd = objMegaman.image_speed / global.dt;
+    image_speed = imgSpd * global.dt;
     image_xscale = objMegaman.image_xscale;
     
     alarm[0] = 1;
@@ -39,4 +39,4 @@ playerSpeedHorDoor = 0.7; // The speed that Mega Man will move at if travelling 
 climbTimer = 0;
 canProgressDoor = false;
 canStep = false;
-
+canAnimate = false;

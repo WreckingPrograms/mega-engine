@@ -1,23 +1,23 @@
 // Moving the screen and player (or rather, both the player and the clone of the player. See create event for more information on that)
 
-if canStep  && playerSpeedHorDoor != 0 // When the door is closing, we should not move
+if canStep && playerSpeedHorDoor != 0 // When the door is closing, we should not move
 {
     if !(door && !canProgressDoor)
     {
         // Right
         if dir == Directions.RIGHT
         {
-            global.viewX += screenSpeedHor;
+            global.viewX += screenSpeedHor * global.dt;
             
             if !door
             {
-                x += playerSpeedHor;
-                objMegaman.x += playerSpeedHor;
+                x += playerSpeedHor * global.dt;
+                objMegaman.x += playerSpeedHor * global.dt;
             }
             else
             {
-                x += playerSpeedHorDoor;
-                objMegaman.x += playerSpeedHorDoor;
+                x += playerSpeedHorDoor * global.dt;
+                objMegaman.x += playerSpeedHorDoor * global.dt;
             }
             
             if global.viewX >= objMegaman.sectionLeft
@@ -38,7 +38,7 @@ if canStep  && playerSpeedHorDoor != 0 // When the door is closing, we should no
                     {
                         bossdr.opening = false;
                         bossdr.closing = true;
-                        image_speed = 0;
+                        imgSpd = 0;
                         playSFX(sfxDoor);
                         
                         playerSpeedHorDoor = 0;
@@ -57,17 +57,17 @@ if canStep  && playerSpeedHorDoor != 0 // When the door is closing, we should no
         // Left
         else if dir == Directions.LEFT
         {
-            global.viewX -= screenSpeedHor;
+            global.viewX -= screenSpeedHor * global.dt;
             
             if !door
             {
-                x -= playerSpeedHor;
-                objMegaman.x -= playerSpeedHor;
+                x -= playerSpeedHor * global.dt;
+                objMegaman.x -= playerSpeedHor * global.dt;
             }
             else
             {
-                x -= playerSpeedHorDoor;
-                objMegaman.x -= playerSpeedHorDoor;
+                x -= playerSpeedHorDoor * global.dt;
+                objMegaman.x -= playerSpeedHorDoor * global.dt;
             }
             
             if global.viewX <= objMegaman.sectionRight - global.viewWidth
@@ -88,7 +88,7 @@ if canStep  && playerSpeedHorDoor != 0 // When the door is closing, we should no
                     {
                         bossdr.opening = false;
                         bossdr.closing = true;
-                        image_speed = 0;
+                        imgSpd = 0;
                         playSFX(sfxDoor);
                         
                         playerSpeedHorDoor = 0;
@@ -107,9 +107,9 @@ if canStep  && playerSpeedHorDoor != 0 // When the door is closing, we should no
         // Down
         else if dir == Directions.DOWN
         {
-            global.viewY += screenSpeedVert;
-            y += playerSpeedVert;
-            objMegaman.y += playerSpeedVert;
+            global.viewY += screenSpeedVert * global.dt;
+            y += playerSpeedVert * global.dt;
+            objMegaman.y += playerSpeedVert * global.dt;
             
             if global.viewY >= objMegaman.sectionTop
             {
@@ -125,9 +125,9 @@ if canStep  && playerSpeedHorDoor != 0 // When the door is closing, we should no
         // Up
         else if dir == Directions.UP
         {
-            global.viewY -= screenSpeedVert;
-            y -= playerSpeedVert;
-            objMegaman.y -= playerSpeedVert;
+            global.viewY -= screenSpeedVert * global.dt;
+            y -= playerSpeedVert * global.dt;
+            objMegaman.y -= playerSpeedVert * global.dt;
             
             if global.viewY <= objMegaman.sectionBottom - global.viewHeight
             {
@@ -144,15 +144,18 @@ if canStep  && playerSpeedHorDoor != 0 // When the door is closing, we should no
         // Climbing animation
         if sprite_index == sprMegamanClimb
         {
-            climbTimer += 1;
+            climbTimer += 1 * global.dt;
             if climbTimer >= 8
             {
                 image_xscale = -image_xscale;
                 with objMegaman image_xscale = -image_xscale;
-                climbTimer = 0;
+                climbTimer -= 8;
             }
         }
     }
+	
+	if canAnimate
+		image_speed = imgSpd * global.dt;
 }
 
 

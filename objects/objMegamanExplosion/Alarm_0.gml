@@ -1,3 +1,2 @@
 direction = dir;
-speed = spd;
-
+speed = spd * global.dt;

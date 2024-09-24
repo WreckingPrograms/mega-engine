@@ -24,7 +24,7 @@ if x >= global.viewX && x <= global.viewX + global.viewWidth - 1
     // Preparing to fill the health bar
     if canFillHealthBar 
     {
-        healthBarTimer += 1;
+        healthBarTimer += 1 * global.dt;
         if healthBarTimer >= healthBarTimerMax
         {
             healthBarTimer = 0;
@@ -40,11 +40,11 @@ if x >= global.viewX && x <= global.viewX + global.viewWidth - 1
     // Filling the health bar
     if fillingHealthBar 
     {
-        healthBarTimer += 1;
+        healthBarTimer += 1 * global.dt;
         if healthBarTimer >= 3
         {
             global.bossHealth += 1;
-            healthBarTimer = 0;
+            healthBarTimer -= 3;
         }
         
         if global.bossHealth >= 28

@@ -19,6 +19,26 @@ drawBoss = true; // Should we be visible? (Can't use the 'visible' variable as t
 
 alarm[8] = 1;
 
+toggleHitspark = function() {
+
+	if canHit
+		return;
+		
+	drawHitSpark = !drawHitSpark;
+	drawBoss = !drawBoss;
+
+	delay(2, toggleHitspark);
+	
+};
+
+endInvincibility = function() {
+
+	canHit = true;
+	drawBoss = true;
+	drawHitSpark = false;
+
+};
+
 
 // Variables to make it work with prtEnemy
 reflectProjectiles = false;

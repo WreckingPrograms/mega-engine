@@ -4,7 +4,7 @@ function gravityCheckGround(grav=undefined, maxSpeed=undefined)
 {
 	if !ground
 	{
-	    yspeed += grav ?? 0.25;
+	    yspeed += (grav ?? 0.25) * global.dt;
 		maxSpeed = maxSpeed ?? 7;
 	    if yspeed > maxSpeed
 	        yspeed = maxSpeed;

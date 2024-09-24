@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"generalCollision",
+  "%Name":"delay",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"generalCollision",
+  "name":"delay",
   "parent":{
-    "name":"Collision",
-    "path":"folders/Scripts/Collision.yy",
+    "name":"Util",
+    "path":"folders/Scripts/Util.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

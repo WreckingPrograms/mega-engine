@@ -24,6 +24,7 @@ global.checkpointX = 0;
 global.checkpointY = 0;
 global.levelStart = false;
 global.msc = -1;
+global.delayedCalls = [];
     
 global.primaryCol = c_white;
 global.secondaryCol = c_white;
@@ -32,9 +33,21 @@ global.outlineCol = c_black;
 global.resolution = [256, 224]; //  [x, y]
     
     
-// Option variables
+// Gameplay options
 global.enableCharge = true; // Can we charge the buster?
 global.enableSlide = true; // Can we slide?
+
+// Engine options
+
+// Whether or not to make game speed independent of FPS. Entity speeds and timers will speed up or slow down depending
+// on the frame rate, so that the game plays at (roughly) the same speed regardless of FPS.
+// Enabling this will complicate code slightly. TL;DR: for timers, movements and accelerations, multiply values by global.dt.
+// If enabled, you cannot use Game Maker's Alarms for timers, since they're tied to the frame rate!
+// If you don't want to deal with any of this, set global.enableDeltaTime to false.
+global.enableDeltaTime = true;
+global.dt = 0; // Delta time. Don't change the value of this
+
+
     
 // Weapon inventory
 global.totalWeapons = 7; // 8 weapons in total including the buster, but since 0 is also a valid weapon ID, the value becomes 7

@@ -1,11 +1,16 @@
 if door 
 {
     image_speed = 0;
-    alarm[1] = ceil(4 / 0.15)
+    delay(ceil(4 / 0.15), function() {
+	
+		canAnimate = true;
+		canProgressDoor = true;
+	
+	}, true);
 }
 else
 {
-    image_speed = imgSpd;
+	canAnimate = true;
 }
     
 canStep = true;

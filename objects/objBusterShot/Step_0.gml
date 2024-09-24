@@ -1,5 +1,5 @@
 if !isFrozen()
 {
-    x += xspeed;
+    x += xspeed * global.dt;
 }
 

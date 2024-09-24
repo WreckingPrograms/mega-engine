@@ -5,12 +5,14 @@ if !isFrozen()
     // The init state, where the Star Crash grows until the normal size is reached
     // The mask is still the same as the normal size, however, to make things more fair
     // The sprite during this state is sprStarCrashInit
-    endInitTimer += 1;
+    endInitTimer += 1 * global.dt;
     if sprite_index != sprStarCrash && endInitTimer >= floor((1 / image_speed) * sprite_get_number(sprStarCrashInit))
     {
         sprite_index = sprStarCrash;
         image_index = 0;
     }
+	
+	image_speed *= global.dt;
     
     // Sticking to the player until fired or destroyed in any way
     if followPlayer 
@@ -40,8 +42,8 @@ if !isFrozen()
         }
     }
     
-    x += xspeed;
-    y += yspeed;
+    x += xspeed * global.dt;
+    y += yspeed * global.dt;
 }
 else
 {

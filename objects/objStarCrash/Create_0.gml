@@ -1,6 +1,6 @@
 xspeed = 0;
 yspeed = 0;
-image_speed = 0.35;
+image_speed = 0.35 * global.dt;
 
 spd = 3;
 

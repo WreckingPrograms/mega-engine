@@ -1,22 +1,22 @@
 event_inherited();
 
-if !isFrozen() && !dead
+if !isFrozen() && !dead 
 {
     if !moving
     {
-        moveTimer += 1;
-        if moveTimer == 10
-        {
-            image_index = 0;    // After touching a wall, we want the eye to close slowly (half-open the first 10 frames)
-        }
-        if moveTimer == 110
-        {
-            image_index = 1;    // Eye half-open
-        }
-        else if moveTimer >= 120
+        moveTimer += 1 * global.dt;		
+        if moveTimer >= 120
         {
             image_index = 2;
             moving = true;
+        }
+		else if moveTimer >= 110
+        {
+            image_index = 1;    // Eye half-open
+        }
+		else if moveTimer >= 10
+        {
+            image_index = 0;    // After touching a wall, we want the eye to close slowly (half-open the first 10 frames)
         }
     }
     else
@@ -28,7 +28,7 @@ if !isFrozen() && !dead
             
         generalCollision();
         
-        if (xspeed == 0 && dir == "hor") || (yspeed = 0 && dir == "ver")
+        if (xspeed == 0 && dir == "hor") || (yspeed == 0 && dir == "ver")
         {
             moving = false;
             moveTimer = 0;
@@ -36,8 +36,8 @@ if !isFrozen() && !dead
             startDir = -startDir;   // Change the direction
         }
         
-        x += xspeed;
-        y += yspeed;
+        x += xspeed * global.dt;
+		y += yspeed * global.dt;
     }
 }
 else

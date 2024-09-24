@@ -22,11 +22,10 @@ if !isFrozen() && !dead
     
     if shooting 
     {
-        animTimer += 0.15;
-        
+        animTimer += 0.15 * global.dt;
         if animTimer >= 1
         {
-            animTimer = 0;
+            animTimer -= 1;
             
             switch image_index
             {
@@ -38,10 +37,10 @@ if !isFrozen() && !dead
     }
     else
     {
-        animTimer += 0.05;
+        animTimer += 0.05 * global.dt;
         if animTimer >= 1
         {
-            animTimer = 0;
+            animTimer -= 1;
             
             switch image_index
             {

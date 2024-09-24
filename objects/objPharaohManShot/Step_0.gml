@@ -1,6 +1,6 @@
 if !isFrozen()
 {
-    x += xspeed;
-    y += yspeed;
+    x += xspeed * global.dt;
+    y += yspeed * global.dt;
 }
 

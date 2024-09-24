@@ -5,11 +5,11 @@ if canOpen
         // Colliding with the player. We're checking x+7 because in the NES games, the player needs to be slightly inside the door
         // for it to activate.
         if (collision_rectangle(x + 6, y, x + 7, y + sprite_height, objMegaman, false, false) >= 0 && dir == -1)
-        || (collision_rectangle(x + sprite_width - 7, y, x + sprite_width - 6, y + sprite_height, objMegaman, false, false) >= 0 && dir == 1)
+			|| (collision_rectangle(x + sprite_width - 7, y, x + sprite_width - 6, y + sprite_height, objMegaman, false, false) >= 0 && dir == 1)
         {
             canOpen = false;
             opening = true;
-            image_speed = openImgSpeed;
+            image_speed = openImgSpeed * global.dt;
             playSFX(sfxDoor);
             with mySolid instance_destroy();
 			
@@ -36,40 +36,10 @@ if canOpen
 
 if opening 
 {
+	image_speed = openImgSpeed * global.dt;
     if floor(image_index) == 4
     {
         image_index = 4;
-        image_speed = 0;
-    }
-}
-
-if closing 
-{
-    image_speed = openImgSpeed;
-    if floor(image_index) == 8
-    {
-        image_index = 8;
-        
-        if dir == -1
-        {
-            mySolid = instanceCreate(x + 16, y, objSolid);
-                mySolid.image_yscale = 4;
-        }
-        else
-        {
-            mySolid = instanceCreate(x, y, objSolid);
-                mySolid.image_yscale = 4;
-        }
-            
-        with objSectionSwitcher
-        {
-            global.frozen = false;
-            objMegaman.visible = true;
-            instance_destroy();
-            with objMegaman playerDeactivateObjects();
-        }
-        
-        closing = false;
         image_speed = 0;
     }
 }

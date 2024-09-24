@@ -238,6 +238,7 @@
     {"id":{"name":"collisionRectangleMovingPlatform","path":"scripts/collisionRectangleMovingPlatform/collisionRectangleMovingPlatform.yy",},},
     {"id":{"name":"collisionRectangleMulti","path":"scripts/collisionRectangleMulti/collisionRectangleMulti.yy",},},
     {"id":{"name":"deactivateUnimportantObjects","path":"scripts/deactivateUnimportantObjects/deactivateUnimportantObjects.yy",},},
+    {"id":{"name":"delay","path":"scripts/delay/delay.yy",},},
     {"id":{"name":"drawPlayer","path":"scripts/drawPlayer/drawPlayer.yy",},},
     {"id":{"name":"drawSelf","path":"scripts/drawSelf/drawSelf.yy",},},
     {"id":{"name":"dsListToArray","path":"scripts/dsListToArray/dsListToArray.yy",},},

@@ -1,10 +1,10 @@
 // Timer for toggling the visibility of the "PRESS THE SPACE BAR" text
 if canProceed 
 {
-    drawTextTimer += 1;
+    drawTextTimer += 1 * global.dt;
     if drawTextTimer >= drawTextTimerMax
     {
-        drawTextTimer = 0;
+        drawTextTimer -= drawTextTimerMax;
         drawText = !drawText;
     }
 }

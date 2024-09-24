@@ -2,7 +2,7 @@
 function playerCollision()
 {
 	// Floor
-	var mySolid = instance_place(x, y + yspeed, objSolid);
+	var mySolid = instance_place(x, y + (yspeed * global.dt), objSolid);
 	if mySolid >= 0 && yspeed > 0
 	{
 	    y = mySolid.y - (sprite_get_height(mask_index) - sprite_get_yoffset(mask_index));
@@ -15,7 +15,7 @@ function playerCollision()
 
 
 	// Wall
-	mySolid = instance_place(x + xspeed, y, objSolid);
+	mySolid = instance_place(x + (xspeed * global.dt), y, objSolid);
 	if mySolid >= 0 && xspeed != 0
 	{
 	    if xspeed < 0
@@ -38,7 +38,7 @@ function playerCollision()
 
 
 	// Ceiling
-	mySolid = instance_place(x, y + yspeed, objSolid);
+	mySolid = instance_place(x, y + (yspeed * global.dt), objSolid);
 	if mySolid >= 0 && yspeed < 0
 	{
 		y = mySolid.bbox_bottom + sprite_get_yoffset(mask_index);
@@ -53,7 +53,7 @@ function playerCollision()
 
 
 	// Topsolids
-	mySolid = instance_place(x, y + yspeed, objTopSolid);
+	mySolid = instance_place(x, y + (yspeed * global.dt), objTopSolid);
 	if mySolid >= 0 && yspeed > 0
 	{
 	    if !place_meeting(x, y, mySolid)
@@ -90,19 +90,19 @@ function playerCollision()
 	    // See if there are any solids (since spikes are also solid, we need to deactivate them first)
 	    instance_deactivate_object(objSpike);
 	    var onGround, onWall, onCeiling;
-	    onGround = place_meeting(x, y+yspeed+1, objSolid); // This is to make sure spikes directly next to floors are more fair (as in, you won't die immediately when touching them)
-	    onWall = place_meeting(x+xspeed+sign(xspeed) + wallOffset, y, objSolid);
-	    onCeiling = place_meeting(x, y+yspeed-1 - yDeduct, objSolid);
+	    onGround = place_meeting(x, y+(yspeed * global.dt)+1, objSolid); // This is to make sure spikes directly next to floors are more fair (as in, you won't die immediately when touching them)
+	    onWall = place_meeting(x+(xspeed * global.dt)+sign(xspeed) + wallOffset, y, objSolid);
+	    onCeiling = place_meeting(x, y+(yspeed * global.dt)-1 - yDeduct, objSolid);
 	    instance_activate_object(objSpike);
         
 	    if yspeed != jumpSpeed
-	        mySpikeFloor = instance_position(x, bbox_bottom+yspeed+1, objSpike);
+	        mySpikeFloor = instance_position(x, bbox_bottom+(yspeed * global.dt)+1, objSpike);
 	    else
-	        mySpikeFloor = instance_position(x, bbox_bottom+abs(yspeed)+1, objSpike);
-	    mySpikeFloorLeft = instance_position(bbox_left, bbox_bottom+yspeed+1, objSpike);
-	    mySpikeFloorRight = instance_position(bbox_right, bbox_bottom+yspeed+1, objSpike);
+	        mySpikeFloor = instance_position(x, bbox_bottom+abs((yspeed * global.dt))+1, objSpike);
+	    mySpikeFloorLeft = instance_position(bbox_left, bbox_bottom+(yspeed * global.dt)+1, objSpike);
+	    mySpikeFloorRight = instance_position(bbox_right, bbox_bottom+(yspeed * global.dt)+1, objSpike);
     
-	    mySpikeWall = instance_place(x+xspeed+sign(xspeed) + wallOffset, y, objSpike);
+	    mySpikeWall = instance_place(x+(xspeed * global.dt)+sign(xspeed) + wallOffset, y, objSpike);
     
 	    mySpikeCeiling = instance_place(x, y+yspeed-1 - yDeduct, objSpike);
     

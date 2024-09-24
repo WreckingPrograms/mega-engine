@@ -1,6 +1,6 @@
 if !isFrozen()
 {
-    image_speed = 0.1;
+    image_speed = 0.1 * global.dt;
 }
 else
 {

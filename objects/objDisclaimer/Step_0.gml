@@ -3,10 +3,10 @@ if textAlphaIncrease
 {
     if textAlpha < 1
     {
-        textAlphaTimer += 1;
+        textAlphaTimer += 1 * global.dt;
         if textAlphaTimer >= textAlphaInterval
         {
-            textAlphaTimer = 0;
+            textAlphaTimer -= textAlphaInterval;
             textAlpha += textAlphaIncreaseAmount;
         }
     }
@@ -19,10 +19,10 @@ else
 {
     if textAlpha > 0
     {
-        textAlphaTimer += 1;
+        textAlphaTimer += 1 * global.dt;
         if textAlphaTimer >= textAlphaInterval
         {
-            textAlphaTimer = 0;
+            textAlphaTimer -= textAlphaInterval;
             textAlpha -= textAlphaIncreaseAmount;
         }
     }
@@ -36,7 +36,7 @@ else
 
 
 // Proceed to the next screen ("phase")
-proceedTimer += 1;
+proceedTimer += 1 * global.dt;
 if global.keyPausePressed || global.keyJumpPressed || global.keyShootPressed || proceedTimer >= proceedTimerMax
 {
     textAlphaIncrease = false;

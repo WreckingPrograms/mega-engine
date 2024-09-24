@@ -49,7 +49,7 @@ function playerShoot()
 	if isShoot 
 	{
 	    isThrow = false;
-	    shootTimer += 1;
+	    shootTimer += 1 * global.dt;
 	    if shootTimer >= 20
 	    {
 	        isShoot = false;
@@ -68,7 +68,7 @@ function playerShoot()
 	            image_xscale = -1;
 	    }
     
-	    if ground && shootTimer == 0 && !climbing // Only do this on the ground on the first frame
+	    if ground && shootTimer <= 0 && !climbing // Only do this on the ground on the first frame
 	    {
 	        canMove = false;
 	        xspeed = 0;
@@ -84,7 +84,7 @@ function playerShoot()
 	        canSpriteChange = true;
 	    }
     
-	    shootTimer += 1;
+	    shootTimer += 1 * global.dt;
 	    if shootTimer >= 20
 	    {
 	        isThrow = false;
@@ -100,26 +100,26 @@ function playerShoot()
 	// Charging
 	if global.enableCharge 
 	{
-	    if global.weapon == Weapons.MEGA_BUSTER && (global.keyShoot || (isSlide && chargeTimer != 0))
+	    if global.weapon == Weapons.MEGA_BUSTER && (global.keyShoot || (isSlide && chargeTimer > 0))
 	    {
 	        if (canMove || isSlide || climbing) && !isShoot
 	        {
 	            isCharge = true;
             
 	            if !isSlide
-	                initChargeTimer += 1;
+	                initChargeTimer += 1 * global.dt;
                 
 	            if initChargeTimer >= initChargeTime
 	            {
-	                chargeTimer += 1;
-                
-	                if chargeTimer == 1
+					if chargeTimer == 0
 	                    playSFX(sfxCharging);
+				
+	                chargeTimer += 1 * global.dt;
                 
 	                if chargeTimer < chargeTime
 	                {
-	                    var chargeTimeDiv, chargeCol;
-	                    chargeTimeDiv = round(chargeTime / 3);
+	                    var chargeCol;
+	                    var chargeTimeDiv = round(chargeTime / 3);
 	                    if chargeTimer < chargeTimeDiv
 	                        chargeCol = make_color_rgb(168, 0, 32);     // Dark red
 	                    else if chargeTimer < chargeTimeDiv * 2
@@ -127,20 +127,23 @@ function playerShoot()
 	                    else
 	                        chargeCol = make_color_rgb(248, 88, 152);   // Light red (pink)
                         
-	                    if chargeTimer % 4 == 0 || chargeTimer % 4 == 1
+	                    if chargeTimer % 4 < 2
 	                        global.outlineCol = chargeCol;
 	                    else
 	                        global.outlineCol = c_black;
 	                }
 	                else
 	                {
-	                    if chargeTimer == chargeTime
+	                    if audio_is_playing(sfxCharging)
 	                    {
 	                        audio_stop_sound(sfxCharging);
 	                        playSFX(sfxCharged);
 	                    }
                     
-	                    switch ((chargeTimer / 2) % 3)
+						// This used to be chargeTimer / 2, but I slowed it down slightly for accessibility
+						// I recommend including some kind of option in your game to disable charge flashes
+						// altogether, though!
+	                    switch floor((chargeTimer / 3) % 3)
 	                    {
 	                        case 0: // Light blue helmet, black shirt, blue outline
 	                            global.primaryCol = make_color_rgb(0, 232, 216);
@@ -211,7 +214,7 @@ function playerShoot()
 	{
 	    if global.keyShoot && !instance_exists(objPharaohShotCharging)
 	    {
-	        pharaohShotInitTimer += 1;
+	        pharaohShotInitTimer += 1 * global.dt;
 	        if pharaohShotInitTimer >= 30
 	        {
 	            instanceCreate(x + image_xscale, y - 20, objPharaohShotCharging);

@@ -1,7 +1,7 @@
 // Moving the lines
 for (var i = 0; i < totalLinesUp; i += 1)
 {
-    lineUpY[i] -= lineSpd;
+    lineUpY[i] -= lineSpd * global.dt;
     
     if lineUpY[i] < -28 && createLineUp[i] 
     {
@@ -15,7 +15,7 @@ for (var i = 0; i < totalLinesUp; i += 1)
 
 for (var i = 0; i < totalLinesDown; i += 1)
 {
-    lineDownY[i] += lineSpd;
+    lineDownY[i] += lineSpd * global.dt;
     
     if lineDownY[i] > room_height && createLineDown[i] 
     {
@@ -32,12 +32,12 @@ for (var i = 0; i < totalLinesDown; i += 1)
 if startPoseTimer < startPoseTimerMax
 {
     bossSprite = standSprite;
-    startPoseTimer += 1;
+    startPoseTimer += 1 * global.dt;
 }
 else
 {
     bossSprite = pose;
-    bossImg += poseImgSpeed;
+    bossImg += poseImgSpeed * global.dt;
     if bossImg >= sprite_get_number(pose) - 1
     {
         bossImg = sprite_get_number(pose) - 1;
@@ -48,10 +48,10 @@ else
 // Fading the boss in (it's black at the beginning, then starts gaining its own color)
 if bossRGB < 255
 {
-    bossRGBTimer += 1;
+    bossRGBTimer += 1 * global.dt;
     if bossRGBTimer >= bossRGBTimerMax
     {
-        bossRGBTimer = 0;
+        bossRGBTimer -= bossRGBTimerMax;
         bossRGB += ceil(255 / 4);
         if bossRGB > 255
             bossRGB = 255;
@@ -62,16 +62,16 @@ if bossRGB < 255
 // Boss text
 if bossTextTimer < bossTextTimerMax
 {
-    bossTextTimer += 1;
+    bossTextTimer += 1 * global.dt;
 }
 else
 {
     if bossTextPos < string_length(name)
     {
-        bossTextIntervalTimer += 1;
+        bossTextIntervalTimer += 1 * global.dt;
         if bossTextIntervalTimer >= bossTextInterval
         {
-            bossTextIntervalTimer = 0;
+            bossTextIntervalTimer -= bossTextInterval;
             bossTextPos += 1;
             bossDisplayName = string_copy(name, 0, bossTextPos);
         }

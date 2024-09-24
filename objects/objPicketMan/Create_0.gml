@@ -31,6 +31,7 @@ shootTimer = 0;
 shooting = false;
 shootAmount = 0;
 shootAmountMax = choose(5, 10);
+canShootPicket = true;
 xspeed = 0;
 yspeed = 0;
 image_speed = 0;

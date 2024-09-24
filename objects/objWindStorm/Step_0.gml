@@ -9,10 +9,10 @@ if !isFrozen()
         instance_destroy();
     }
     
-    x += xspeed;
-    y += yspeed;
+    x += xspeed * global.dt;
+    y += yspeed * global.dt;
     
-    image_speed = 0.5;
+    image_speed = 0.5 * global.dt;
 }
 else
 {

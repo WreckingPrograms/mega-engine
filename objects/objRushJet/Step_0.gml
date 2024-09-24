@@ -13,7 +13,6 @@ if !isFrozen()
                     if objMegaman.ground && objMegaman.bbox_bottom <= bbox_top && objMegaman.yspeed >= 0
                     {
                         canJet = false;
-                        alarm[0] = -1;
                     }
                 }
             }
@@ -23,7 +22,7 @@ if !isFrozen()
             xspeed = spd * image_xscale;
             
             // Take away ammo
-            decreaseAmmoTimer += 1;
+            decreaseAmmoTimer += 1 * global.dt;
             if decreaseAmmoTimer >= decreaseAmmoTimerMax
             {
                 decreaseAmmoTimer = 0;
@@ -31,7 +30,7 @@ if !isFrozen()
                 if global.ammo[global.currentWeapon] <= 0
                 {
                     global.ammo[global.currentWeapon] = 0;
-                    event_perform(ev_alarm, 0);
+                    teleportAwayForce();
                 }
             }
             
@@ -47,16 +46,16 @@ if !isFrozen()
                         objMegaman.onRushJet = true;
                         
                         // Move vertically
-                        if global.keyUp && !place_meeting(objMegaman.x, y - sprite_get_height(mskMegaman) - abs(yspeed) - 1, objSolid)
-							&& !place_meeting(x, y - abs(yspeed) - 1, objSolid)
-							&& !placeMeetingMovingPlatform(objMegaman.x, y - sprite_get_height(mskMegaman) - abs(yspeed) - 1, prtMovingPlatformSolid)
-							&& !placeMeetingMovingPlatform(x, y - abs(yspeed) - 1, prtMovingPlatformSolid)
+                        if global.keyUp && !place_meeting(objMegaman.x, y - sprite_get_height(mskMegaman) - abs(yspeed * global.dt) - 1, objSolid)
+							&& !place_meeting(x, y - abs(yspeed * global.dt) - 1, objSolid)
+							&& !placeMeetingMovingPlatform(objMegaman.x, y - sprite_get_height(mskMegaman) - abs(yspeed * global.dt) - 1, prtMovingPlatformSolid)
+							&& !placeMeetingMovingPlatform(x, y - abs(yspeed * global.dt) - 1, prtMovingPlatformSolid)
                         {
                             yspeed = -ySpd;
                         }
-                        else if global.keyDown && !place_meeting(x, y + abs(yspeed) + 1, objSolid)
-							&& !place_meeting(x, y + abs(yspeed) + 1, objTopSolid)
-							&& !placeMeetingMovingPlatform(x, y + abs(yspeed) + 1, prtMovingPlatformSolid, prtMovingPlatformJumpthrough)
+                        else if global.keyDown && !place_meeting(x, y + abs(yspeed * global.dt) + 1, objSolid)
+							&& !place_meeting(x, y + abs(yspeed * global.dt) + 1, objTopSolid)
+							&& !placeMeetingMovingPlatform(x, y + abs(yspeed * global.dt) + 1, prtMovingPlatformSolid, prtMovingPlatformJumpthrough)
                         {
                             yspeed = ySpd;
                         }
@@ -84,16 +83,14 @@ if !isFrozen()
         
         if place_meeting(x, y, objSolid) || placeMeetingMovingPlatform(x, y, prtMovingPlatformSolid)
         {
-            event_perform(ev_alarm, 0);
+            teleportAwayForce();
         }
         
-        image_speed = 0.25;
+        image_speed = 0.25 * global.dt;
     }
 }
 else
 {
     image_speed = 0;
-    if alarm[0] != -1
-        alarm[0] += 1;
 }
 

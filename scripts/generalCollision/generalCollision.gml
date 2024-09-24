@@ -5,7 +5,7 @@ function generalCollision()
 
 	// Floor
 	var mySolid;
-	mySolid = instance_place(x, y+yspeed, objSolid);
+	mySolid = instance_place(x, y+(yspeed * global.dt), objSolid);
 	if mySolid >= 0 && yspeed > 0
 	{
 	    y = mySolid.y;
@@ -17,7 +17,7 @@ function generalCollision()
 
 
 	// Wall
-	mySolid = instance_place(x+xspeed, y, objSolid);
+	mySolid = instance_place(x+(xspeed * global.dt), y, objSolid);
 	if mySolid >= 0 && xspeed != 0
 	{    
 	    if xspeed < 0
@@ -30,7 +30,7 @@ function generalCollision()
 
 
 	// Ceiling
-	mySolid = instance_place(x, y+yspeed, objSolid);
+	mySolid = instance_place(x, y+(yspeed * global.dt), objSolid);
 	if mySolid >= 0 && yspeed < 0
 	{
 	    y = mySolid.y + 16 + (y - (bbox_top-1));
@@ -39,7 +39,7 @@ function generalCollision()
 
 
 	// Topsolids
-	mySolid = instance_place(x, y+yspeed, objTopSolid);
+	mySolid = instance_place(x, y+(yspeed * global.dt), objTopSolid);
 	if mySolid >= 0 && yspeed > 0
 	{
 	    if !place_meeting(x, y, objTopSolid)
@@ -53,7 +53,7 @@ function generalCollision()
 
 	// Floor (moving platform)
 	var mySolid;
-	mySolid = instance_place(x, y+yspeed, prtMovingPlatformSolid);
+	mySolid = instance_place(x, y+(yspeed * global.dt), prtMovingPlatformSolid);
 	if mySolid >= 0 && yspeed > 0
 	{
 	    if mySolid.object_index != objRushJet
@@ -68,7 +68,7 @@ function generalCollision()
 
 
 	// Wall (moving platform)
-	mySolid = instance_place(x+xspeed, y, prtMovingPlatformSolid);
+	mySolid = instance_place(x+(xspeed * global.dt), y, prtMovingPlatformSolid);
 	if mySolid >= 0 && xspeed != 0
 	{    
 	    if mySolid.object_index != objRushJet
@@ -84,7 +84,7 @@ function generalCollision()
 
 
 	// Ceiling (moving platform)
-	mySolid = instance_place(x, y+yspeed, prtMovingPlatformSolid);
+	mySolid = instance_place(x, y+(yspeed * global.dt), prtMovingPlatformSolid);
 	if mySolid >= 0 && yspeed < 0
 	{
 	    if mySolid.object_index != objRushJet
@@ -96,7 +96,7 @@ function generalCollision()
 
 
 	// Topsolids (moving platform)
-	mySolid = instance_place(x, y+yspeed, prtMovingPlatformJumpthrough);
+	mySolid = instance_place(x, y+(yspeed * global.dt), prtMovingPlatformJumpthrough);
 	if mySolid >= 0 && yspeed > 0
 	{
 	    if mySolid.object_index != objRushJet

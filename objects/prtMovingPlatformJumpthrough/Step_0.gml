@@ -6,38 +6,42 @@ event_inherited();
 
 if !isFrozen() && !dead
 {
-    x += xspeed;
-    y += yspeed;
+	var useXspeed = xspeed * global.dt;
+	var useYspeed = yspeed/* * global.dt*/; // global.dt causes problems because yspeed can only be whole numbers right now. Should hopefully resolve itself with new moving platform code
+
+    x += useXspeed;
+    y += useYspeed;
     
     
     //  If the player is standing on us, move them
     var checkYspeed;
-    if yspeed > 0
-        checkYspeed = yspeed;
+    if useYspeed > 0
+        checkYspeed = useYspeed;
     else
         checkYspeed = 0;
         
     if place_meeting(x, y - checkYspeed - 1, objMegaman)
-    {
-        var useYspeed;
-        useYspeed = yspeed;
-        
-        var canProceed;
-        canProceed = false;
+    {        
+        var canProceed = false;
         if objMegaman.movedPlatformID == id || objMegaman.movedPlatformID == noone
+		{
             canProceed = true;
-        else if objMegaman.movedPlatformID.yspeed == useYspeed && abs(objMegaman.movedPlatformID.bbox_top - bbox_top) <= useYspeed + 3
+		}
+        else if objMegaman.movedPlatformID.yspeed * global.dt == useYspeed
+			&& abs(objMegaman.movedPlatformID.bbox_top - bbox_top) <= useYspeed + 3
+		{
             canProceed = true;
+		}
             
-        if objMegaman.ground  && objMegaman.bbox_bottom <= bbox_top + abs(yspeed) + abs(objMegaman.yspeed) + 2
-        && !objMegaman.movedByPlatform && canProceed 
+        if objMegaman.ground && objMegaman.bbox_bottom <= bbox_top + abs(useYspeed) + abs(objMegaman.yspeed * global.dt) + 2
+			&& !objMegaman.movedByPlatform && canProceed 
         {
             with objMegaman
             {
                 var proceed, xsp, ysp;
                 proceed = true;
-                xsp = other.xspeed;
-                ysp = other.yspeed;
+                xsp = useXspeed;
+                ysp = useYspeed;
                 
                 if place_meeting(x + xsp, y + ysp, objSolid) || place_meeting(x + xsp, y + ysp, prtMovingPlatformSolid)
                     proceed = false;
