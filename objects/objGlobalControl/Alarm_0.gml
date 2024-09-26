@@ -48,6 +48,30 @@ global.enableDeltaTime = true;
 global.dt = 0; // Delta time. Don't change the value of this
 
 
+// Whether or not to allow the game to use any resolution, and draw borders in areas not taken up by the game view.
+// Enabling this allows you to use any resolution (i.e. widescreen support)
+global.enableWindowBorders = true;
+
+
+// Whether or not to render HUD elements on the window border. Doesn't do anything with window borders disabled
+global.drawHudOnWindowBorders = true;
+
+
+// Whether or not to only scale up the game in integer values in fullscreen. This makes it so pixels scale perfectly,
+// but it may not let the game cover the whole screen in fullscreen
+global.enablePixelPerfectWindowScaling = false;
+
+
+
+// Window
+global.windowScale = 3;
+setWindowScale(global.windowScale);
+	
+	
+// When window borders are enabled, the application surface (game screen) is rendered manually
+if global.enableWindowBorders
+	application_surface_draw_enable(false);
+
     
 // Weapon inventory
 global.totalWeapons = 7; // 8 weapons in total including the buster, but since 0 is also a valid weapon ID, the value becomes 7

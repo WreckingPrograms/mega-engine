@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"Menu",
-    "path":"folders/Sprites/tilesets/Menu.yy",
+    "name":"MenuBackgrounds",
+    "path":"folders/Sprites/MenuBackgrounds.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

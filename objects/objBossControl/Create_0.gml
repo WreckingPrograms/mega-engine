@@ -26,3 +26,26 @@ if myBoss == noone
 }
 
 global.bossHealth = 0;
+
+
+function drawHud(baseX, top, scale=1)
+{
+	if !drawHealthBar
+		return;
+		
+	var healthBarX = global.enableWindowBorders && global.drawHudOnWindowBorders
+		? baseX + (8 * scale)
+		: baseX + (36 * scale);
+	var healthBarY = top + (17 * scale);
+	draw_sprite_ext(sprHealthbarBackground, 0, healthBarX, healthBarY, scale, scale, 0, c_white, 1);
+    
+	for (var i = 1; i <= global.bossHealth; i += 1)
+	{
+	    draw_sprite_ext(sprHealthbarPrimary, 0, healthBarX + scale,
+			healthBarY + ((sprite_get_height(sprHealthbarBackground) - (i * 2)) * scale),
+			scale, scale, 0, healthBarPrimaryCol, 1);
+	    draw_sprite_ext(sprHealthbarSecondary, 0, healthBarX + scale,
+			healthBarY + ((sprite_get_height(sprHealthbarBackground) - (i * 2)) * scale),
+			scale, scale, 0, healthBarSecondaryCol, 1);
+	}
+}
