@@ -1,97 +1,215 @@
 // Handles a general object's collision code
 function generalCollision() 
 {
-	// Not touching this now, collision rewrite pending
+	var mask = (mask_index == -1) ? sprite_index : mask_index;
+	var isMovingPlat = isMovingPlatform();
+	
+	var mySolid, myPlatforms;
 
 	// Floor
-	var mySolid;
-	mySolid = instance_place(x, y+(yspeed * global.dt), objSolid);
-	if mySolid >= 0 && yspeed > 0
+	if yspeed > 0
 	{
-	    y = mySolid.y;
-	    while place_meeting(x, y, mySolid)
-	        y -= 1;
-	    ground = true;
-	    yspeed = 0;
+		mySolid = instance_place(x, y + (yspeed * global.dt), objSolid);
+		if mySolid >= 0
+		{
+			if isMovingPlat
+			{
+				move(0, mySolid.bbox_top - y - (sprite_get_bbox_bottom(mask) - sprite_get_yoffset(mask)) - 1);
+			}
+			else
+			{
+			    y = mySolid.bbox_top - (sprite_get_bbox_bottom(mask) - sprite_get_yoffset(mask)) - 1;
+			}
+		
+		    ground = true;
+		    yspeed = 0;
+		}
 	}
 
 
 	// Wall
-	mySolid = instance_place(x+(xspeed * global.dt), y, objSolid);
-	if mySolid >= 0 && xspeed != 0
-	{    
-	    if xspeed < 0
-	        x = mySolid.x + 16 + (x - (bbox_left-1));
-	    else
-	        x = mySolid.x - (bbox_right+1 - x) - 1;
+	if xspeed != 0
+	{
+		mySolid = instance_place(x + (xspeed * global.dt), y, objSolid);
+		if mySolid >= 0
+		{    
+			if isMovingPlat
+			{
+				if xspeed < 0
+					move(mySolid.bbox_right - x + (sprite_get_xoffset(mask) - sprite_get_bbox_left(mask)) + 1, 0);
+				else
+					move(mySolid.bbox_left - x - (sprite_get_bbox_right(mask) - sprite_get_xoffset(mask)) - 1, 0);
+			}
+			else
+			{
+			    if xspeed < 0
+			        x = mySolid.bbox_right + (sprite_get_xoffset(mask) - sprite_get_bbox_left(mask)) + 1;
+			    else
+			        x = mySolid.bbox_left - (sprite_get_bbox_right(mask) - sprite_get_xoffset(mask)) - 1;
+			}
         
-	    xspeed = 0;
+		    xspeed = 0;
+		}
 	}
 
-
 	// Ceiling
-	mySolid = instance_place(x, y+(yspeed * global.dt), objSolid);
-	if mySolid >= 0 && yspeed < 0
+	if yspeed < 0
 	{
-	    y = mySolid.y + 16 + (y - (bbox_top-1));
-	    yspeed = 0;
+		mySolid = instance_place(x, y + (yspeed * global.dt), objSolid);
+		if mySolid >= 0
+		{
+			if isMovingPlat
+			{
+				move(0, mySolid.bbox_bottom - y + (sprite_get_yoffset(mask) - sprite_get_bbox_top(mask)) + 1);
+			}
+			else
+			{
+				y = mySolid.bbox_bottom + (sprite_get_yoffset(mask) - sprite_get_bbox_top(mask)) + 1;
+			}
+			
+		    yspeed = 0;
+		}
 	}
 
 
 	// Topsolids
-	mySolid = instance_place(x, y+(yspeed * global.dt), objTopSolid);
-	if mySolid >= 0 && yspeed > 0
+	if yspeed > 0
 	{
-	    if !place_meeting(x, y, objTopSolid)
-	    {
-	        y = mySolid.y - (bbox_bottom+1 - y);
-	        ground = true;
-	        yspeed = 0;
-	    }
+		mySolid = instance_place(x, y + (yspeed * global.dt), objTopSolid);
+		if mySolid >= 0
+		{
+		    if bbox_bottom <= mySolid.bbox_top + (yspeed * global.dt) + 1
+		    {
+		        if isMovingPlat
+				{
+					move(0, mySolid.bbox_top - y - (sprite_get_bbox_bottom(mask) - sprite_get_yoffset(mask)) - 1);
+				}
+				else
+				{
+				    y = mySolid.bbox_top - (sprite_get_bbox_bottom(mask) - sprite_get_yoffset(mask)) - 1;
+				}
+			
+		        ground = true;
+		        yspeed = 0;
+		    }
+		}
 	}
 
 
 	// Floor (moving platform)
-	var mySolid;
-	mySolid = instance_place(x, y+(yspeed * global.dt), prtMovingPlatformSolid);
-	if mySolid >= 0 && yspeed > 0
+	if yspeed > 0
 	{
-	    if mySolid.object_index != objRushJet
-	    {
-	        y = mySolid.bbox_top;
-	        while place_meeting(x, y, mySolid)
-	            y -= 1;
-	        ground = true;
-	        yspeed = 0;
-	    }
+		myPlatforms = [];
+		instancePlaceArrayMovingPlatform(x, y + (yspeed * global.dt), myPlatforms, prtMovingPlatformSolid);
+		if isMovingPlat
+		{
+			myPlatforms = array_filter(myPlatforms, function(el, index) {
+				
+				return !array_contains(movedByPlatformsThisFrame, el);
+					
+			});
+		}
+		
+		if array_length(myPlatforms) > 0
+		{
+			array_sort(myPlatforms, function(el1, el2) { return el1.bbox_top - el2.bbox_top }); // Sort platforms from top to bottom
+			var platform = myPlatforms[0];
+			
+			if isMovingPlat
+			{
+				move(0, platform.bbox_top - y - (sprite_get_bbox_bottom(mask) - sprite_get_yoffset(mask)) - 1);
+			}
+			else
+			{
+			    y = platform.bbox_top - (sprite_get_bbox_bottom(mask) - sprite_get_yoffset(mask)) - 1;
+			}
+		
+		    ground = true;
+		    yspeed = 0;
+		}
 	}
 
 
 	// Wall (moving platform)
-	mySolid = instance_place(x+(xspeed * global.dt), y, prtMovingPlatformSolid);
-	if mySolid >= 0 && xspeed != 0
-	{    
-	    if mySolid.object_index != objRushJet
-	    {
-	        if xspeed < 0
-	            x = mySolid.bbox_right + (x - (bbox_left-1));
-	        else
-	            x = mySolid.bbox_left - (bbox_right+1 - x) - 1;
-            
-	        xspeed = 0;
-	    }
+	if xspeed != 0
+	{
+		myPlatforms = [];
+		instancePlaceArrayMovingPlatform(x + (xspeed * global.dt), y, myPlatforms, prtMovingPlatformSolid);
+		if isMovingPlat
+		{
+			myPlatforms = array_filter(myPlatforms, function(el, index) {
+				
+				return !array_contains(movedByPlatformsThisFrame, el);
+					
+			});
+		}
+		
+		if array_length(myPlatforms) > 0
+		{			
+			if xspeed > 0
+			{
+				// Sort platforms from left to right
+				array_sort(myPlatforms, function(el1, el2) { return el1.bbox_left - el2.bbox_left });
+			}
+			else
+			{
+				// Sort platforms from right to left
+				array_sort(myPlatforms, function(el1, el2) { return el2.bbox_right - el1.bbox_right });
+			}
+			
+			var platform = myPlatforms[0];
+			
+			if isMovingPlat
+			{
+				if xspeed < 0
+					move(platform.bbox_right - x + (sprite_get_xoffset(mask) - sprite_get_bbox_left(mask)) + 1, 0);
+				else
+					move(platform.bbox_left - x - (sprite_get_bbox_right(mask) - sprite_get_xoffset(mask)) - 1, 0);
+			}
+			else
+			{
+			    if xspeed < 0
+			        x = platform.bbox_right + (sprite_get_xoffset(mask) - sprite_get_bbox_left(mask)) + 1;
+			    else
+			        x = platform.bbox_left - (sprite_get_bbox_right(mask) - sprite_get_xoffset(mask)) - 1;
+			}
+		
+		    xspeed = 0;
+		}
 	}
 
 
 	// Ceiling (moving platform)
-	mySolid = instance_place(x, y+(yspeed * global.dt), prtMovingPlatformSolid);
-	if mySolid >= 0 && yspeed < 0
-	{
-	    if mySolid.object_index != objRushJet
-	    {
-	        y = mySolid.bbox_bottom + sprite_get_yoffset(sprite_index);
-	        yspeed = 0;
-	    }
+	if yspeed < 0
+	{	
+		myPlatforms = [];
+		instancePlaceArrayMovingPlatform(x, y + (yspeed * global.dt), myPlatforms, prtMovingPlatformSolid);
+		if isMovingPlat
+		{
+			myPlatforms = array_filter(myPlatforms, function(el, index) {
+				
+				return (!isMovableObject(el.object_index) && !array_contains(movedByPlatformsThisFrame, el));
+					
+			});
+		}
+			
+		if array_length(myPlatforms) > 0
+		{			
+			array_sort(myPlatforms, function(el1, el2) { return el2.bbox_bottom - el1.bbox_bottom }); // Sort platforms from bottom to top
+			var platform = myPlatforms[0];
+			
+			if isMovingPlat
+			{
+				move(0, platform.bbox_bottom - y + (sprite_get_yoffset(mask) - sprite_get_bbox_top(mask)) - 1);
+			}
+			else
+			{
+			    y = platform.bbox_bottom + (sprite_get_yoffset(mask) - sprite_get_bbox_top(mask)) - 1;
+			}
+		
+		    ground = true;
+		    yspeed = 0;
+		}
 	}
 
 

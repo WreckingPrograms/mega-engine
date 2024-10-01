@@ -3,6 +3,10 @@ canInitDeath = true;
 beenOutsideView = false;
 canHit = true;
 
+xspeed = 0;
+yspeed = 0;
+ground = false;
+
 respawn = true; // Should we respawn after leaving the screen and entering it again?
 
 // Default damage values

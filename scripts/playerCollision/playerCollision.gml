@@ -1,6 +1,11 @@
 // Handles the player's collision code
 function playerCollision()
 {
+	generalCollision();
+	return;
+	
+	// TODO spikes and landing sound
+
 	// Floor
 	var mySolid = instance_place(x, y + (yspeed * global.dt), objSolid);
 	if mySolid >= 0 && yspeed > 0

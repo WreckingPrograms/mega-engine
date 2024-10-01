@@ -141,11 +141,9 @@ function playerUseWeapon(weapon, yy=undefined, box=undefined)
 				var bottomAllowedY = topAllowedY + 256; // Effectively no downward limit anymore
 				var spawnX = x + (image_xscale * 26);
 				
-				var solidsList = ds_list_create();
-				collisionRectangleListMovingPlatform(spawnX - 1, topAllowedY, spawnX + 1, bottomAllowedY,
-					solidsList, objSolid, objTopSolid, prtMovingPlatformSolid, prtMovingPlatformJumpthrough);
-				var solidsArray = dsListToArray(solidsList); // So that it can be sorted with a custom function
-				ds_list_destroy(solidsList);
+				var solidsArray = [];
+				collisionRectangleArrayMovingPlatform(spawnX - 1, topAllowedY, spawnX + 1, bottomAllowedY,
+					solidsArray, objSolid, objTopSolid, prtMovingPlatformSolid, prtMovingPlatformJumpthrough);
 				array_sort(solidsArray, function(el1, el2) { return el1.bbox_top - el2.bbox_top }); // Sort solids from top to bottom
 				
 				var spawnY = undefined;

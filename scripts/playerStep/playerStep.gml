@@ -23,55 +23,36 @@ function playerStep()
 	    if topSolidBelow && !endCheck
 	    {
 	        ground = (bbox_bottom <= topSolidBelow.bbox_top);
-			endCheck = true;
+			if ground
+				endCheck = true;
 	    }
     
 		// Check for jumpthrough moving platforms
-		var platformList = ds_list_create();
 		if !endCheck
 		{
-			var totalPlatforms = collision_rectangle_list(bbox_left, bbox_bottom + (yspeed * global.dt), bbox_right,
-				bbox_bottom + (yspeed * global.dt) + 1, prtMovingPlatformJumpthrough, false, true, platformList, false);
-			for (var i = 0; i < totalPlatforms; i++)
+			var platformList = ds_list_create();
+			collisionRectangleListMovingPlatform(bbox_left, bbox_bottom + (yspeed * global.dt), bbox_right,
+				bbox_bottom + (yspeed * global.dt) + 1, platformList, prtMovingPlatformJumpthrough);
+				
+			for (var i = 0, len = ds_list_size(platformList); i < len; i++)
 			{				
 				var pltfm = platformList[| i];
-				if pltfm.id == movedPlatformID || movedPlatformID == noone
+				if bbox_bottom <= pltfm.bbox_top
 		        {
-		            if !pltfm.dead
-		            {
-		                if bbox_bottom <= pltfm.bbox_top
-		                {
-		                    ground = true;
-		                    endCheck = true;
-		                }
-		                else
-		                    ground = false;
-		            }
-		            else
-					{
-		                ground = false;
-					}
-                
-		            break;
+		            ground = true;
+		            endCheck = true;
 		        }
 			}
+			
+			ds_list_destroy(platformList);
 		}
 		
 		// Check for solid moving platforms
 		if !endCheck
 		{
-			ds_list_clear(platformList);
-			totalPlatforms = instance_place_list(x, y + (yspeed * global.dt) + 1, prtMovingPlatformSolid, platformList, false);
-			
-			for (var i = 0; i < totalPlatforms; i++)
-			{
-				var pltfm = platformList[| i];
-				if !pltfm.dead
-					ground = true;
-			}
+			if placeMeetingMovingPlatform(x, y + (yspeed * global.dt) + 1, prtMovingPlatformSolid)
+				ground = true;
 		}
-		
-		ds_list_destroy(platformList);
 	}
 	else
 	{

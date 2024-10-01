@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"collisionRectangleArrayMovingPlatform",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"collisionRectangleArrayMovingPlatform",
+  "parent":{
+    "name":"Collision",
+    "path":"folders/Scripts/Collision.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

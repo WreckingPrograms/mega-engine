@@ -1,6 +1,7 @@
-/// @description placeMeetingMovingPlatform(xx, yy, objects...)
-/// @param xx
-/// @param yy
+/// @description instancePositionListMovingPlatform(xx, yy, list, objects...)
+/// @param x
+/// @param y
+/// @param list
 /// @param objects...
 
 // Checks for collision with moving platforms, respecting their "dead" parameter
@@ -8,10 +9,10 @@
 // This function specifically can also check collision for other objects with no "dead" parameter
 // Each object argument can also be an array of objects, in which case every object in that array will be checked for
 
-function placeMeetingMovingPlatform(xx, yy)
+function instancePositionListMovingPlatform(xx, yy, list)
 {
 	var objects = [];
-	for (var i = 2; i < argument_count; i++)
+	for (var i = 3; i < argument_count; i++)
 	{
 		if is_array(argument[i])
 			objects = array_concat(objects, argument[i]);
@@ -22,18 +23,23 @@ function placeMeetingMovingPlatform(xx, yy)
 	for (var i = 0, len = array_length(objects); i < len; i++)
 	{
 		var obj = objects[i];
-		var inst = instance_place(xx, yy, obj);
+		var tempList = ds_list_create();
+		var len2 = instance_position_list(xx, yy, obj, tempList, false);
 		if isMovingPlatform(obj)
 		{
-			if inst >= 0 && !inst.dead
-				return true;
+			for (var n = 0; n < len2; n++)
+			{
+				var movingPlatform = tempList[| n];
+				if !movingPlatform.dead
+					ds_list_add(list, tempList[| n]);
+			}
 		}
 		else
 		{
-			if inst >= 0
-				return true;
+			for (var n = 0; n < len2; n++)
+				ds_list_add(list, tempList[| n]);
 		}
+		
+		ds_list_destroy(tempList);
 	}
-	
-	return false;
 }

@@ -8,7 +8,7 @@ function checkGround()
 	}
 	
 	var topSolid = instance_place(x, y + 1, objTopSolid);
-	if topSolid >= 0 && bbox_bottom < topSolid.bbox_top
+	if topSolid >= 0 && bbox_bottom <= topSolid.bbox_top
 	{
 		ground = true;
 		return;
@@ -16,7 +16,7 @@ function checkGround()
 	
 	var movingPlatformJumpthrough = instance_place(x, y + 1, prtMovingPlatformJumpthrough);
 	if movingPlatformJumpthrough >= 0 && movingPlatformJumpthrough.object_index != objRushJet
-		&& bbox_bottom < movingPlatformJumpthrough.bbox_top
+		&& bbox_bottom <= movingPlatformJumpthrough.bbox_top
 	{
 		ground = true;
 		return;

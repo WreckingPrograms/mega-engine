@@ -2,8 +2,9 @@ event_inherited();
 
 if !isFrozen() && !dead
 {
-    xspeed = dir * spd;
+	// TODO rewrite this
+    /*xspeed = dir * spd;
     
-    x -= xspeed * global.dt;
+    x -= xspeed * global.dt;*/
 }
 

@@ -4,7 +4,6 @@ if !isFrozen() && !dead
 {
     checkGround();
     gravityCheckGround();
-    generalCollision();
     
     if ground 
     {
@@ -77,6 +76,8 @@ if !isFrozen() && !dead
             yspeed = 0;
         }
     }
+	
+	generalCollision();
     
     x += xspeed * global.dt;
     y += yspeed * global.dt;

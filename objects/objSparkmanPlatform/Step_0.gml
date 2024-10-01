@@ -12,12 +12,12 @@ if !isFrozen() && !dead
     
     if phase == 1 // Moving up
     {
-        yspeed = 0;
+        //yspeed = 0;
             
 		// TODO is all this still needed with new moving platform code?
-        subYspeed -= acc * global.dt;
+        yspeed -= acc * global.dt;
         
-        if subYspeed < -maxSpeed
+        /*if subYspeed < -maxSpeed
             subYspeed = -maxSpeed;
         else if subYspeed > maxSpeed
             subYspeed = maxSpeed;
@@ -34,7 +34,7 @@ if !isFrozen() && !dead
         {
             subY += 1;
             yspeed -= 1;
-        }
+        }*/
         
         
         

@@ -2,6 +2,8 @@
 function playerMovingPlatform()
 {
 	// Not changing any of this now because collision will be rewritten
+	
+	return;
 
 	// Jumpthrough moving platforms
 	mySolid = collision_rectangle(bbox_left, bbox_bottom+1, bbox_right, bbox_bottom+(yspeed * global.dt)+1, prtMovingPlatformJumpthrough, false, true)
@@ -41,10 +43,6 @@ function playerMovingPlatform()
 	        ground = true;
 	        if playLandSound 
 	            playSFX(sfxLand);
-        
-	        // Note: there used to be a system here that set MM's sprite to the walking sprite when landing
-	        // However, due to complications such as climbing up ladders, it was a lot of work for such a minor feature
-	        // Therefore, it has been removed
 	    }
     
 	    instance_deactivate_object(ID[maxID]);
